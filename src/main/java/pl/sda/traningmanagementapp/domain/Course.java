@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,4 +19,7 @@ public class Course {
 
     @OneToMany
     private List<LessonBlock> lessonBlocks = new ArrayList<>();
+
+    @ManyToMany
+    private List<AppUser> participants = new ArrayList<>();
 }
