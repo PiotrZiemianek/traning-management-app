@@ -1,1 +1,7 @@
-# raning-management-app
+# traning-management-app
+
+
+## Technologies:
+
+*Java
+*Spring
