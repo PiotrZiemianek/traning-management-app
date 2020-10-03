@@ -1,6 +1,8 @@
 package pl.sda.training.management.app.domain;
 
-enum UserRole {
+import org.springframework.security.core.GrantedAuthority;
+
+enum UserRole implements GrantedAuthority {
     /**
      * Admin can create and delete couches account.
      */
@@ -8,4 +10,9 @@ enum UserRole {
     ROLE_ADMIN,
     ROLE_PARTICIPANT,
     ROLE_COACH;
+
+    @Override
+    public String getAuthority() {
+        return this.name();
+    }
 }
