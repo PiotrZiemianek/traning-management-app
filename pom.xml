@@ -11,7 +11,7 @@
     <groupId>pl.sda</groupId>
     <artifactId>traning-management-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>traning-management-app</name>
+    <name>training-management-app</name>
     <description>Final project of java bootcamp.</description>
 
     <properties>

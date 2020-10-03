@@ -1,13 +1,13 @@
-package pl.sda.traningmanagementapp;
+package pl.sda.training.management.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TraningManagementAppApplication {
+public class TrainingManagementAppApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TraningManagementAppApplication.class, args);
+        SpringApplication.run(TrainingManagementAppApplication.class, args);
     }
 
 }

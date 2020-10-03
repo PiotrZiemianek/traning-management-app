@@ -1,4 +1,4 @@
-package pl.sda.traningmanagementapp.domain;
+package pl.sda.training.management.app.domain;
 
 import lombok.Data;
 
