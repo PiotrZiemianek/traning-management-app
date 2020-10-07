@@ -1,11 +1,12 @@
-package pl.sda.training.management.app.domain;
+package pl.sda.training.management.app.domain.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
@@ -14,24 +15,26 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserSubmission {
+public class StudentSubmission {
     @Id
+    @GeneratedValue
     private Long id;
 
+    @CreationTimestamp
     private LocalDate submissionDate;
 
     @ManyToOne
-    private AppUser participant;
+    private Student student;
 
     @ManyToOne
-    private Course course;
+    private CourseEdition courseEdition;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserSubmission that = (UserSubmission) o;
+        StudentSubmission that = (StudentSubmission) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         return submissionDate != null ? submissionDate.equals(that.submissionDate) : that.submissionDate == null;
@@ -46,11 +49,11 @@ public class UserSubmission {
 
     @Override
     public String toString() {
-        return "UserSubmission{" +
+        return "StudentSubmission{" +
                 "id=" + id +
                 ", submissionDate=" + submissionDate +
-                ", participant=" + participant +
-                ", course=" + course +
+                ", student=" + student +
+                ", courseEdition=" + courseEdition +
                 '}';
     }
 }

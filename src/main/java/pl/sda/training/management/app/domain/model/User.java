@@ -1,9 +1,8 @@
-package pl.sda.training.management.app.domain;
+package pl.sda.training.management.app.domain.model;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,27 +15,28 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AppUser implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(unique = true)
-    private String login;
+    @Embedded
+    private Login login;
 
-    private String password;
+    @Embedded
+    private Password password;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private UserRole role;
+    private List<UserRole> roles = new ArrayList<>();
 
-    private String firstName;
+    @Embedded
+    private FirstName firstName;
 
-    private String lastName;
+    @Embedded
+    private LastName lastName;
 
-    private boolean isActive;
-
-    @ManyToMany(mappedBy = "participants")
-    private List<Course> courses = new ArrayList<>();
+    private boolean isActive = true;
 
     @OneToOne
     private UserNotification notifications;
@@ -46,10 +46,10 @@ public class AppUser implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AppUser appUser = (AppUser) o;
+        User user = (User) o;
 
-        if (id != null ? !id.equals(appUser.id) : appUser.id != null) return false;
-        return login.equals(appUser.login);
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        return login.equals(user.login);
     }
 
     @Override
@@ -61,22 +61,31 @@ public class AppUser implements UserDetails {
 
     @Override
     public String toString() {
-        return "AppUser{" +
+        return "User{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
-                ", role=" + role +
+                ", role=" + roles +
                 ", isActive=" + isActive +
                 '}';
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(role);
+        return roles;
     }
 
     @Override
     public String getUsername() {
-        return login;
+        return login.value();
+    }
+
+    @Override
+    public String getPassword() {
+        return password.value();
     }
 
     @Override
@@ -98,4 +107,5 @@ public class AppUser implements UserDetails {
     public boolean isEnabled() {
         return isActive;
     }
+
 }

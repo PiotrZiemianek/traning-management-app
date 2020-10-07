@@ -1,20 +1,21 @@
-package pl.sda.training.management.app.service;
+package pl.sda.training.management.app.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.sda.training.management.app.repository.AppUserRepo;
+import pl.sda.training.management.app.domain.model.Login;
+import pl.sda.training.management.app.domain.repository.UserRepo;
 
 @Service
 @RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService {
-    private final AppUserRepo appUserRepo;
+    private final UserRepo userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return appUserRepo.findByLogin(username)
+        return userRepo.findByLogin(Login.of(username))
                 .orElseThrow(() -> new UsernameNotFoundException("User: " + username + "not found"));
     }
 }

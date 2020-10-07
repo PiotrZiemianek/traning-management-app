@@ -1,4 +1,4 @@
-package pl.sda.training.management.app.domain;
+package pl.sda.training.management.app.domain.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

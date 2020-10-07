@@ -1,6 +1,5 @@
-package pl.sda.training.management.app.domain;
+package pl.sda.training.management.app.domain.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
