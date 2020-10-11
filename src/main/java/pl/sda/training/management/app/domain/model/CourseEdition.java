@@ -26,7 +26,7 @@ public class CourseEdition {
     private EditionCode editionCode;
 
     @ManyToMany
-    private List<Student> participants = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
 
     @ManyToMany
     private List<Trainer> trainers = new ArrayList<>();
@@ -59,5 +59,15 @@ public class CourseEdition {
                 ", course=" + course +
                 ", editionCode=" + editionCode +
                 '}';
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
+        student.getCoursesEditions().add(this);
+    }
+
+    public void deleteStudent(Student student) {
+        students.remove(student);
+        student.getCoursesEditions().remove(this);
     }
 }
