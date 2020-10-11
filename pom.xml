@@ -11,7 +11,7 @@
     <groupId>pl.sda</groupId>
     <artifactId>traning-management-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>traning-management-app</name>
+    <name>training-management-app</name>
     <description>Final project of java bootcamp.</description>
 
     <properties>
@@ -31,10 +31,10 @@
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-hateoas</artifactId>-->
 <!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
