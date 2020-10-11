@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Coach {
+public class Trainer {
     @Id
     @GeneratedValue
     private Long id;
@@ -34,7 +34,7 @@ public class Coach {
 
     @Override
     public String toString() {
-        return "Coach{" +
+        return "Trainer{" +
                 "id=" + id +
                 ", user=" + user +
                 '}';
@@ -45,10 +45,10 @@ public class Coach {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Coach coach = (Coach) o;
+        Trainer trainer = (Trainer) o;
 
-        if (id != null ? !id.equals(coach.id) : coach.id != null) return false;
-        return user != null ? user.equals(coach.user) : coach.user == null;
+        if (id != null ? !id.equals(trainer.id) : trainer.id != null) return false;
+        return user != null ? user.equals(trainer.user) : trainer.user == null;
     }
 
     @Override

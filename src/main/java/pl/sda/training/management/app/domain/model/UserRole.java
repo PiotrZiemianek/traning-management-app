@@ -4,9 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 enum UserRole implements GrantedAuthority {
     /**
-     * Admin can create and delete couches account.
+     * Admin can create and delete trainers account.
      */
-    //todo javadoc
     ROLE_ADMIN,
     ROLE_PARTICIPANT,
     ROLE_COACH;

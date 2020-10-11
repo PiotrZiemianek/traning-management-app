@@ -29,7 +29,7 @@ public class CourseEdition {
     private List<Student> participants = new ArrayList<>();
 
     @ManyToMany
-    private List<Coach> coaches = new ArrayList<>();
+    private List<Trainer> trainers = new ArrayList<>();
 
     @OneToMany
     private List<LessonDetails> lessonDetailsList = new ArrayList<>();

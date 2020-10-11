@@ -27,7 +27,7 @@ public class LessonDetails {
     private LocalDateTime localDateTime;
 
     @ManyToOne
-    private Coach coach;
+    private Trainer trainer;
 
     @Embedded
     private Address address;
