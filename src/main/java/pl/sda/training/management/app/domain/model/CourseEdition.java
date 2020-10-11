@@ -61,13 +61,4 @@ public class CourseEdition {
                 '}';
     }
 
-    public void addStudent(Student student) {
-        students.add(student);
-        student.getCoursesEditions().add(this);
-    }
-
-    public void deleteStudent(Student student) {
-        students.remove(student);
-        student.getCoursesEditions().remove(this);
-    }
 }

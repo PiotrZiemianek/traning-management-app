@@ -23,7 +23,17 @@ public class StudentSubmissionService {
     public void acceptSubmission(Long submissionId) {
         StudentSubmission submission = getSubmissionById(submissionId);
         CourseEdition courseEdition = submission.getCourseEdition();
-        courseEdition.addStudent(submission.getStudent());
+
+        //add student to course edition.
+        courseEdition
+                .getStudents()
+                .add(submission.getStudent());
+
+        //add course to student
+        submission.getStudent()
+                .getCoursesEditions()
+                .add(submission.getCourseEdition());
+
         courseEditionRepo.save(courseEdition);
         studentSubmissionRepo.deleteById(submissionId);
     }
