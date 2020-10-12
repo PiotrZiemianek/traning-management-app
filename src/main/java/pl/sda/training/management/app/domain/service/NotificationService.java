@@ -32,11 +32,13 @@ public class NotificationService {
     public void notifyStudents(Notification notification, List<Student> students) {
         students.stream()
                 .map(Student::getUser)
-                .forEach(user -> {
-                    user.getNotifications().getUnreadNotifications().add(notification);
-                });
+                .forEach(user -> user.getNotifications().getUnreadNotifications().add(notification));
 
         studentRepo.saveAll(students);
 
+    }
+
+    public Notification save(Notification notification) {
+        return notificationRepo.save(notification);
     }
 }

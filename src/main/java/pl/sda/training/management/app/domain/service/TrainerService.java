@@ -20,14 +20,20 @@ public class TrainerService {
     }
 
     public void delete(Long trainerId) {
-        Optional<Trainer> optionalTrainer = trainerRepo.findById(trainerId);
+        Trainer trainer = getTrainerDB(trainerId);
+        trainer.getUser().setActive(false);
+        trainerRepo.save(trainer);
+    }
 
-        if (optionalTrainer.isPresent()) {
-            optionalTrainer.get()
-                    .getUser().setActive(false);
-            return;
+    public Trainer get(Long trainerId) {
+        return getTrainerDB(trainerId);
+    }
+
+    private Trainer getTrainerDB(Long trainerId) {
+        Optional<Trainer> optionalStudentSubmission = trainerRepo.findById(trainerId);
+        if (optionalStudentSubmission.isPresent()) {
+            return optionalStudentSubmission.get();
         }
         throw new TrainerNotFoundException("Trainer with id: " + trainerId + " not found.");
-
     }
 }

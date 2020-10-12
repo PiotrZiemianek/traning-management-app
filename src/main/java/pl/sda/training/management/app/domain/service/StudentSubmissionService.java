@@ -21,7 +21,7 @@ public class StudentSubmissionService {
     }
 
     public void acceptSubmission(Long submissionId) {
-        StudentSubmission submission = getSubmissionById(submissionId);
+        StudentSubmission submission = getSubmissionFromDB(submissionId);
         CourseEdition courseEdition = submission.getCourseEdition();
 
         //add student to course edition.
@@ -38,7 +38,7 @@ public class StudentSubmissionService {
         studentSubmissionRepo.deleteById(submissionId);
     }
 
-    private StudentSubmission getSubmissionById(Long submissionId) {
+    private StudentSubmission getSubmissionFromDB(Long submissionId) {
         Optional<StudentSubmission> optionalStudentSubmission = studentSubmissionRepo.findById(submissionId);
         if (optionalStudentSubmission.isPresent()) {
             return optionalStudentSubmission.get();
