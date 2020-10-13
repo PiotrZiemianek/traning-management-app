@@ -39,7 +39,7 @@ public class User implements UserDetails {
 
     private boolean isActive = false;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
     private UserNotification notifications;
 
     @Override

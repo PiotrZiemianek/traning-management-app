@@ -58,6 +58,7 @@ class NotificationServiceTest {
     }
 
     @Test
+    @DisplayName("Should add notification for each student unread notifications list. Should save modified student list to DB.")
     void notifyStudents() {
         //given
         Notification notification = new Notification();

@@ -25,10 +25,10 @@ public class CourseEdition {
     @Embedded
     private EditionCode editionCode;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "coursesEditions")
     private List<Student> students = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "coursesList")
     private List<Trainer> trainers = new ArrayList<>();
 
     @OneToMany

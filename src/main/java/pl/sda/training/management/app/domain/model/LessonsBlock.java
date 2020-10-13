@@ -23,7 +23,7 @@ public class LessonsBlock {
     @ManyToOne
     private Course course;
 
-    @OneToMany
+    @OneToMany(mappedBy = "lessonsBlock")
     private List<Lesson> lessons = new ArrayList<>();
 
 

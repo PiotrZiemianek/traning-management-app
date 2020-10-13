@@ -22,7 +22,7 @@ public class Course {
     @Embedded
     private CourseName name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "course", orphanRemoval = true)
     private List<LessonsBlock> lessonsBlocks = new ArrayList<>();
 
     @Override
