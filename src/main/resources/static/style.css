@@ -1,10 +1,28 @@
-.center {
-    padding: 10px;
+.horizontal-center {
+    padding: 0 10px;
     text-align: center;
+}
+.center{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.gray-text-box {
+    background: #5b6178;
+    color: #EEEEEE;
+    padding: 20px;
+    border-radius: 50px;
+}
+.beige-text-box {
+    background: #f2f2f2;
+    padding: 20px;
+    border-radius: 50px;
 }
 
 table.blueTable {
-    background-color: #EEEEEE;
     width: 60%;
     text-align: left;
     border-collapse: collapse;
@@ -14,42 +32,51 @@ table.blueTable {
 
 table.blueTable td, table.blueTable th {
     padding: 10px 10px;
-    border-left: 2px solid #D0E4F5;
+
 }
 
 table.blueTable tbody td {
     font-size: 13px;
 }
 
-table.blueTable tr:nth-child(even) {
+table.blueTable tr:nth-child(even) td {
     background: #D0E4F5;
+    border-left: 2px solid #EEEEEE;
+}
+table.blueTable tr:nth-child(odd) td {
+    background: #EEEEEE;
+    border-left: 2px solid #D0E4F5;
+}
+table.blueTable tr:nth-child(even) td:first-child,
+table.blueTable tr:nth-child(odd) td:first-child {
+    border-left: none;
 }
 
-table.blueTable thead {
+table.blueTable th {
     background: #1C6EA4;
 }
 
-table.blueTable th:first-child, table.blueTable td:first-child {
+table.blueTable th:first-child {
     border: none;
 }
 
 table.blueTable thead th {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
     color: #FFFFFF;
     border-left: 2px solid #D0E4F5;
 }
-.blueTable thead th:first-child {
-    border-radius: 10px 0 0 0;
+table.blueTable thead th:first-child {
+    border-radius: 15px 0 0 0;
 }
-.blueTable thead th:last-child {
-    border-radius: 0 10px 0 0;
+table.blueTable thead th:last-child {
+    border-radius: 0 15px 0 0;
 }
-.blueTable tbody tr:last-child td:first-child {
-    border-radius: 0 0 0 10px;
+table.blueTable tbody tr:last-child td:first-child {
+    border-radius: 0 0 0 15px;
 }
-.blueTable tbody tr:last-child td:last-child {
-    border-radius: 0 0 10px 0;
+table.blueTable tbody tr:last-child td:last-child {
+    border-radius: 0 0 15px 0;
 }
 
 .blueButton {

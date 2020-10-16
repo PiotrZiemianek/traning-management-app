@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <script th:src="@{//code.jquery.com/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{menu.js}"></script>
+    <link th:href="@{menu.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{../style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!--Navigation bar-->
+<div id="menu-placeholder"></div>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Utwórz kurs</h3>
+</div>
+
+<form>
+    <label for="cname">Nazwa kursu</label><br>
+    <input type="text" id="cname" name="cname"><br>
+    <br>
+    <div>
+        Bloki zajęć:
+        <ol>
+            <li>Blok1 ^ v X
+                <ul>
+                    <li>temat1 ^ v X</li>
+                    <li>temat2 ^ v X</li>
+                </ul>
+            </li>
+            <li>Blok2 ^ v X
+                <ul>
+                    <li>temat1 ^ v X</li>
+                    <li>temat2 ^ v X</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    <div>
+        Dodaj blok<br>
+        <label for="bname">Nazwa bloku</label><br>
+        <input type="text" id="bname" name="bname">
+        <br><br>
+        Zajęcia:
+        <ul>
+            <li>lekcja1</li>
+            <li>lekcja2</li>
+        </ul>
+        Dodaj zajęcia<br>
+        <label for="lname">Temat zajęć</label><br>
+        <input type="text" id="lname" name="lname">
+    </div>
+    <div class="horizontal-center">
+        <button type=submit name="confirm" class="blueButton">Zatwierdź</button>
+    </div>
+
+</form>
+
+</body>
+</html>

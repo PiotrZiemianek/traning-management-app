@@ -13,9 +13,20 @@ public class AdminPanelController {
     private final StudentSubmissionWebService submissionWebService;
 
     @GetMapping
-    public ModelAndView getAdminPanel() {
+    public String getAdminPanel() {
 
-        return new ModelAndView("admin/index",
+        return "redirect:admin/accept-submissions";
+    }
+
+    @GetMapping("/course-creator")
+    public ModelAndView getCourseCreator(){
+
+        return new ModelAndView("admin/course-creator");
+    }
+    @GetMapping("/accept-submissions")
+    public ModelAndView acceptSubmissions(){
+
+        return new ModelAndView("admin/accept-submissions",
                 "studentSubmissions", submissionWebService.getSubmissions());
     }
 }

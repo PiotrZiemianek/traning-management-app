@@ -3,7 +3,8 @@
     color: #FFF;
     height: 45px;
     padding-left: 18px;
-    border-radius: 10px;
+    border-radius: 50px;
+    text-align: center;
 }
 #menu ul, #menu li {
     margin: 0 auto;
@@ -11,7 +12,7 @@
     list-style: none
 }
 #menu ul {
-    width: 100%;
+    display: inline-block;
 }
 #menu li {
     float: left;
@@ -24,7 +25,8 @@
     padding: 0 14px;
     text-decoration: none;
     color: #FFFFFF;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
 }
 #menu a.dropdown-arrow:after {
     content: "\25BE";
@@ -32,7 +34,7 @@
 }
 #menu li a:hover {
     color: #0099CC;
-    background: #F2F2F2;
+    background: #f2f2f2;
 }
 #menu input {
     display: none;
@@ -71,6 +73,7 @@
 #menu ul.sub-menus a {
     color: #FFFFFF;
     font-size: 16px;
+    font-weight: normal;
 }
 #menu li:hover ul.sub-menus {
     display: block

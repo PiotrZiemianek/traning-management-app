@@ -16,13 +16,13 @@ public class StudentSubmissionController {
     public String confirm(@PathVariable Long id) {
         System.out.println(id);
         submissionWebService.acceptSubmissionById(id);
-        return "redirect:/admin";
+        return "redirect:/admin/accept-submissions";
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
         System.out.println(id);
         submissionWebService.deleteSubmissionById(id);
-        return "redirect:/admin";
+        return "redirect:/admin/accept-submissions";
     }
 }
