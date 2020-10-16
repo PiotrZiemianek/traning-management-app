@@ -8,6 +8,7 @@ import pl.sda.training.management.app.domain.repository.CourseEditionRepo;
 import pl.sda.training.management.app.domain.repository.StudentSubmissionRepo;
 import pl.sda.training.management.app.exception.StudentSubmissionNotFoundException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,5 +45,13 @@ public class StudentSubmissionService {
             return optionalStudentSubmission.get();
         }
         throw new StudentSubmissionNotFoundException("StudentSubmission with id: " + submissionId + " not found.");
+    }
+
+    public List<StudentSubmission> getAll() {
+        return studentSubmissionRepo.findAll();
+    }
+
+    public void delete(Long id) {
+        studentSubmissionRepo.deleteById(id);
     }
 }

@@ -2,7 +2,7 @@ package pl.sda.training.management.app.domain.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
-enum UserRole implements GrantedAuthority {
+public enum UserRole implements GrantedAuthority {
     /**
      * Admin can create and delete trainers account.
      */

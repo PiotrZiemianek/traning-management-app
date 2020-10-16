@@ -14,8 +14,11 @@ public class LastName {
     private LastName(String lastName) {
         this.lastName = lastName;
     }
-    static LastName of(String lastName){
+    public static LastName of(String lastName){
         //validation
         return new LastName(lastName);
+    }
+    String value() {
+        return lastName;
     }
 }

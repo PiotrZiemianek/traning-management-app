@@ -16,12 +16,12 @@ public class EditionCode {
         this.editionCode = editionCode;
     }
 
-    static EditionCode of(String editionCode) {
+    public static EditionCode of(String editionCode) {
         //validation
         return new EditionCode(editionCode);
     }
 
-    String value() {
+    public String value() {
         return editionCode;
     }
 }

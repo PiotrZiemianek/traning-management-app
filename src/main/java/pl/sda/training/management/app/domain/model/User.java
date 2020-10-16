@@ -71,7 +71,7 @@ public class User implements UserDetails {
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        return firstName.value() + " " + lastName.value();
     }
 
     @Override
