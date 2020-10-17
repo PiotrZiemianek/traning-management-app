@@ -16,12 +16,12 @@ public class LessonSubject {
         this.lessonSubject = lessonSubject;
     }
 
-    static LessonSubject of(String lessonSubject) {
+    public static LessonSubject of(String lessonSubject) {
         //validation
         return new LessonSubject(lessonSubject);
     }
 
-    String value() {
+   public String value() {
         return lessonSubject;
     }
 }

@@ -14,7 +14,7 @@ public class CourseName {
     private CourseName(String courseName) {
         this.courseName = courseName;
     }
-    static CourseName of(String courseName){
+    public static CourseName of(String courseName){
         //validation
         return new CourseName(courseName);
     }

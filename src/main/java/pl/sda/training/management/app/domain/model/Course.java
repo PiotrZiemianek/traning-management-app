@@ -25,6 +25,10 @@ public class Course {
     @OneToMany(mappedBy = "course", orphanRemoval = true)
     private List<LessonsBlock> lessonsBlocks = new ArrayList<>();
 
+    public Course(CourseName name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

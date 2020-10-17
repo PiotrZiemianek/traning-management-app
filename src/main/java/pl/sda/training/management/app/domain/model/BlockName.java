@@ -16,12 +16,12 @@ public class BlockName {
         this.blockName = blockName;
     }
 
-    static BlockName of(String blockName) {
+    public static BlockName of(String blockName) {
         //validation
         return new BlockName(blockName);
     }
 
-    String value() {
+    public String value() {
         return blockName;
     }
 }
