@@ -36,21 +36,19 @@ public class AdminPanelController {
         courseRequest.getLessonsBlocks().add(blockRequest);
         courseRequest.getLessonsBlocks().add(blockRequest1);
 
+        LessonsBlockRequest blockRequest2 = new LessonsBlockRequest("a3575", "działa");
+        blockRequest2.getLessons().add("selekty i inne takie trudne rzeczy");
+        blockRequest2.getLessons().add("Jak nie zepsuć połączenia z bazą danych i inne takie");
+
         model.addAttribute("course", courseRequest);
-        model.addAttribute("lessonsBlock", blockRequest1);
-        model.addAttribute("courseCreatorForm",new CourseCreatorForm());
+        model.addAttribute("lessonsBlock", blockRequest2);
+        model.addAttribute("courseCreatorForm", new CourseCreatorForm());
         return "admin/course-creator";
     }
 
     @PostMapping("/course-creator")
-    public String postDataToCourseCreator(String lessonSubject,
-                                          CourseCreatorForm courseCreatorForm) {
-//        lessonsBlock.getLessons().add(lessonSubject);
-//        lessonsBlock.getLessons().forEach(System.out::println);
-//        model.addAttribute(lessonSubject);
-//        attributes.addFlashAttribute(model);
-//
-//        log.debug("Lesson with subject: " + lessonSubject + " added.");
+    public String postDataFromCourseCreator(Model model) {
+
         return "redirect:/admin/course-creator";
     }
 

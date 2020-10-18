@@ -115,9 +115,8 @@
         </div>
 
         <div class="col-sm-12 col-md-4">
-            <form method="post" th:object="${courseCreatorForm}" th:action="@{/admin/course-creator}" id="addLessonForm">
                 <input type="hidden" th:field="*{course}" name="course" id="course">
-                <input type="hidden" th:field="*{lessonsBlock}" name="lessonBlock" id="lessonBlock">
+                <input type="hidden" th:field="*{lessonsBlock}" name="lessonsBlock" id="lessonsBlock">
                 <label for="addLesson">Dodaj zajęcia</label>
                 <div id="addLesson" class="input-group mb-3">
 
@@ -126,9 +125,8 @@
                     </div>
                     <input type="text" class="form-control" placeholder="temat zajęć" aria-label=""
                            aria-describedby="basic-addon1" name="lessonSubject" >
-
                 </div>
-            </form>
+
         </div>
 
     </div>

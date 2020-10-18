@@ -15,7 +15,7 @@ public class Password {
         this.password = password;
     }
 
-    static Password of(String password){
+    public static Password of(String password){
         //validation
         return new Password(password);
     }
