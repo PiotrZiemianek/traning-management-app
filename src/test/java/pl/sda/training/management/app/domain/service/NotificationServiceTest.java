@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -53,7 +53,7 @@ class NotificationServiceTest {
         assertThat(user.getNotifications().getUnreadNotifications()).isEmpty();
         assertThat(user.getNotifications().getReadNotifications()).isNotEmpty();
         assertThat(notification.getReadByUsers()).isNotEmpty();
-        verify(notificationRepo, atLeastOnce()).save(notification);
+        verify(notificationRepo, times(1)).save(notification);
 
     }
 
@@ -80,6 +80,6 @@ class NotificationServiceTest {
                 .map(student -> student.getUser().getNotifications())
                 .forEach(userNotification ->
                         assertThat(userNotification.getUnreadNotifications()).isNotEmpty());
-        verify(studentRepo, atLeastOnce()).saveAll(students);
+        verify(studentRepo, times(1)).saveAll(students);
     }
 }

@@ -17,7 +17,7 @@
 </div>
 
 <form>
-    <div class="form-group col-sm-12 col-md-3 offset-md-2">
+    <div class="form-group col-sm-12 col-md-4 offset-md-2">
         <label for="courseName">Nazwa kursu</label>
         <div class="input-group">
             <input id="courseName" name="lessonBlockName" type="text" required="required"
@@ -26,110 +26,117 @@
                 <button class="btn btn-outline-secondary" type="button">Zapisz kurs</button>
             </div>
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button">Wyczyść</button>
+                <button class="btn btn-outline-secondary" type="button">Wyczyść formularz</button>
             </div>
         </div>
     </div>
-    <br>
-    <div class="col-12">
-        <div class="row">
-            <div id="lessons-blocks-all" class="col-md-4 offset-md-2">
-                <label for="lessons-blocks-all">Bloki zajęć:</label>
-                <div class="list-group" id="lessons-blocks-tab" role="tablist">
+</form>
+<br>
+<div class="col-12">
+    <div class="row">
+        <div id="lessons-blocks-all" class="col-md-4 offset-md-2">
+            <label for="lessons-blocks-all">Bloki zajęć:</label>
+            <div class="list-group" id="lessons-blocks-tab" role="tablist">
 
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                       role="tab" aria-controls="home"
-                       th:if="${course.getLessonsBlocks().isEmpty()}">Brak bloków zajęć</a>
+                <a class="list-group-item list-group-item-action" data-toggle="list"
+                   role="tab" aria-controls="home"
+                   th:if="${course.getLessonsBlocks().isEmpty()}">Brak bloków zajęć</a>
 
-                    <a class="list-group-item list-group-item-action" data-toggle="list"
-                       role="tab" aria-controls="home"
-                       th:if="${!course.getLessonsBlocks().isEmpty()}"
-                       th:each="lessonsBlock:${course.getLessonsBlocks()}"
-                       th:href="@{'#' + ${lessonsBlock.getId()} }"
-                       th:text="${lessonsBlock.getName()}">Nazwa bloku</a>
+                <a class="list-group-item list-group-item-action" data-toggle="list"
+                   role="tab" aria-controls="home"
+                   th:if="${!course.getLessonsBlocks().isEmpty()}"
+                   th:each="lessonsBlock:${course.getLessonsBlocks()}"
+                   th:href="@{'#' + ${lessonsBlock.getId()} }"
+                   th:text="${lessonsBlock.getName()}">Nazwa bloku</a>
 
-                </div>
             </div>
+        </div>
 
-            <div class="col-md-4">
-                <label for="lesson-list">Zajęcia w bloku:</label>
-                <div class="tab-content" id="lessons-tab">
+        <div class="col-md-4">
+            <label for="lesson-list">Zajęcia w bloku:</label>
+            <div class="tab-content" id="lessons-tab">
 
-                    <div class="tab-pane fade" role="tabpanel"
-                         th:each="lessonsBlock:${course.getLessonsBlocks()}"
-                         th:id="${lessonsBlock.getId()}">
+                <div class="tab-pane fade" role="tabpanel"
+                     th:each="lessonsBlock:${course.getLessonsBlocks()}"
+                     th:id="${lessonsBlock.getId()}">
 
-                        <div class="list-group" id="lesson-list" role="tablist">
-
-
-                            <a class="list-group-item list-group-item-action "
-                               data-toggle="list" href="#" role="tab" aria-controls="home"
-                               th:each="lesson:${lessonsBlock.getLessons()}"
-                               th:text="${lesson}">Home</a>
+                    <div class="list-group" id="lesson-list" role="tablist">
 
 
-                        </div>
+                        <a class="list-group-item list-group-item-action "
+                           data-toggle="list" href="#" role="tab" aria-controls="home"
+                           th:each="lesson:${lessonsBlock.getLessons()}"
+                           th:text="${lesson}">Home</a>
+
+
                     </div>
+                </div>
 
-                    <div class="tab-pane fade show active" id="lesson-tab-default" role="tabpanel"
-                         aria-labelledby="list-profile-list">
-                        Wybierz blok zajęć.
-                    </div>
+                <div class="tab-pane fade show active" id="lesson-tab-default" role="tabpanel"
+                     aria-labelledby="list-profile-list">
+                    Wybierz blok zajęć.
                 </div>
             </div>
         </div>
     </div>
+</div>
+<br>
+<div class="col-12">
+    <div class="col-md-8 offset-md-2">
+        <h4 class="beige-text-box horizontal-center">Dodaj blok zajęć</h4>
+    </div>
     <br>
-    <div class="col-12">
-        <div class="col-md-8 offset-md-2">
-            <h4 class="beige-text-box horizontal-center">Dodaj blok zajęć</h4>
-        </div>
-        <br>
-        <div class="row">
-            <div class="form-group col-sm-12 col-md-3 offset-md-2">
-                <label for="lessonBlockName">Nazwa bloku</label>
-                <div class="input-group">
-                    <input id="lessonBlockName" name="lessonBlockName" type="text" required="required"
-                           class="form-control">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">Dodaj blok</button>
-                    </div>
+    <div class="row">
+        <div class="form-group col-sm-12 col-md-3 offset-md-2">
+            <label for="lessonBlockName">Nazwa bloku</label>
+            <div class="input-group">
+                <input id="lessonBlockName" name="lessonBlockName" type="text" required="required"
+                       class="form-control">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Dodaj blok</button>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12 col-md-4 offset-md-2">
-                <label for="lessons">Tematy zajęć:</label>
-                <ul id="lessons" class="list-group">
-                    <li class="list-group-item"
-                        th:if="${!lessonsBlock.getLessons().isEmpty()}"
-                        th:each="lesson:${lessonsBlock.getLessons()}"
-                        th:text="${lesson}">Lekcja
-                    </li>
-                    <li class="list-group-item"
-                        th:if="${lessonsBlock.getLessons().isEmpty()}">
-                        Brak zajęć w boku
-                    </li>
-                </ul>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-4 offset-md-2">
+            <label for="lessons">Tematy zajęć:</label>
+            <ul id="lessons" class="list-group">
+                <li class="list-group-item"
+                    th:if="${!lessonsBlock.getLessons().isEmpty()}"
+                    th:each="lesson:${lessonsBlock.getLessons()}"
+                    th:text="${lesson}">Lekcja
+                </li>
+                <li class="list-group-item"
+                    th:if="${lessonsBlock.getLessons().isEmpty()}">
+                    Brak zajęć w boku
+                </li>
+            </ul>
+        </div>
 
-            <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-4">
+            <form method="post" th:object="${courseCreatorForm}" th:action="@{/admin/course-creator}" id="addLessonForm">
+                <input type="hidden" th:field="*{course}" name="course" id="course">
+                <input type="hidden" th:field="*{lessonsBlock}" name="lessonBlock" id="lessonBlock">
                 <label for="addLesson">Dodaj zajęcia</label>
                 <div id="addLesson" class="input-group mb-3">
+
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary" type="button">+</button>
+                        <button class="btn btn-outline-secondary" type="submit">+</button>
                     </div>
                     <input type="text" class="form-control" placeholder="temat zajęć" aria-label=""
-                           aria-describedby="basic-addon1">
+                           aria-describedby="basic-addon1" name="lessonSubject" >
+
                 </div>
-            </div>
+            </form>
         </div>
+
     </div>
+</div>
 
-    <br>
+<br>
 
 
-</form>
 <br>
 <script th:src="@{//code.jquery.com/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{menu.js}"></script>

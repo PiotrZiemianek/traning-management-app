@@ -1,15 +1,18 @@
 package pl.sda.training.management.app.web;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("admin")
 @RequiredArgsConstructor
+@Slf4j
 public class AdminPanelController {
     private final StudentSubmissionWebService submissionWebService;
 
@@ -21,6 +24,7 @@ public class AdminPanelController {
 
     @GetMapping("/course-creator")
     public String getCourseCreator(Model model) {
+
 
         CourseRequest courseRequest = new CourseRequest("java22");
         LessonsBlockRequest blockRequest = new LessonsBlockRequest("a3453", "Sql i cośtam");
@@ -34,8 +38,22 @@ public class AdminPanelController {
 
         model.addAttribute("course", courseRequest);
         model.addAttribute("lessonsBlock", blockRequest1);
+        model.addAttribute("courseCreatorForm",new CourseCreatorForm());
         return "admin/course-creator";
     }
+
+    @PostMapping("/course-creator")
+    public String postDataToCourseCreator(String lessonSubject,
+                                          CourseCreatorForm courseCreatorForm) {
+//        lessonsBlock.getLessons().add(lessonSubject);
+//        lessonsBlock.getLessons().forEach(System.out::println);
+//        model.addAttribute(lessonSubject);
+//        attributes.addFlashAttribute(model);
+//
+//        log.debug("Lesson with subject: " + lessonSubject + " added.");
+        return "redirect:/admin/course-creator";
+    }
+
 
     @GetMapping("/accept-submissions")
     public ModelAndView acceptSubmissions() {
