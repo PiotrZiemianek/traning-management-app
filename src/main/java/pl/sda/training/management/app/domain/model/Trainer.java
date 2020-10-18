@@ -22,7 +22,7 @@ public class Trainer {
     @OneToOne
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "trainer")
     private List<LessonDetails> lessonDetails = new ArrayList<>();
 
     @ManyToMany

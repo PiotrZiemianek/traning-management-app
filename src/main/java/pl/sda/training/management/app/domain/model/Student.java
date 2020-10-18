@@ -23,7 +23,7 @@ public class Student {
     private User user;
 
     @ManyToMany
-    private List<CourseEdition> courseEditions = new ArrayList<>();
+    private List<CourseEdition> coursesEditions = new ArrayList<>();
 
     @Override
     public String toString() {

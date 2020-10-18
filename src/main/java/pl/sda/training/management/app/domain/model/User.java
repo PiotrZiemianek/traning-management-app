@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -36,9 +37,9 @@ public class User implements UserDetails {
     @Embedded
     private LastName lastName;
 
-    private boolean isActive = true;
+    private boolean isActive = false;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user", orphanRemoval = true)
     private UserNotification notifications;
 
     @Override
@@ -48,7 +49,7 @@ public class User implements UserDetails {
 
         User user = (User) o;
 
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (!Objects.equals(id, user.id)) return false;
         return login.equals(user.login);
     }
 
@@ -70,7 +71,7 @@ public class User implements UserDetails {
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        return firstName.value() + " " + lastName.value();
     }
 
     @Override

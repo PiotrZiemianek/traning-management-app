@@ -32,6 +32,6 @@ public class LessonDetails {
     @Embedded
     private Address address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "lessonDetails")
     private List<Notification> notifications = new ArrayList<>();
 }

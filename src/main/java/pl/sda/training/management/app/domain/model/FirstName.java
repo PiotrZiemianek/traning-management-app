@@ -16,7 +16,7 @@ public class FirstName {
         this.firstName = firstName;
     }
 
-    static FirstName of(String firstName) {
+    public static FirstName of(String firstName) {
         //validation
         return new FirstName(firstName);
     }

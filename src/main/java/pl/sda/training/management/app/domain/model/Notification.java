@@ -27,7 +27,7 @@ public class Notification {
     private NotificationContent content;
 
     @ManyToMany
-    private List<Student> readByStudents = new ArrayList<>();
+    private List<User> readByUsers = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

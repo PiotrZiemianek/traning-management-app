@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,9 @@ import java.util.List;
 public class UserNotification {
     @Id
     private Long id;
+
+    @OneToOne
+    private User user;
 
     @ManyToMany
     private List<Notification> readNotifications = new ArrayList<>();

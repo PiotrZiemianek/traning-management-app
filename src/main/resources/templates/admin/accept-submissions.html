@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <script th:src="@{//code.jquery.com/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{menu.js}"></script>
+    <link th:href="@{menu.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{../style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!--Navigation bar-->
+<div id="menu-placeholder"></div>
+
+
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Zgłoszenia do akceptacji</h3>
+</div>
+<div class="center">
+    <div th:if="${studentSubmissions.isEmpty()}" class="gray-text-box">
+        <h2>Brak nowych zgłoszeń</h2>
+    </div>
+</div>
+<div th:if="${!studentSubmissions.isEmpty()}">
+    <table class="blueTable">
+        <thead>
+        <tr>
+            <th>Data</th>
+            <th>Student</th>
+            <th>Kurs</th>
+            <th>Zgłoszenie</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="submission:${studentSubmissions}">
+            <td th:text="${submission.getSubmissionDate()}">submission</td>
+            <td th:text="${submission.getStudentFullName()}">full name</td>
+            <td th:text="${submission.getCourseEdition()}">course edition</td>
+            <td>
+                <form class="form-button" method="POST"
+                      th:action="@{'/submissions/' + ${submission.getId()} + '/accept'}">
+                    <button type=submit name="confirm" class="blueButton">Zatwierdź</button>
+                </form>
+                <form class="form-button" method="POST"
+                      th:action="@{'/submissions/' + ${submission.getId()} + '/delete'}">
+                    <button type=submit name="delete" class="redButton">Usuń</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
