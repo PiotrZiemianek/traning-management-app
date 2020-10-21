@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +13,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Course {
+public class Course implements Serializable {
     @Id
+    @GeneratedValue
     private Long id;
 
     @Embedded

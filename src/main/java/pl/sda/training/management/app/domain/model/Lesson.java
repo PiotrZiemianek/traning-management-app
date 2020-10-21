@@ -5,12 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Lesson {
+public class Lesson implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
@@ -20,6 +21,10 @@ public class Lesson {
 
     @ManyToOne
     private LessonsBlock lessonsBlock;
+
+    public Lesson(LessonSubject subject) {
+        this.subject = subject;
+    }
 
     public Lesson(LessonSubject subject, LessonsBlock lessonsBlock) {
         this.subject = subject;
