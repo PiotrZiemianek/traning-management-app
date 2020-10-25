@@ -4,4 +4,8 @@
 ## Technologies:
 
 *Java
-*Spring
+*SpringBoot
+*Hibernate
+*H2database
+*MySQL
+*Bootstrap
