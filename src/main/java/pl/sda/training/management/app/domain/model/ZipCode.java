@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Data
 @Embeddable
 @NoArgsConstructor
-public class ZipCode {
+public class ZipCode implements Serializable {
     private String zipCode;
 
     private ZipCode(String zipCode) {

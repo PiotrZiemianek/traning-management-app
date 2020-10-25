@@ -28,7 +28,6 @@ class StudentSubmissionServiceTest {
     @Mock
     private CourseEditionRepo courseEditionRepo;
 
-    private
     @BeforeEach
     void setup() {
         sut = new StudentSubmissionService(studentSubmissionRepo, courseEditionRepo);

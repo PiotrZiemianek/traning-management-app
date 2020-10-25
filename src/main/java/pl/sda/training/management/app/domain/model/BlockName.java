@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Data
 @Embeddable
 @NoArgsConstructor
-public class BlockName {
+public class BlockName implements Serializable {
 
     private String blockName;
 
@@ -16,12 +17,12 @@ public class BlockName {
         this.blockName = blockName;
     }
 
-    static BlockName of(String blockName) {
+    public static BlockName of(String blockName) {
         //validation
         return new BlockName(blockName);
     }
 
-    String value() {
+    public String value() {
         return blockName;
     }
 }

@@ -1,8 +1,17 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.list-group-item.active {
+    background-color: #1C6EA4;
+}
+
 .horizontal-center {
     padding: 0 10px;
     text-align: center;
 }
-.center{
+
+.center {
     margin: 0;
     position: absolute;
     top: 50%;
@@ -10,15 +19,26 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+
+.gray-border-box{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #d4d4d4;
+    /*border-width: thin;*/
+    padding: 5px;
+}
+
 .gray-text-box {
     background: #5b6178;
     color: #EEEEEE;
     padding: 20px;
     border-radius: 50px;
 }
+
 .beige-text-box {
+    margin: 10px;
     background: #f2f2f2;
-    padding: 20px;
+    padding: 15px;
     border-radius: 50px;
 }
 
@@ -43,10 +63,12 @@ table.blueTable tr:nth-child(even) td {
     background: #D0E4F5;
     border-left: 2px solid #EEEEEE;
 }
+
 table.blueTable tr:nth-child(odd) td {
     background: #EEEEEE;
     border-left: 2px solid #D0E4F5;
 }
+
 table.blueTable tr:nth-child(even) td:first-child,
 table.blueTable tr:nth-child(odd) td:first-child {
     border-left: none;
@@ -66,22 +88,26 @@ table.blueTable thead th {
     color: #FFFFFF;
     border-left: 2px solid #D0E4F5;
 }
+
 table.blueTable thead th:first-child {
-    border-radius: 15px 0 0 0;
+    border-radius: 5px 0 0 0;
 }
+
 table.blueTable thead th:last-child {
-    border-radius: 0 15px 0 0;
+    border-radius: 0 5px 0 0;
 }
+
 table.blueTable tbody tr:last-child td:first-child {
-    border-radius: 0 0 0 15px;
+    border-radius: 0 0 0 5px;
 }
+
 table.blueTable tbody tr:last-child td:last-child {
-    border-radius: 0 0 15px 0;
+    border-radius: 0 0 5px 0;
 }
 
 .blueButton {
     box-shadow: 0px 1px 0px 0px #f0f7fa;
-    background: #33bdef linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+    background: #1a9dcb linear-gradient(to bottom, #33bdef 5%, #1C6EA4 100%);
     border-radius: 6px;
     border: 1px solid #057fd0;
     display: inline-block;
@@ -96,33 +122,36 @@ table.blueTable tbody tr:last-child td:last-child {
 }
 
 .blueButton:hover {
-    background: #019ad2 linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+    background: #1C6EA4 linear-gradient(to bottom, #019ad2 5%, #1a9dcb 100%);
 }
 
 .blueButton:active {
     position: relative;
     top: 1px;
 }
+
 .redButton {
-    box-shadow:inset 0px 1px 0px 0px #f5978e;
+    box-shadow: inset 0px 1px 0px 0px #f5978e;
     background: #f24537 linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
-    border-radius:6px;
-    border:1px solid #d02718;
-    display:inline-block;
-    cursor:pointer;
-    color:#ffffff;
-    font-size:11px;
-    font-weight:bold;
-    padding:6px 24px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #810e05;
+    border-radius: 6px;
+    border: 1px solid #d02718;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #810e05;
 }
+
 .redButton:hover {
     background: #c62d1f linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
 }
+
 .redButton:active {
-    position:relative;
-    top:1px;
+    position: relative;
+    top: 1px;
 }
 
 .form-button {

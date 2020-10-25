@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <link th:href="@{../../bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{../menu.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{../../style.css}" rel="stylesheet" type="text/css">
+</head>
+<body th:with="lastLessonBlock=${course.lessonsBlocks[__${#lists.size(course.lessonsBlocks) - 1}__]}">
+
+<!--Navigation bar-->
+<div id="menu-placeholder"></div>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Utwórz blok zajęć</h3>
+</div>
+<div class="col-sm-12 col-md-4 offset-md-4"
+     th:if="${course!=null}">
+    <div th:text="'Kurs: ' + ${course.getName()}">nazwa kursu
+    </div>
+    <div class="offset-1">
+        <div th:text="'Blok: ' + ${lastLessonBlock.name}">
+            nazwa bloku
+        </div>
+    </div>
+    <div class="offset-2" th:if="${!lastLessonBlock.getLessons().isEmpty()}">Zajęcia:
+        <ul>
+            <li th:each="lesson:${lastLessonBlock.getLessons()}"
+                th:text="${lesson}">temat zajęć
+            </li>
+        </ul>
+    </div>
+</div>
+<form th:action="@{/admin/course-wizard/lesson}" method="post" th:object="${course}">
+    <div class="form-group col-sm-12 col-md-4 offset-md-4">
+        <label for="lessonSubject">Tematy nowych zajęć</label>
+
+        <input hidden th:field="*{name}" th:value="${course.getName()}">
+
+        <div th:each="lessonBlock, blockStat:${course.getLessonsBlocks()}">
+            <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].name}"
+                   th:if="${lessonBlock.getName()!=null}"
+                   th:value="${lessonBlock.getName()}">
+            <div th:each="lesson, lessonStat:${lessonBlock.getLessons()}">
+                <input hidden
+                       th:field="*{lessonsBlocks[__${blockStat.index}__].lessons[__${lessonStat.index}__]}"
+                       th:value="${lesson}">
+            </div>
+        </div>
+        <div class="input-group">
+            <input id="lessonSubject" name="lessonSubject" type="text" required="required" autofocus
+                   class="form-control" placeholder="temat zajęć"
+                   th:field="*{lessonsBlocks[__${#lists.size(course.lessonsBlocks) - 1}__].lessons[__${#lists.size(lastLessonBlock.lessons)}__]}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Dodaj ></button>
+            </div>
+        </div>
+    </div>
+</form>
+<form th:action="@{/admin/course-wizard/cname}" method="post" th:object="${course}">
+    <div class="form-group col-sm-12 col-md-4 offset-md-4">
+        <div class="input-group">
+            <input hidden th:field="*{name}" th:value="${course.getName()}">
+
+            <div th:each="lessonBlock, blockStat:${course.getLessonsBlocks()}">
+                <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].name}"
+                       th:if="${lessonBlock.getName()!=null}"
+                       th:value="${lessonBlock.getName()}">
+                <div th:each="lesson, lessonStat:${lessonBlock.getLessons()}">
+                    <input hidden
+                           th:field="*{lessonsBlocks[__${blockStat.index}__].lessons[__${lessonStat.index}__]}"
+                           th:if="${!lesson.isBlank()}"
+                           th:value="${lesson}">
+                </div>
+            </div>
+
+            <button class="btn btn-outline-secondary" type="submit">
+                Nowy blok >
+            </button>
+
+        </div>
+    </div>
+</form>
+<form th:action="@{/admin/course-wizard/summary}" method="post" th:object="${course}">
+    <div class="form-group col-sm-12 col-md-4 offset-md-4">
+        <div class="input-group">
+            <input hidden th:field="*{name}" th:value="${course.getName()}">
+
+            <div th:each="lessonBlock, blockStat:${course.getLessonsBlocks()}">
+                <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].name}"
+                       th:if="${lessonBlock.getName()!=null}"
+                       th:value="${lessonBlock.getName()}">
+                <div th:each="lesson, lessonStat:${lessonBlock.getLessons()}">
+                    <input hidden
+                           th:field="*{lessonsBlocks[__${blockStat.index}__].lessons[__${lessonStat.index}__]}"
+                           th:if="${!lesson.isBlank()}"
+                           th:value="${lesson}">
+                </div>
+            </div>
+
+            <button class="btn btn-outline-secondary" type="submit">
+                Podsumowanie
+            </button>
+
+        </div>
+    </div>
+</form>
+
+<script th:src="@{//code.jquery.com/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{../menu.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{../../bootstrap.min.js}"></script>
+</body>
+</html>

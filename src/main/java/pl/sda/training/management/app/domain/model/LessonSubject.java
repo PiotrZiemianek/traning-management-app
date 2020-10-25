@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Data
 @Embeddable
 @NoArgsConstructor
-public class LessonSubject {
+public class LessonSubject implements Serializable {
 
     private String lessonSubject;
 
@@ -16,12 +17,12 @@ public class LessonSubject {
         this.lessonSubject = lessonSubject;
     }
 
-    static LessonSubject of(String lessonSubject) {
+    public static LessonSubject of(String lessonSubject) {
         //validation
         return new LessonSubject(lessonSubject);
     }
 
-    String value() {
+   public String value() {
         return lessonSubject;
     }
 }

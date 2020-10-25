@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +14,18 @@ import java.util.List;
 @NoArgsConstructor
 public class Course {
     @Id
+    @GeneratedValue
     private Long id;
 
     @Embedded
     private CourseName name;
 
-    @OneToMany(mappedBy = "course", orphanRemoval = true)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LessonsBlock> lessonsBlocks = new ArrayList<>();
+
+    public Course(CourseName name) {
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object o) {

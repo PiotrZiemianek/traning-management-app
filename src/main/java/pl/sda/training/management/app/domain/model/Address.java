@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
+import java.io.Serializable;
 
 @Data
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor(staticName = "of")
-public class Address {
+public class Address implements Serializable {
     @Embedded
     private City city;
 

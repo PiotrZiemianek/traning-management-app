@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <link th:href="@{../bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{menu.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{../style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!--Navigation bar-->
+<div id="menu-placeholder"></div>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Utwórz kurs</h3>
+</div>
+
+<form th:action="@{/admin/course-wizard/cname}" method="post" th:object="${course}">
+    <div class="form-group col-sm-12 col-md-4 offset-md-4">
+        <label for="courseName">Nazwa kursu</label>
+        <div class="input-group">
+            <input id="courseName" name="lessonBlockName" type="text" required="required" autofocus
+                   class="form-control" th:field="*{name}" placeholder="nazwa kursu">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Dalej ></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script th:src="@{//code.jquery.com/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{menu.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{../bootstrap.min.js}"></script>
+</body>
+</html>

@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Data
 @Embeddable
 @NoArgsConstructor
-public class RoomNumber {
+public class RoomNumber implements Serializable {
     private String roomNumber;
 
     private RoomNumber(String roomNumber) {

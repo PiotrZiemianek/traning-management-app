@@ -23,8 +23,12 @@ public class LessonsBlock {
     @ManyToOne
     private Course course;
 
-    @OneToMany(mappedBy = "lessonsBlock")
+    @OneToMany(mappedBy = "lessonsBlock", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lesson> lessons = new ArrayList<>();
+
+    public LessonsBlock(BlockName blockName) {
+        this.blockName = blockName;
+    }
 
 
     @Override

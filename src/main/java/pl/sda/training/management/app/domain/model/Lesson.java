@@ -21,6 +21,15 @@ public class Lesson {
     @ManyToOne
     private LessonsBlock lessonsBlock;
 
+    public Lesson(LessonSubject subject) {
+        this.subject = subject;
+    }
+
+    public Lesson(LessonSubject subject, LessonsBlock lessonsBlock) {
+        this.subject = subject;
+        this.lessonsBlock = lessonsBlock;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
