@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.sda.training.management.app.domain.model.Course;
-import pl.sda.training.management.app.domain.model.LessonsBlock;
 import pl.sda.training.management.app.domain.service.CourseService;
 
 @Controller
@@ -24,39 +22,83 @@ public class CourseWizardController {
     public ModelAndView getCourseWizard() {
 
         return new ModelAndView("admin/course-wizard-cname",
-                "course", new Course());
+                "course", new CourseDTO());
     }
 
 
     @PostMapping("/cname")
-    public String postCourseName(Course course, RedirectAttributes redirectAttributes) {
-        log.info("Course with name: " + course.getName().value());
+    public String postCourseName(CourseDTO course, RedirectAttributes redirectAttributes) {
+        log.info("Course with name: " + course.getName());
         redirectAttributes.addFlashAttribute("course", course);
         return "redirect:bname";
     }
 
     @GetMapping("/bname")
-    public String getBlockWizard(@ModelAttribute Course course) {
+    public String getBlockWizard(@ModelAttribute("course") CourseDTO course) {
         if (course.getName() == null) {
             return "redirect:/admin/course-wizard";
         }
-        course.getLessonsBlocks().add(new LessonsBlock());
+        course.getLessonsBlocks().add(new LessonsBlockDTO());
         return "admin/course-wizard-bname";
     }
 
     @PostMapping("/bname")
-    public String postLessonBlockName(Course course, RedirectAttributes redirectAttributes) {
-        log.info("course name: " + course.getName().value());
-        log.info(course.getLessonsBlocks().toString());
+    public String postLessonBlockName(CourseDTO course, RedirectAttributes redirectAttributes) {
+
         redirectAttributes.addFlashAttribute("course", course);
         return "redirect:lesson";
     }
 
     @GetMapping("/lesson")
-    public String getLessonWizard(@ModelAttribute Course course) {
+    public String getLessonWizard(@ModelAttribute("course") CourseDTO course) {
         if (course.getName() == null) {
             return "redirect:/admin/course-wizard";
         }
+
         return "admin/course-wizard-lesson";
+    }
+
+    @PostMapping("/lesson")
+    public String postLesson(CourseDTO course, RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("course", course);
+        return "redirect:lesson";
+    }
+
+    @GetMapping("/summary")
+    public String getSummary(@ModelAttribute("course") CourseDTO course) {
+        if (course.getName() == null) {
+            return "redirect:/admin/course-wizard";
+        }
+
+        return "admin/course-wizard-summary";
+    }
+
+    @PostMapping("/summary")
+    public String postSummary(CourseDTO course, RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("course", course);
+        return "redirect:summary";
+    }
+    @GetMapping("/edit")
+    public String getEdit(@ModelAttribute("course") CourseDTO course) {
+        if (course.getName() == null) {
+            return "redirect:/admin/course-wizard";
+        }
+
+        return "admin/course-wizard-edit";
+    }
+
+    @PostMapping("/edit")
+    public String postEdit(CourseDTO course, RedirectAttributes redirectAttributes) {
+
+        redirectAttributes.addFlashAttribute("course", course);
+        return "redirect:edit";
+    }
+
+    @PostMapping("/save")
+    public String save(CourseDTO course) {
+        courseService.save(course.toCourse());
+        return "redirect:/admin";
     }
 }

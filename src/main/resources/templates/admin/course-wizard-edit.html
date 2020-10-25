@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <link th:href="@{/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/menu.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<!--Navigation bar-->
+<div id="menu-placeholder"></div>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Edycja szablonu</h3>
+</div>
+
+
+<form th:action="@{/admin/course-wizard/summary}" method="post" th:object="${course}">
+    <div class="col-sm-12 col-md-6 offset-md-3">
+        <div class="row">
+
+            <div class="col-12 p-1">
+                <label for="courseName">Nazwa kursu:</label>
+                <input id="courseName" class="form-control" required
+                       th:field="*{name}"
+                       th:value="${course.getName()}">
+            </div>
+
+            <div class="col-sm-12 col-md-6 p-1"
+                 th:each="lessonBlock, blockStat:${course.getLessonsBlocks()}">
+                <div class="gray-border-box">
+                    <label th:for="${'blockName' + blockStat.index}">Blok:</label>
+                    <input class="form-control" required
+                           th:id="${'blockName' + blockStat.index}"
+                           th:field="*{lessonsBlocks[__${blockStat.index}__].name}"
+                           th:if="${lessonBlock.getName()!=null}"
+                           th:value="${lessonBlock.getName()}">
+                    Zajęcia:
+                    <div th:each="lesson, lessonStat:${lessonBlock.getLessons()}">
+                        <input class="form-control" required
+                               th:field="*{lessonsBlocks[__${blockStat.index}__].lessons[__${lessonStat.index}__]}"
+                               th:if="${!lesson.isBlank()}"
+                               th:value="${lesson}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 p-1">
+                <button class="btn btn-outline-secondary" th:formaction="@{/admin/course-wizard/cname}" type="submit">
+                    Nowy blok >
+                </button>
+            </div>
+            <div class="col-12 p-1">
+                <button class="btn btn-outline-secondary" type="submit">
+                    Podsumowanie
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script th:src="@{//code.jquery.com/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/admin/menu.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/bootstrap.min.js}"></script>
+</body>
+</html>

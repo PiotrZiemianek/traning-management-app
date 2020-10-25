@@ -20,6 +20,14 @@ body {
     transform: translate(-50%, -50%);
 }
 
+.gray-border-box{
+    border-style: solid;
+    border-radius: 10px;
+    border-color: #d4d4d4;
+    /*border-width: thin;*/
+    padding: 5px;
+}
+
 .gray-text-box {
     background: #5b6178;
     color: #EEEEEE;

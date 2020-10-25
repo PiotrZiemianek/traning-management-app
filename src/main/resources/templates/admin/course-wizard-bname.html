@@ -17,43 +17,47 @@
 </div>
 <div class="col-sm-12 col-md-4 offset-md-4"
      th:if="${course!=null}">
-    <div th:text="'Kurs: ' + ${course.getName().value()}">nazwa kursu
+    <div th:text="'Kurs: ' + ${course.getName()}">nazwa kursu
     </div>
-    <div class="offset-1" th:if="${course.getLessonsBlocks().isEmpty()}">Bloki:
+
+    <div class="offset-1" th:if="${course.lessonsBlocks.size()>1}">
+        Bloki:
         <ul>
             <li th:each="lessonBlock:${course.getLessonsBlocks()}"
-                th:if="${lessonBlock.getBlockName()!=null}"
-                th:text="${lessonBlock.getBlockName().value()}">nazwa bloku
+                th:if="${lessonBlock.getName()!=null}"
+                th:text="${lessonBlock.getName()}">nazwa bloku
             </li>
         </ul>
     </div>
+
 </div>
 <form th:action="@{/admin/course-wizard/bname}" method="post" th:object="${course}">
     <div class="form-group col-sm-12 col-md-4 offset-md-4">
         <label for="blockName">Nazwa nowego bloku</label>
-        <div class="input-group">
-            <input hidden th:field="*{name.courseName}" th:value="${course.getName().value()}">
 
-            <div th:each="lessonBlock, blockStat:${course.getLessonsBlocks()}">
-                <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].blockName.blockName}"
-                       th:if="${lessonBlock.getBlockName()!=null}"
-                       th:value="${lessonBlock.getBlockName().value()}">
-                <div th:each="lesson, lessonStat:${lessonBlock.getLessons()}">
-                    <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].lessons[__${lessonStat.index}__].subject.lessonSubject}"
-                           th:if="${lesson.subject!=null}"
-                           th:value="${lesson.getSubject().value()}">
-                </div>
+        <input hidden th:field="*{name}" th:value="${course.getName()}">
+
+        <div th:each="lessonBlock, blockStat:${course.getLessonsBlocks()}">
+            <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].name}"
+                   th:if="${lessonBlock.getName()!=null}"
+                   th:value="${lessonBlock.getName()}">
+
+            <div th:each="lesson, lessonStat:${lessonBlock.getLessons()}">
+                <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].lessons[__${lessonStat.index}__]}"
+                       th:value="${lesson}">
             </div>
-
-            <input id="blockName" name="lessonBlockName" type="text" required="required"
-                   class="form-control"
-                   th:field="*{lessonsBlocks[__${#lists.size(course.lessonsBlocks) - 1}__].blockName}">
+        </div>
+        <div class="input-group">
+            <input id="blockName" name="lessonBlockName" type="text" required="required" autofocus
+                   class="form-control" placeholder="nazwa bloku"
+                   th:field="*{lessonsBlocks[__${#lists.size(course.lessonsBlocks) - 1}__].name}">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="submit">Dalej ></button>
             </div>
         </div>
     </div>
 </form>
+
 
 <script th:src="@{//code.jquery.com/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{../menu.js}"></script>

@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LessonsBlock implements Serializable {
+public class LessonsBlock {
     @Id
     @GeneratedValue
     private Long id;
@@ -24,12 +23,13 @@ public class LessonsBlock implements Serializable {
     @ManyToOne
     private Course course;
 
-    @OneToMany(mappedBy = "lessonsBlock")
+    @OneToMany(mappedBy = "lessonsBlock", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lesson> lessons = new ArrayList<>();
 
     public LessonsBlock(BlockName blockName) {
         this.blockName = blockName;
     }
+
 
     @Override
     public boolean equals(Object o) {

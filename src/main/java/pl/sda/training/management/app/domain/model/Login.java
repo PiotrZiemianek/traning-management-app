@@ -5,11 +5,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Data
 @Embeddable
 @NoArgsConstructor
-public class Login {
+public class Login implements Serializable {
 
     @Column(unique = true)
     private String login;
