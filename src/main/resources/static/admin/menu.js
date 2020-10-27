@@ -6,6 +6,3 @@ function updatemenu() {
         document.getElementById('menu').style.borderRadius = '10px';
     }
 }
-$.get("/admin/menu.html", function (data) {
-    $("#menu-placeholder").replaceWith(data);
-});

@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Panel administratora</title>
-    <link th:href="@{/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/admin/menu.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+    <th:block th:insert="/fragments :: head"></th:block>
 </head>
 <body>
 
 <!--Navigation bar-->
-<div id="menu-placeholder"></div>
+<nav id='menu' th:insert="fragments :: #admin-menu"></nav>
 
 <div class="horizontal-center">
     <h3 class="beige-text-box">Podsumowanie</h3>
@@ -29,7 +27,7 @@
                 <div th:text="${lessonBlock.getName()}">nazwa bloku</div>
                 <ul>
                     <li th:each="lesson:${lessonBlock.getLessons()}"
-                        th:text="${lesson}">lekcja
+                        th:text="${lesson.subject}">lekcja
                     </li>
                 </ul>
             </li>
@@ -40,19 +38,8 @@
 <form th:action="@{/admin/course-wizard/cname}" method="post" th:object="${course}">
     <div class="form-group col-sm-12 col-md-4 offset-md-4">
         <div class="input-group">
-            <input hidden th:field="*{name}" th:value="${course.getName()}">
 
-            <div th:each="lessonBlock, blockStat:${course.getLessonsBlocks()}">
-                <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].name}"
-                       th:if="${lessonBlock.getName()!=null}"
-                       th:value="${lessonBlock.getName()}">
-                <div th:each="lesson, lessonStat:${lessonBlock.getLessons()}">
-                    <input hidden
-                           th:field="*{lessonsBlocks[__${blockStat.index}__].lessons[__${lessonStat.index}__]}"
-                           th:if="${!lesson.isBlank()}"
-                           th:value="${lesson}">
-                </div>
-            </div>
+            <th:block th:insert="fragments :: course-data"></th:block>
 
             <button class="btn btn-outline-secondary" type="submit">
                 Nowy blok >
@@ -64,19 +51,8 @@
 <form th:action="@{/admin/course-wizard/edit}" method="post" th:object="${course}">
     <div class="form-group col-sm-12 col-md-4 offset-md-4">
         <div class="input-group">
-            <input hidden th:field="*{name}" th:value="${course.getName()}">
 
-            <div th:each="lessonBlock, blockStat:${course.getLessonsBlocks()}">
-                <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].name}"
-                       th:if="${lessonBlock.getName()!=null}"
-                       th:value="${lessonBlock.getName()}">
-                <div th:each="lesson, lessonStat:${lessonBlock.getLessons()}">
-                    <input hidden
-                           th:field="*{lessonsBlocks[__${blockStat.index}__].lessons[__${lessonStat.index}__]}"
-                           th:if="${!lesson.isBlank()}"
-                           th:value="${lesson}">
-                </div>
-            </div>
+            <th:block th:insert="fragments :: course-data"></th:block>
 
             <button class="btn btn-outline-secondary" type="submit">
                 Edytuj kurs
@@ -88,19 +64,8 @@
 <form th:action="@{/admin/course-wizard/save}" method="post" th:object="${course}">
     <div class="form-group col-sm-12 col-md-4 offset-md-4">
         <div class="input-group">
-            <input hidden th:field="*{name}" th:value="${course.getName()}">
 
-            <div th:each="lessonBlock, blockStat:${course.getLessonsBlocks()}">
-                <input hidden th:field="*{lessonsBlocks[__${blockStat.index}__].name}"
-                       th:if="${lessonBlock.getName()!=null}"
-                       th:value="${lessonBlock.getName()}">
-                <div th:each="lesson, lessonStat:${lessonBlock.getLessons()}">
-                    <input hidden
-                           th:field="*{lessonsBlocks[__${blockStat.index}__].lessons[__${lessonStat.index}__]}"
-                           th:if="${!lesson.isBlank()}"
-                           th:value="${lesson}">
-                </div>
-            </div>
+            <th:block th:insert="fragments :: course-data"></th:block>
 
             <button class="btn btn-outline-secondary" type="submit" autofocus>
                 Zapisz
@@ -110,12 +75,7 @@
     </div>
 </form>
 
+<div th:insert="fragments :: scripts"></div>
 
-<script th:src="@{//code.jquery.com/jquery.min.js}"></script>
-<script type="text/javascript" th:src="@{/admin/menu.js}"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-<script type="text/javascript" th:src="@{/bootstrap.min.js}"></script>
 </body>
 </html>
