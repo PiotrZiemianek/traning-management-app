@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Panel administratora</title>
@@ -15,20 +15,15 @@
 </div>
 
 
-<form th:action="@{/admin/course-wizard/summary}" method="post" th:object="${course}">
+<form th:action="@{/admin/course-edit/save}" method="post" th:object="${course}">
     <div class="col-sm-12 col-md-6 offset-md-3">
         <div class="row">
 
             <th:block th:insert="fragments :: course-edit"></th:block>
 
             <div class="col-12 p-1">
-                <button class="btn btn-outline-secondary" th:formaction="@{/admin/course-wizard/cname}" type="submit">
-                    Nowy blok >
-                </button>
-            </div>
-            <div class="col-12 p-1">
                 <button class="btn btn-outline-secondary" type="submit">
-                    Podsumowanie
+                    Zapisz
                 </button>
             </div>
         </div>

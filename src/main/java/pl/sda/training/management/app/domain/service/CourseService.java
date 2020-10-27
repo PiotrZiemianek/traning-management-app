@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.sda.training.management.app.domain.model.Course;
 import pl.sda.training.management.app.domain.repository.CourseRepo;
+import pl.sda.training.management.app.exception.CourseNotFoundException;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -14,4 +17,12 @@ public class CourseService {
         return courseRepo.save(course);
     }
 
+    public List<Course> findAll() {
+        return courseRepo.findAll();
+    }
+
+    public Course getById(long id) {
+        return courseRepo.findById(id)
+                .orElseThrow(() -> new CourseNotFoundException("Course with id: " + id + "not found."));
+    }
 }
