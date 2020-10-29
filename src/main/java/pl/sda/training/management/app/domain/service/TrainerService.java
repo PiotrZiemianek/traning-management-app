@@ -3,16 +3,20 @@ package pl.sda.training.management.app.domain.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.sda.training.management.app.domain.model.Trainer;
+import pl.sda.training.management.app.domain.model.User;
 import pl.sda.training.management.app.domain.repository.TrainerRepo;
 import pl.sda.training.management.app.exception.TrainerNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 
+import static pl.sda.training.management.app.domain.model.UserRole.ROLE_TRAINER;
+
 @Service
 @RequiredArgsConstructor
 public class TrainerService {
     private final TrainerRepo trainerRepo;
+    private final UserService userService;
 
     public Trainer save(Trainer trainer) {
         trainer.getUser()
@@ -40,5 +44,11 @@ public class TrainerService {
 
     public List<Trainer> getAll() {
         return trainerRepo.findAll();
+    }
+    public void setAsTrainerByLogin(String userLogin) {
+        User user = userService.getUserByLogin(userLogin);
+        user.getRoles().add(ROLE_TRAINER);
+        Trainer trainer = new Trainer(user);
+        trainerRepo.save(trainer);
     }
 }
