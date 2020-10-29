@@ -6,6 +6,7 @@ import pl.sda.training.management.app.domain.model.Trainer;
 import pl.sda.training.management.app.domain.repository.TrainerRepo;
 import pl.sda.training.management.app.exception.TrainerNotFoundException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,5 +36,9 @@ public class TrainerService {
             return optionalStudentSubmission.get();
         }
         throw new TrainerNotFoundException("Trainer with id: " + trainerId + " not found.");
+    }
+
+    public List<Trainer> getAll() {
+        return trainerRepo.findAll();
     }
 }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+</head>
+<body>
+
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #admin-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Trenerzy</h3>
+</div>
+<div class="center">
+    <div th:if="${trainers.isEmpty()}" class="gray-text-box">
+        <h2>Brak trenerów</h2>
+    </div>
+</div>
+<div th:if="${!trainers.isEmpty()}">
+    <table class="blueTable">
+        <thead>
+        <tr>
+            <th>Login</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Kursy</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="trainer:${trainers}">
+            <td th:text="${trainer.login}">login</td>
+            <td th:text="${trainer.firstName}">firstname</td>
+            <td th:text="${trainer.lastName}">lastname</td>
+            <td>
+                <ul th:if="${!trainer.editionsCodes.isEmpty()}">
+                    <li th:each="editionCode:${trainer.editionsCodes}"
+                        th:text="${editionCode}">editionCode
+                    </li>
+                </ul>
+                <div th:if="${trainer.editionsCodes.isEmpty()}">Brak</div>
+            </td>
+            <td>
+                <input type="checkbox" th:value="${trainer.login}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div th:insert="fragments :: scripts"></div>
+
+</body>
+</html>

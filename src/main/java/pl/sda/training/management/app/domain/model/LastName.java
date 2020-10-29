@@ -19,7 +19,7 @@ public class LastName implements Serializable {
         //validation
         return new LastName(lastName);
     }
-    String value() {
+    public String value() {
         return lastName;
     }
 }

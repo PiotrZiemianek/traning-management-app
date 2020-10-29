@@ -8,7 +8,7 @@ public enum UserRole implements GrantedAuthority {
      */
     ROLE_ADMIN,
     ROLE_PARTICIPANT,
-    ROLE_COACH;
+    ROLE_TRAINER;
 
     @Override
     public String getAuthority() {

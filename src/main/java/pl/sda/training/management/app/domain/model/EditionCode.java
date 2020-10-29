@@ -3,6 +3,7 @@ package pl.sda.training.management.app.domain.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class EditionCode implements Serializable {
 
+    @Column(unique = true)
     private String editionCode;
 
     private EditionCode(String editionCode) {
