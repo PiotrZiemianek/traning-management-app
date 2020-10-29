@@ -31,6 +31,9 @@ public class Trainer {
     @ManyToMany
     private List<CourseEdition> coursesList = new ArrayList<>();
 
+    public Trainer(User user) {
+        this.user = user;
+    }
 
     @Override
     public String toString() {

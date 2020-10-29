@@ -22,7 +22,7 @@ public class FirstName implements Serializable {
         return new FirstName(firstName);
     }
 
-    String value() {
+    public String value() {
         return firstName;
     }
 }

@@ -24,7 +24,7 @@ public class Login implements Serializable {
         return new Login(login);
     }
 
-    String value() {
+    public String value() {
         return login;
     }
 }

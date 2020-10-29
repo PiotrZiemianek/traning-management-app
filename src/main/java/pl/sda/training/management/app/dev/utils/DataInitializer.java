@@ -26,6 +26,7 @@ public class DataInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         User user1 = User.builder()
+                .login(Login.of("robot"))
                 .firstName(FirstName.of("Piotr"))
                 .lastName(LastName.of("Ziemianek"))
                 .roles(List.of(UserRole.ROLE_PARTICIPANT))

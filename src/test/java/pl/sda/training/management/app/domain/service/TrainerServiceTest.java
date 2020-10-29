@@ -23,9 +23,12 @@ class TrainerServiceTest {
     @Mock
     private TrainerRepo trainerRepo;
 
+    @Mock
+    private UserService userService;
+
     @BeforeEach
     void setup() {
-        sut = new TrainerService(trainerRepo);
+        sut = new TrainerService(trainerRepo, userService);
     }
 
     @Test

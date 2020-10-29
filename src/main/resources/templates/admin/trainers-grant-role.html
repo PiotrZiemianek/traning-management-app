@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+</head>
+<body>
+
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #admin-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Nadaj użytkownikom uprawnienia trenerskie</h3>
+</div>
+<div class="center">
+    <div th:if="${users.isEmpty()}" class="gray-text-box">
+        <h2>Brak użytkowników</h2>
+    </div>
+</div>
+<div th:if="${!users.isEmpty()}">
+    <form method="POST" th:action="@{/admin/trainers/grant-role}" th:object="${loginsToGrant}">
+        <table class="blueTable">
+            <thead>
+            <tr>
+                <th>Login</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Wybierz</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user:${users}">
+                <td th:text="${user.login}">login</td>
+                <td th:text="${user.firstName}">firstname</td>
+                <td th:text="${user.lastName}">lastname</td>
+                <td>
+                    <input type="checkbox" th:field="*{loginsToProcess}" th:value="${user.login}">
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <div class="horizontal-center">
+            <button class="btn btn-outline-secondary" type="submit">Zatwierdź</button>
+        </div>
+    </form>
+</div>
+
+
+<div th:insert="fragments :: scripts"></div>
+
+</body>
+</html>
