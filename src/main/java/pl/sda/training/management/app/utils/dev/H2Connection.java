@@ -1,4 +1,4 @@
-package pl.sda.training.management.app.dev.utils;
+package pl.sda.training.management.app.utils.dev;
 
 import org.h2.tools.Server;
 import org.springframework.context.annotation.Bean;

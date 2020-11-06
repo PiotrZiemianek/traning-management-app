@@ -7,7 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,10 +28,10 @@ public class Trainer {
     private List<LessonDetails> lessonDetails = new ArrayList<>();
 
     @ManyToMany
-    private List<LessonsBlock> lessonsBlocks = new ArrayList<>();
+    private Set<LessonsBlock> lessonsBlocks = new HashSet<>();
 
     @ManyToMany
-    private List<CourseEdition> coursesList = new ArrayList<>();
+    private Set<CourseEdition> coursesList = new HashSet<>();
 
     public Trainer(User user) {
         this.user = user;

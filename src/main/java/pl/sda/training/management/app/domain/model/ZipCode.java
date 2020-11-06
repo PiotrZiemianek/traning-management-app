@@ -15,7 +15,7 @@ public class ZipCode implements Serializable {
     private ZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
-    static ZipCode of(String zipCode){
+    public static ZipCode of(String zipCode){
         //validation
         return new ZipCode(zipCode);
     }

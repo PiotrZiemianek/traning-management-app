@@ -18,9 +18,9 @@
         <h2>Brak użytkowników</h2>
     </div>
 </div>
-<div th:if="${!users.isEmpty()}">
+<div th:if="${!users.isEmpty()}" class="p-1">
     <form method="POST" th:action="@{/admin/trainers/grant-role}" th:object="${loginsToGrant}">
-        <table class="blueTable">
+        <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
             <thead>
             <tr>
                 <th>Login</th>
