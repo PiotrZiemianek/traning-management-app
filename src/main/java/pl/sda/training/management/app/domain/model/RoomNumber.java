@@ -16,8 +16,12 @@ public class RoomNumber implements Serializable {
         this.roomNumber = roomNumber;
     }
 
-    static RoomNumber of(String roomNumber) {
+    public static RoomNumber of(String roomNumber) {
         //validation
         return new RoomNumber(roomNumber);
+    }
+
+    public String value() {
+        return roomNumber;
     }
 }

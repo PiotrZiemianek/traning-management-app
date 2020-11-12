@@ -23,6 +23,6 @@ public class CourseService {
 
     public Course getById(long id) {
         return courseRepo.findById(id)
-                .orElseThrow(() -> new CourseNotFoundException("Course with id: " + id + "not found."));
+                .orElseThrow(() -> new CourseNotFoundException("Course with id: " + id + " not found."));
     }
 }

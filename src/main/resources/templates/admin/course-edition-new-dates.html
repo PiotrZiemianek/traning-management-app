@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+    <th:block th:insert="/fragments :: scripts"></th:block>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
+</head>
+<body>
+
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #admin-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Otwórz nową edycję kursu</h3>
+</div>
+<form th:insert="admin/course-edition-edit-dates::#editionForm"
+      method=post
+      th:action="@{/admin/courses-editions/save}"
+      th:object="${courseEdition}">
+
+</form>
+</body>
+</html>

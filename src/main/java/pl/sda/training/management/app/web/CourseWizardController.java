@@ -28,7 +28,6 @@ public class CourseWizardController {
 
     @PostMapping("/cname")
     public String postCourseName(CourseDTO course, RedirectAttributes redirectAttributes) {
-        log.info("Course with name: " + course.getName());
         redirectAttributes.addFlashAttribute("course", course);
         return "redirect:bname";
     }
@@ -99,6 +98,6 @@ public class CourseWizardController {
     @PostMapping("/save")
     public String save(CourseDTO course) {
         courseService.save(course.toCourse());
-        return "redirect:/admin";
+        return "redirect:/admin/courses-editions/new";
     }
 }

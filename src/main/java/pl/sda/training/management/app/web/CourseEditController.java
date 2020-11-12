@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("admin/course-edit")
 @RequiredArgsConstructor
@@ -18,9 +16,8 @@ public class CourseEditController {
 
     @GetMapping
     public ModelAndView getCourseEdit() {
-        List<CourseToChoose> coursesToChoose = courseWebService.getAllCoursesToChoose();
         return new ModelAndView("admin/course-edit-which",
-                "coursesToChoose", coursesToChoose);
+                "coursesToChoose", courseWebService.getAllCoursesToChoose());
     }
 
     @PostMapping

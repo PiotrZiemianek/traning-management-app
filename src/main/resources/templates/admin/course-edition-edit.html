@@ -11,16 +11,17 @@
 <nav id='menu' th:insert="fragments :: #admin-menu"></nav>
 
 <div class="horizontal-center">
-    <h3 class="beige-text-box">Wybierz szablon do edycji</h3>
+    <h3 class="beige-text-box">Edytuj kurs</h3>
 </div>
 
-<form th:action="@{/admin/course-edit}" method="post">
+<form th:action="@{/admin/courses-editions/edit}" method="post">
     <div class="form-group col-sm-12 col-md-4 offset-md-4">
+        <label for="chosenCourseEditionId">Wybierz edycję kursu</label>
         <div class="input-group">
-            <select class="form-control" name="chosenCourseId" autofocus>
-                <option th:each="course:${coursesToChoose}"
-                        th:value="${course.id}"
-                        th:text="${course.name}"
+            <select class="form-control" name="chosenCourseEditionId" id="chosenCourseEditionId" autofocus>
+                <option th:each="edition:${editionsToChoose}"
+                        th:value="${edition.id}"
+                        th:text="${edition.code}"
                         name="id">Course name
                 </option>
             </select>

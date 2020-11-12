@@ -1,4 +1,4 @@
-package pl.sda.training.management.app.dev.utils;
+package pl.sda.training.management.app.utils.dev;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;

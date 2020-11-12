@@ -7,7 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,13 +28,17 @@ public class CourseEdition {
     private EditionCode editionCode;
 
     @ManyToMany(mappedBy = "coursesEditions")
-    private List<Student> students = new ArrayList<>();
+    private Set<Student> students = new HashSet<>();
 
     @ManyToMany(mappedBy = "coursesList")
-    private List<Trainer> trainers = new ArrayList<>();
+    private Set<Trainer> trainers = new HashSet<>();
 
-    @OneToMany
-    private List<LessonDetails> lessonDetailsList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<LessonDetails> lessonsDetails = new ArrayList<>();
+
+    public CourseEdition(Course course) {
+        this.course = course;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -15,8 +15,12 @@ public class City implements Serializable {
     private City(String city) {
         this.city = city;
     }
-    static City of(String city){
+   public static City of(String city){
         //validation
         return new City(city);
+    }
+
+    public String value() {
+        return city;
     }
 }

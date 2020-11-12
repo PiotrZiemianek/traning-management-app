@@ -42,7 +42,7 @@ body {
 }
 
 table.blueTable {
-    width: 60%;
+    width: 100%;
     text-align: left;
     border-collapse: collapse;
     margin-left: auto;
@@ -155,4 +155,10 @@ table.blueTable tbody tr:last-child td:last-child {
 
 .form-button {
     display: inline
+}
+.duration{
+    max-width:80px
+}
+.datepicker{
+    max-width:140px
 }

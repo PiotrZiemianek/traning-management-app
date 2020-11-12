@@ -16,8 +16,12 @@ public class StreetAddress implements Serializable {
         this.streetAddress = streetAddress;
     }
 
-    static StreetAddress of(String streetAddress) {
+    public static StreetAddress of(String streetAddress) {
         //validation
         return new StreetAddress(streetAddress);
+    }
+
+    public String value() {
+        return streetAddress;
     }
 }
