@@ -1,7 +1,9 @@
 spring:
   profiles:
     active: dev
-
+training:
+  date:
+    dateFormat: "dd.MM.yyyy HH:mm"
 ---
 
 spring:

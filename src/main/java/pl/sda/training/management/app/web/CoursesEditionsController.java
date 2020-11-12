@@ -24,7 +24,7 @@ public class CoursesEditionsController {
     }
 
     @PostMapping("/new")
-    public String postId(Long chosenCourseId, Model model) {
+    public String postCourseId(Long chosenCourseId, Model model) {
         if (chosenCourseId == null) {
             return "redirect:/admin/course-wizard";
         }
@@ -39,9 +39,30 @@ public class CoursesEditionsController {
     }
 
     @PostMapping("/save")
-    public String saveCourseEdition(CourseEditionDTO courseEditionDTO, Model model) {
+    public String saveCourseEdition(CourseEditionDTO courseEditionDTO) {
         courseEditionWebService.save(courseEditionDTO);
 
         return "redirect:/admin/courses-editions";
+    }
+
+    @GetMapping("/edit")
+    public ModelAndView getEditCourseEdition() {
+        return new ModelAndView("admin/course-edition-edit",
+                "editionsToChoose", courseEditionWebService.getAllCoursesEditionsToChoose());
+    }
+
+    @PostMapping("/edit")
+    public String postEditionId(Long chosenCourseEditionId, Model model) {
+        if (chosenCourseEditionId == null) {
+            return "redirect:/admin/course-wizard";
+        }
+
+        CourseEditionDTO courseEditionDTO = courseEditionWebService.getCourseEditionById(chosenCourseEditionId);
+        model.addAttribute("course", courseWebService.getCourseById(courseEditionDTO.getCourseId()));
+        model.addAttribute("trainers", trainerWebService.getTrainersToShow());
+        model.addAttribute("courseEdition", courseEditionDTO);
+        model.addAttribute("counter", new Counter());
+
+        return "admin/course-edition-edit-dates";
     }
 }

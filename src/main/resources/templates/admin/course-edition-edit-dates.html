@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+    <th:block th:insert="/fragments :: scripts"></th:block>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker-standalone.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+
+</head>
+<body>
+
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #admin-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Otwórz nową edycję kursu</h3>
+</div>
+<form id="editionForm" method=post th:action="@{/admin/courses-editions/save}" th:object="${courseEdition}">
+    <div class="container">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <h3 class="beige-text-box horizontal-center"
+                    th:text="${'Kurs: '+course.name}">course name</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 offset-md-5 col-10 offset-1">
+                <label for="courseCode">Kod kursu</label>
+                <input id="courseCode" class="form-control" type="text" required
+                       th:field="*{editionCode}">
+            </div>
+        </div>
+
+        <input hidden
+               th:field="*{courseId}"
+               th:value="${course.id}">
+        <input hidden
+               th:field="*{id}"
+               th:value="${courseEdition.id}">
+
+        <div class="row">
+            <div class="col-12"
+                 th:each="lessonsBlock:${course.getLessonsBlocks()}">
+
+                <div class="col-8 offset-2">
+                    <h3 class="beige-text-box horizontal-center"
+                        th:text="${'Blok: '+lessonsBlock.name}">block name</h3>
+                </div>
+                <div class="col-12">
+                    <table class="blueTable">
+                        <thead>
+                        <tr>
+                            <th>Temat zajęć</th>
+                            <th>Trener</th>
+                            <th>Lokalizacja</th>
+                            <th>Termin</th>
+                            <th>Czas trwania (min)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr th:each="lesson:${lessonsBlock.lessons}">
+
+                            <td>
+                                <label th:text="${lesson.subject}">subject</label>
+                            </td>
+                            <td>
+                                <select class="form-control" name="trainerId" id="trainerId"
+                                        th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].trainerLogin}">
+                                    <option value="" >Wybierz</option>
+                                    <option th:each="trainer:${trainers}"
+                                            th:value="${trainer.login}"
+                                            th:text="${trainer.firstName +' '+trainer.lastName}"
+                                            name="id">trainer
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <label>
+                                    Ulica
+                                    <input th:id="${'street-'+ lessonsBlockStat.index+'-'+ lessonStat.index}"
+                                           type="text"
+                                           class="form-control"
+                                           th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].street}">
+                                </label>
+                                <label>
+                                    Miasto
+                                    <input th:id="${'city-'+ lessonsBlockStat.index+'-'+ lessonStat.index}"
+                                           type="text"
+                                           class="form-control"
+                                           th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].city}">
+                                </label>
+                                <label>
+                                    Kod pocztowy
+                                    <input th:id="${'zipcode-'+ lessonsBlockStat.index+'-'+ lessonStat.index}"
+                                           type="text"
+                                           class="form-control"
+                                           th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].zipCode}">
+                                </label>
+                                <label>
+                                    Numer sali
+                                    <input th:id="${'room-'+ lessonsBlockStat.index+'-'+ lessonStat.index}"
+                                           type="text"
+                                           class="form-control"
+                                           th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].roomNumber}">
+                                </label>
+                            </td>
+                            <td>
+
+                                <input type="text" class="form-control datepicker" required
+                                       th:id="${'datepicker-'+ lessonsBlockStat.index +'-'+ lessonStat.index}"
+                                       th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].dateTime}">
+                                <script th:inline="javascript">
+                                    $([[${'#datepicker-'+ lessonsBlockStat.index +'-'+ lessonStat.index}]]).datetimepicker({
+                                        locale: 'pl'
+                                    });
+                                </script>
+                            </td>
+                            <td>
+                                <input class="form-control duration" type="number" id="duration"
+                                       th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].duration}">
+                            </td>
+                            <input hidden
+                                   th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].lessonId}"
+                                   th:value="${lesson.id}">
+                            <input hidden
+                                   th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].id}"
+                                   th:value="${courseEdition.lessonsDetails[__${counter.get() + lessonStat.index}__].id}">
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div th:text="${counter.increment(lessonsBlock.lessons.size())}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="horizontal-center">
+        <button class="btn-outline-secondary" type="submit">Dalej ></button>
+    </div>
+
+</form>
+</body>
+</html>

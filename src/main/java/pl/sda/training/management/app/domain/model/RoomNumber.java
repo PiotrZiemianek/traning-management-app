@@ -20,4 +20,8 @@ public class RoomNumber implements Serializable {
         //validation
         return new RoomNumber(roomNumber);
     }
+
+    public String value() {
+        return roomNumber;
+    }
 }

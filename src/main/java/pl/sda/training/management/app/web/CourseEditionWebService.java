@@ -10,6 +10,8 @@ import pl.sda.training.management.app.domain.service.TrainerService;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +30,7 @@ public class CourseEditionWebService {
                 .fromTemplate(courseService
                         .getById(editionDTO
                                 .getCourseId()));
+        courseEdition.setId(editionDTO.getId());
 
         courseEdition.setEditionCode(EditionCode.of(editionDTO.getEditionCode()));
         for (int i = 0; i < editionDTO.getLessonsDetails().size(); i++) {
@@ -41,6 +44,7 @@ public class CourseEditionWebService {
             trainer.getLessonDetails().add(lessonDetails);
             trainer.getLessonsBlocks().add(lessonDetails.getLesson().getLessonsBlock());
 
+            lessonDetails.setId(lessonDetailsDTO.getId());
             lessonDetails.setTrainer(trainer);
             lessonDetails.setLocalDateTime(LocalDateTime.parse(lessonDetailsDTO.getDateTime(),
                     DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")));
@@ -52,5 +56,16 @@ public class CourseEditionWebService {
                     RoomNumber.of(lessonDetailsDTO.getRoomNumber())));
         }
         return courseEdition;
+    }
+
+    public List<CourseEditionToChoose> getAllCoursesEditionsToChoose() {
+        return courseEditionService.getAll()
+                .stream()
+                .map(CourseEditionToChoose::of)
+                .collect(Collectors.toList());
+    }
+
+    public CourseEditionDTO getCourseEditionById(Long chosenCourseEditionId) {
+        return CourseEditionDTO.of(courseEditionService.getById(chosenCourseEditionId));
     }
 }

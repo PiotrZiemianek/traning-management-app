@@ -19,4 +19,8 @@ public class City implements Serializable {
         //validation
         return new City(city);
     }
+
+    public String value() {
+        return city;
+    }
 }

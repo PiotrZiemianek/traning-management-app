@@ -19,4 +19,8 @@ public class ZipCode implements Serializable {
         //validation
         return new ZipCode(zipCode);
     }
+
+    public String value() {
+        return zipCode;
+    }
 }

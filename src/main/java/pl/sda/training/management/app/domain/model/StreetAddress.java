@@ -20,4 +20,8 @@ public class StreetAddress implements Serializable {
         //validation
         return new StreetAddress(streetAddress);
     }
+
+    public String value() {
+        return streetAddress;
+    }
 }
