@@ -1,6 +1,7 @@
 package pl.sda.training.management.app.web;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.sda.training.management.app.domain.model.CourseEdition;
@@ -14,6 +15,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor(access = PRIVATE)
+@Builder
 public class CourseEditionDTO {
     private Long id;
     private Long courseId;

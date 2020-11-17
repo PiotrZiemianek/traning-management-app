@@ -1,9 +1,6 @@
 package pl.sda.training.management.app.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,11 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
+@Builder
 public class Trainer {
     @Id
     @GeneratedValue
@@ -26,9 +26,6 @@ public class Trainer {
 
     @OneToMany(mappedBy = "trainer")
     private List<LessonDetails> lessonDetails = new ArrayList<>();
-
-    @ManyToMany
-    private Set<LessonsBlock> lessonsBlocks = new HashSet<>();
 
     @ManyToMany
     private Set<CourseEdition> coursesList = new HashSet<>();

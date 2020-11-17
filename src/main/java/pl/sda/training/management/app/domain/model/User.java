@@ -10,11 +10,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
 @Builder
 public class User implements UserDetails {
     @Id

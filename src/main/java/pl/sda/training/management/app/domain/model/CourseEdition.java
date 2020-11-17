@@ -1,9 +1,6 @@
 package pl.sda.training.management.app.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,11 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static lombok.AccessLevel.PRIVATE;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor(access = PRIVATE)
+@Builder
 public class CourseEdition {
     @Id
     @GeneratedValue
@@ -30,7 +30,8 @@ public class CourseEdition {
     @ManyToMany(mappedBy = "coursesEditions")
     private Set<Student> students = new HashSet<>();
 
-    @ManyToMany(mappedBy = "coursesList")
+    @ManyToMany(mappedBy = "coursesList",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Trainer> trainers = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL)
