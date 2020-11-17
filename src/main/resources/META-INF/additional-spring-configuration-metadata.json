@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "training.date.format",
+      "type": "java.lang.String",
+      "description": "DataTimeFormat pattern."
+  }
+] }
