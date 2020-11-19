@@ -162,3 +162,10 @@ table.blueTable tbody tr:last-child td:last-child {
 .datepicker{
     max-width:140px
 }
+#user-bar{
+    padding: 0;
+    margin: 0 10px;
+    text-align: right;
+    font-size: 10px;
+    height: 15px;
+}
