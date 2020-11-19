@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Training Management App</title>
 </head>
 <body>
+<div th:if="${#authentication.getName()!='anonymousUser'}">
+    <div id="user-bar" th:include="fragments :: #user-bar"></div>
+</div>
 home
 <ul>
     <li>

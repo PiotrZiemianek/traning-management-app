@@ -7,6 +7,16 @@
 </head>
 <body>
 
+<div id="user-bar">
+    Zalogowany:
+    <label th:text="${#authentication.getPrincipal().login.value()}"></label>
+    |
+    <a href="javascript: document.logoutForm.submit()" >Wyloguj</a>
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        <input hidden type="submit" value="Logout"/>
+    </form>
+</div>
+
 <nav id='admin-menu'>
     <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
     <ul>
