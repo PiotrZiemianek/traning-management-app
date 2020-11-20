@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Training Management App</title>
+    <th:block th:insert="/fragments :: head"></th:block>
 </head>
 <body>
 <div th:if="${#authentication.getName()!='anonymousUser'}">

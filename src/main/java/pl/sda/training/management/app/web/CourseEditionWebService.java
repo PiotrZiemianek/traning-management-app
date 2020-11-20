@@ -10,6 +10,7 @@ import pl.sda.training.management.app.domain.service.TrainerService;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,13 +81,24 @@ public class CourseEditionWebService {
     }
 
     public List<CourseEditionToChoose> getAllCoursesEditionsToChoose() {
-        return courseEditionService.getAll()
-                .stream()
-                .map(CourseEditionToChoose::of)
-                .collect(Collectors.toList());
+        return courseEditionsToChooseOf(courseEditionService.getAll());
+    }
+
+    public List<CourseEditionToChoose> getAllEditionsToChooseByTrainerLogin(String login) {
+        return courseEditionsToChooseOf(
+                trainerService
+                        .getByLogin(Login.of(login))
+                        .getCoursesList());
     }
 
     public CourseEditionDTO getCourseEditionById(Long chosenCourseEditionId) {
         return CourseEditionDTO.of(courseEditionService.getById(chosenCourseEditionId));
+    }
+
+    private List<CourseEditionToChoose> courseEditionsToChooseOf(Collection<CourseEdition> courseEditions) {
+        return courseEditions
+                .stream()
+                .map(CourseEditionToChoose::of)
+                .collect(Collectors.toList());
     }
 }

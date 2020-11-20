@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel trenera</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+</head>
+<body>
+
+<div id="user-bar" th:include="fragments :: #user-bar"></div>
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #trainer-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Kursy</h3>
+</div>
+<div class="center">
+    <div th:if="${coursesEditions.isEmpty()}" class="gray-text-box">
+        <h2>Brak kursów</h2>
+    </div>
+</div>
+<div th:if="${!coursesEditions.isEmpty()}" class="p-1">
+    <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
+        <thead>
+        <tr>
+            <th>Kurs</th>
+            <th>Kod Edycji</th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="courseEdition:${coursesEditions}">
+            <td th:text="${courseEdition.courseName}">course name</td>
+            <td th:text="${courseEdition.code}">code</td>
+
+            <td>
+                <input type="checkbox" th:value="${courseEdition.code}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div th:insert="fragments :: scripts"></div>
+
+</body>
+</html>
