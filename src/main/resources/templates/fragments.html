@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
-    <link th:href="@{/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -10,7 +10,7 @@
     Zalogowany:
     <label th:text="${#authentication.getPrincipal().login.value()}"></label>
     |
-    <a href="javascript: document.logoutForm.submit()" >Wyloguj</a>
+    <a href="javascript: document.logoutForm.submit()">Wyloguj</a>
     <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
         <input hidden type="submit" value="Logout"/>
     </form>
@@ -39,6 +39,15 @@
         </li>
         <li><a href='http://'>Kursanci</a></li>
         <li><a href='/admin/accept-submissions'>Zgłoszenia</a></li>
+    </ul>
+</nav>
+<nav id='trainer-menu'>
+    <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+    <ul>
+        <li><a href='/'>Strona główna</a></li>
+        <li><a href='http://'>Kursy</a>
+        <li><a href='http://'>Bloki zajęć</a></li>
+        <li><a href='/admin/trainers'>Kalendarz</a></li>
     </ul>
 </nav>
 
@@ -116,11 +125,11 @@
 
 <div th:fragment="scripts">
     <script th:src="@{//code.jquery.com/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{/menu.js}"></script>
+    <script type="text/javascript" th:src="@{/js/menu.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
             integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
             crossorigin="anonymous"></script>
-    <script type="text/javascript" th:src="@{/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </div>
 </body>
 </html>
