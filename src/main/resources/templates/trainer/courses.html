@@ -19,27 +19,36 @@
         <h2>Brak kursów</h2>
     </div>
 </div>
+
 <div th:if="${!coursesEditions.isEmpty()}" class="p-1">
-    <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
-        <thead>
-        <tr>
-            <th>Kurs</th>
-            <th>Kod Edycji</th>
-            <th></th>
+    <form th:action="@{/trainer/blocks}" method="post">
+        <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
+            <thead>
+            <tr>
+                <th>Kurs</th>
+                <th>Kod Edycji</th>
+                <th></th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="courseEdition:${coursesEditions}">
-            <td th:text="${courseEdition.courseName}">course name</td>
-            <td th:text="${courseEdition.code}">code</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="courseEdition:${coursesEditions}">
+                <td th:text="${courseEdition.courseName}">course name</td>
+                <td th:text="${courseEdition.code}">code</td>
 
-            <td>
-                <input type="checkbox" th:value="${courseEdition.code}">
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                <td>
+                    <input name="editionCode" type="radio" th:value="${courseEdition.code}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <div class="horizontal-center">
+            <button class="btn btn-outline-secondary" type="submit">
+                Wybierz
+            </button>
+        </div>
+    </form>
 </div>
 
 

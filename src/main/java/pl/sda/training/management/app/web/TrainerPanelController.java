@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.Map;
 
 @Controller
 @RequestMapping("trainer")
@@ -15,6 +17,7 @@ import java.security.Principal;
 @Slf4j
 public class TrainerPanelController {
     private final CourseEditionWebService courseEditionWebService;
+    private final LessonsBlockWebService lessonsBlockWebService;
 
     @GetMapping
     public String getTrainerPanel() {
@@ -27,5 +30,22 @@ public class TrainerPanelController {
         return new ModelAndView("trainer/courses",
                 "coursesEditions", courseEditionWebService
                 .getAllEditionsToChooseByTrainerLogin(principal.getName()));
+    }
+
+    @PostMapping("/blocks")
+    public ModelAndView getTrainerBlocksByCourse(Principal principal, String editionCode) {
+        return new ModelAndView("trainer/blocks",
+                "lessonBlocks",
+                Map.of(editionCode,
+                        lessonsBlockWebService
+                                .getAllByTrainerLoginAndEditionCode(principal.getName(), editionCode)));
+    }
+
+    @GetMapping("/blocks")
+    public ModelAndView getTrainerBlocks(Principal principal) {
+        return new ModelAndView("trainer/blocks",
+                "lessonBlocks",
+                lessonsBlockWebService
+                        .getAllByTrainerLoginOrderedByEditionCode(principal.getName()));
     }
 }

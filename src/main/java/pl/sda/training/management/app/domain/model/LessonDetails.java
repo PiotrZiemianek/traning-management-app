@@ -25,6 +25,9 @@ public class LessonDetails {
     @ManyToOne
     private Lesson lesson;
 
+    @ManyToOne
+    private CourseEdition courseEdition;
+
     private LocalDateTime localDateTime;
 
     private Duration duration;

@@ -1,7 +1,9 @@
 package pl.sda.training.management.app.web;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.sda.training.management.app.domain.model.BlockName;
 import pl.sda.training.management.app.domain.model.Lesson;
 import pl.sda.training.management.app.domain.model.LessonsBlock;
@@ -12,9 +14,7 @@ import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor(access = PRIVATE)
 public class LessonsBlockDTO {
