@@ -34,7 +34,7 @@ public class CourseEdition {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     private Set<Trainer> trainers = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "courseEdition", cascade = CascadeType.ALL)
     private List<LessonDetails> lessonsDetails = new ArrayList<>();
 
     public CourseEdition(Course course) {

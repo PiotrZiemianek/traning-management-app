@@ -20,7 +20,10 @@ public class CourseEditionService {
         course.getLessonsBlocks().forEach(lessonsBlock -> lessonsBlock.getLessons()
                 .stream()
                 .map(LessonDetails::new)
-                .forEach(courseEdition.getLessonsDetails()::add));
+                .forEach(lessonDetails -> {
+                    courseEdition.getLessonsDetails().add(lessonDetails);
+                    lessonDetails.setCourseEdition(courseEdition);
+                }));
         return courseEdition;
     }
 

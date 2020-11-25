@@ -60,12 +60,16 @@ public class CourseEditionWebService {
         for (int i = 0; i < editionDTO.getLessonsDetails().size(); i++) {
             LessonDetails lessonDetails = courseEdition.getLessonsDetails().get(i);
             LessonDetailsDTO lessonDetailsDTO = editionDTO.getLessonsDetails().get(i);
-            Trainer trainer = trainerService.getByLogin(Login.of(lessonDetailsDTO.getTrainerLogin()));
+            Trainer trainer = null;
 
-            courseEdition.getTrainers().add(trainer);
+            if (!lessonDetailsDTO.getTrainerLogin().isBlank()){
+                trainer = trainerService.getByLogin(Login.of(lessonDetailsDTO.getTrainerLogin()));
+                trainer.getCoursesList().add(courseEdition);
+                trainer.getLessonDetails().add(lessonDetails);
+                courseEdition.getTrainers().add(trainer);
+            }
 
-            trainer.getCoursesList().add(courseEdition);
-            trainer.getLessonDetails().add(lessonDetails);
+
 
             lessonDetails.setTrainer(trainer);
             lessonDetails.setLocalDateTime(LocalDateTime.parse(lessonDetailsDTO.getDateTime(),

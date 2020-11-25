@@ -88,6 +88,7 @@ public class DataInitializer implements ApplicationRunner {
                                     StreetAddress.of(""),
                                     ZipCode.of(""),
                                     RoomNumber.of("")));
+                            lessonDetails.setCourseEdition(courseEdition);
                             courseEdition.getLessonsDetails().add(lessonDetails);
                         }
                 ));
