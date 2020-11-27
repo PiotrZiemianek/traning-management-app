@@ -24,4 +24,8 @@ public class Address implements Serializable {
 
     @Embedded
     private RoomNumber roomNumber;
+
+    public String getFullAddress() {
+        return streetAddress.value() + " " + roomNumber.value() + "; " + city.value() + " " + zipCode.value();
+    }
 }

@@ -18,6 +18,7 @@ import java.util.Map;
 public class TrainerPanelController {
     private final CourseEditionWebService courseEditionWebService;
     private final LessonsBlockWebService lessonsBlockWebService;
+    private final LessonDetailsWebService lessonDetailsWebService;
 
     @GetMapping
     public String getTrainerPanel() {
@@ -48,4 +49,19 @@ public class TrainerPanelController {
                 lessonsBlockWebService
                         .getAllByTrainerLoginOrderedByEditionCode(principal.getName()));
     }
+
+    @PostMapping("/lessons")
+    public ModelAndView getTrainerLessonsByBlock(Principal principal, Long blockId) {
+        return new ModelAndView("trainer/lessons",
+                "lessons",
+                lessonDetailsWebService.getAllByTrainerLoginAndLessonBlockId(principal.getName(), blockId));
+    }
+
+    @GetMapping("/lessons")
+    public ModelAndView getTrainerLessons(Principal principal) {
+        return new ModelAndView("trainer/lessons",
+                "lessons",
+                lessonDetailsWebService.getAllByTrainerLogin(principal.getName()));
+    }
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Panel trenera</title>
@@ -12,32 +12,38 @@
 <nav id='menu' th:insert="fragments :: #trainer-menu"></nav>
 
 <div class="horizontal-center">
-    <h3 class="beige-text-box">Kursy</h3>
+    <h3 class="beige-text-box">Zajęcia</h3>
 </div>
 <div class="center">
-    <div th:if="${coursesEditions.isEmpty()}" class="gray-text-box">
-        <h2>Brak kursów</h2>
+    <div th:if="${lessons.isEmpty()}" class="gray-text-box">
+        <h2>Brak zajęć</h2>
     </div>
 </div>
 
-<div th:if="${!coursesEditions.isEmpty()}" class="p-1">
-    <form th:action="@{/trainer/blocks}" method="post">
+<div th:if="${!lessons.isEmpty()}" class="p-1">
+    <form th:action="@{/lesson}" method="post">
         <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
             <thead>
             <tr>
-                <th>Kurs</th>
-                <th>Kod Edycji</th>
+                <th>Temat</th>
+                <th>Data</th>
+                <th>Objętość (min)</th>
+                <th>Adres</th>
+                <th>Kod kursu</th>
                 <th></th>
 
             </tr>
             </thead>
             <tbody>
-            <tr th:each="courseEdition:${coursesEditions}">
-                <td th:text="${courseEdition.courseName}">course name</td>
-                <td th:text="${courseEdition.code}">code</td>
+            <tr th:each="lesson:${lessons}">
+                <td th:text="${lesson.subject}">subject</td>
+                <td th:text="${lesson.dateTime}">date</td>
+                <td th:text="${lesson.duration}">duration</td>
+                <td th:text="${lesson.address}">address</td>
+                <td th:text="${lesson.courseCode}">course code</td>
 
                 <td>
-                    <input required name="editionCode" type="radio" th:value="${courseEdition.code}">
+                    <input required name="editionCode" type="radio" th:value="${lesson.id}">
                 </td>
             </tr>
             </tbody>
