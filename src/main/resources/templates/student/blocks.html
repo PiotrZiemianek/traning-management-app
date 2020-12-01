@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel studenta</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+</head>
+<body>
+
+<div id="user-bar" th:include="fragments :: #user-bar"></div>
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #student-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Bloki zajęć</h3>
+</div>
+<form th:action="@{/trainer/lessons}" method="post">
+    <div th:each="editionCode:${lessonBlocks.keySet()}">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <h3 class="beige-text-box horizontal-center"
+                    th:text="${'Kurs: '+ editionCode}">course name</h3>
+            </div>
+        </div>
+
+
+        <div class="p-1">
+            <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
+                <thead>
+                <tr>
+                    <th>Blok zajęć</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="lessonBlock:${lessonBlocks.get(editionCode)}">
+                    <td th:text="${lessonBlock.name}">block name</td>
+
+                    <td>
+                        <input required name="blockId" type="radio" th:value="${lessonBlock.id}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="horizontal-center">
+            <button class="btn btn-outline-secondary" type="submit">
+                Wybierz
+            </button>
+        </div>
+    </div>
+</form>
+
+<div th:insert="fragments :: scripts"></div>
+
+</body>
+</html>
