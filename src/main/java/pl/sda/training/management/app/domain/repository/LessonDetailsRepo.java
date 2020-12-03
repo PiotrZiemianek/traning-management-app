@@ -3,6 +3,7 @@ package pl.sda.training.management.app.domain.repository;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import pl.sda.training.management.app.domain.model.EditionCode;
 import pl.sda.training.management.app.domain.model.LessonDetails;
 import pl.sda.training.management.app.domain.model.Login;
 
@@ -14,4 +15,6 @@ public interface LessonDetailsRepo extends JpaRepository<LessonDetails, Long> {
     List<LessonDetails> getAllByTrainer_User_LoginAndLesson_LessonsBlock_Id(Login trainerLogin, Long lessonsBlockId, Sort sort);
 
     List<LessonDetails> getAllByTrainer_User_Login(Login trainerLogin, Sort sort);
+
+    List<LessonDetails> getAllByCourseEdition_EditionCodeAndLesson_LessonsBlock_Id(EditionCode courseEdition_editionCode, Long lesson_lessonsBlock_id, Sort sort);
 }

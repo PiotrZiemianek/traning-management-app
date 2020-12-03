@@ -41,6 +41,17 @@
         <li><a href='/admin/accept-submissions'>Zgłoszenia</a></li>
     </ul>
 </nav>
+
+<nav id='student-menu'>
+    <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+    <ul>
+        <li><a href='/'>Strona główna</a></li>
+        <li><a href='/student/schedule'>Kalendarz</a>
+        <li><a href='/student/blocks'>Bloki zajęć</a></li>
+        <li><a href='/student/notifications'>Powiadomienia</a></li>
+    </ul>
+</nav>
+
 <nav id='trainer-menu'>
     <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
     <ul>
@@ -52,6 +63,55 @@
     </ul>
 </nav>
 
+<th:block th:fragment='lessons-details'>
+
+    <div class="horizontal-center">
+        <h3 class="beige-text-box">Zajęcia</h3>
+    </div>
+    <div class="center">
+        <div th:if="${lessons.isEmpty()}" class="gray-text-box">
+            <h2>Brak zajęć</h2>
+        </div>
+    </div>
+
+    <div th:if="${!lessons.isEmpty()}" class="p-1">
+        <form th:action="@{/lesson}" method="post">
+            <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
+                <thead>
+                <tr>
+                    <th>Temat</th>
+                    <th>Data</th>
+                    <th>Objętość (min)</th>
+                    <th>Adres</th>
+                    <th>Kod kursu</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="lesson:${lessons}">
+                    <td th:text="${lesson.subject}">subject</td>
+                    <td th:text="${lesson.dateTime}">date</td>
+                    <td th:text="${lesson.duration}">duration</td>
+                    <td th:text="${lesson.address}">address</td>
+                    <td th:text="${lesson.courseCode}">course code</td>
+
+                    <td>
+                        <input required name="editionCode" type="radio" th:value="${lesson.id}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <div class="horizontal-center">
+                <button class="btn btn-outline-secondary" type="submit">
+                    Wybierz
+                </button>
+            </div>
+        </form>
+    </div>
+
+</th:block>
 
 <th:block th:fragment='course-edit'>
     <div class="col-12 p-1">

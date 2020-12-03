@@ -2,6 +2,7 @@ package pl.sda.training.management.app.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.sda.training.management.app.domain.model.EditionCode;
 import pl.sda.training.management.app.domain.model.LessonDetails;
 import pl.sda.training.management.app.domain.model.Login;
 import pl.sda.training.management.app.domain.service.LessonDetailsService;
@@ -29,5 +30,10 @@ public class LessonDetailsWebService {
                 .stream()
                 .map(LessonDetailsToShow::of)
                 .collect(Collectors.toList());
+    }
+
+    public List<LessonDetailsToShow> getAllByEditionCodeAndBlockId(String editionCode, Long blockId) {
+        return lessonDetailsToShowListOf(
+                lessonDetailsService.getAllByEditionCodeAndBlockId(EditionCode.of(editionCode), blockId));
     }
 }
