@@ -19,13 +19,13 @@ public class StudentPanelController {
     private final LessonDetailsWebService lessonDetailsWebService;
 
     @GetMapping
-    public String getTrainerPanel() {
+    public String getStudentPanel() {
 
         return "redirect:student/blocks";
     }
 
     @GetMapping("/blocks")
-    public ModelAndView getTrainerBlocks(Principal principal) {
+    public ModelAndView getStudentBlocks(Principal principal) {
         return new ModelAndView("student/blocks",
                 "lessonBlocks",
                 lessonsBlockWebService
@@ -33,17 +33,10 @@ public class StudentPanelController {
     }
 
     @PostMapping("/lessons")
-    public ModelAndView getTrainerLessonsByBlock(Principal principal, Long blockId) {
+    public ModelAndView getStudentLessonsByBlock(String editionCode, Long blockId) {
         return new ModelAndView("student/lessons",
                 "lessons",
-                lessonDetailsWebService.getAllByTrainerLoginAndLessonBlockId(principal.getName(), blockId));
-    }
-
-    @GetMapping("/lessons")
-    public ModelAndView getTrainerLessons(Principal principal) {
-        return new ModelAndView("student/lessons",
-                "lessons",
-                lessonDetailsWebService.getAllByTrainerLogin(principal.getName()));
+                lessonDetailsWebService.getAllByEditionCodeAndBlockId(editionCode, blockId));
     }
 
 }

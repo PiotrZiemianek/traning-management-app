@@ -14,7 +14,13 @@
 <div class="horizontal-center">
     <h3 class="beige-text-box">Bloki zajęć</h3>
 </div>
-<form th:action="@{/trainer/lessons}" method="post">
+
+<div class="center">
+    <div th:if="${lessonBlocks.isEmpty()}" class="gray-text-box">
+        <h2>Brak bloków</h2>
+    </div>
+</div>
+<form th:action="@{/student/lessons}" method="post">
     <div th:each="editionCode:${lessonBlocks.keySet()}">
         <div class="row">
             <div class="col-10 offset-1">
@@ -23,7 +29,7 @@
             </div>
         </div>
 
-
+        <input th:id="${editionCode}" hidden name="editionCode" type="radio" th:value="${editionCode}">
         <div class="p-1">
             <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
                 <thead>
@@ -38,7 +44,10 @@
                     <td th:text="${lessonBlock.name}">block name</td>
 
                     <td>
-                        <input required name="blockId" type="radio" th:value="${lessonBlock.id}">
+                        <input th:id="${editionCode+lessonBlock.id}"
+                               required name="blockId" type="radio" th:value="${lessonBlock.id}"
+                               th:data-code="${editionCode}"
+                               th:onclick="document.getElementById(this.getAttribute('data-code')).checked = true" >
                     </td>
                 </tr>
                 </tbody>
