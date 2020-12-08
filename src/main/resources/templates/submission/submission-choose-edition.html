@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel studenta</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+</head>
+<body>
+
+<div id="user-bar" th:include="fragments :: #user-bar"></div>
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #main-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Wybierz edycję</h3>
+</div>
+
+<form th:action="@{/submission/submit}" method="post">
+    <div class="form-group col-sm-12 col-md-4 offset-md-4">
+        <div class="input-group">
+            <select class="form-control" name="editionCode" autofocus>
+                <option th:each="code:${editionsCodes}"
+                        th:value="${code}"
+                        th:text="${code}"
+                        name="editionCode">Edition code
+                </option>
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Aplikuj! ></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div th:insert="fragments :: scripts"></div>
+
+</body>
+</html>

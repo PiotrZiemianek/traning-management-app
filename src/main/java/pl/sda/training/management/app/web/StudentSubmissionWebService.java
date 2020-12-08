@@ -2,6 +2,8 @@ package pl.sda.training.management.app.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.sda.training.management.app.domain.model.EditionCode;
+import pl.sda.training.management.app.domain.model.Login;
 import pl.sda.training.management.app.domain.service.StudentSubmissionService;
 
 import java.util.List;
@@ -25,5 +27,15 @@ public class StudentSubmissionWebService {
 
     public void deleteSubmissionById(Long id){
         submissionService.delete(id);
+    }
+
+    public void sendSubmission(String editionCode, String studentLogin) {
+
+        EditionCode code = EditionCode.of(editionCode);
+        Login loginStudent = Login.of(studentLogin);
+
+        if (!submissionService.existsByEditionCodeAndStudentLogin(code,loginStudent)){
+            submissionService.saveSubmission(code, loginStudent);
+        }
     }
 }

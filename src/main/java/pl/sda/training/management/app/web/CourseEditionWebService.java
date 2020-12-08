@@ -62,13 +62,12 @@ public class CourseEditionWebService {
             LessonDetailsDTO lessonDetailsDTO = editionDTO.getLessonsDetails().get(i);
             Trainer trainer = null;
 
-            if (!lessonDetailsDTO.getTrainerLogin().isBlank()){
+            if (!lessonDetailsDTO.getTrainerLogin().isBlank()) {
                 trainer = trainerService.getByLogin(Login.of(lessonDetailsDTO.getTrainerLogin()));
                 trainer.getCoursesList().add(courseEdition);
                 trainer.getLessonDetails().add(lessonDetails);
                 courseEdition.getTrainers().add(trainer);
             }
-
 
 
             lessonDetails.setTrainer(trainer);
@@ -103,6 +102,13 @@ public class CourseEditionWebService {
         return courseEditions
                 .stream()
                 .map(CourseEditionToChoose::of)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getEditionsCodesByCourseIdAndStudentNotParticipated(Long chosenCourseId, String studentLogin) {
+        return courseEditionService.getEditionCodesByCourseIdAndStudentNotParticipated(chosenCourseId, Login.of(studentLogin))
+                .stream()
+                .map(EditionCode::value)
                 .collect(Collectors.toList());
     }
 }
