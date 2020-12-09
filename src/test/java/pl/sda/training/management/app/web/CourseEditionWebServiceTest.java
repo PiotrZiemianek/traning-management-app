@@ -11,6 +11,7 @@ import pl.sda.training.management.app.config.DateTimeFormat;
 import pl.sda.training.management.app.domain.model.*;
 import pl.sda.training.management.app.domain.service.CourseEditionService;
 import pl.sda.training.management.app.domain.service.CourseService;
+import pl.sda.training.management.app.domain.service.StudentService;
 import pl.sda.training.management.app.domain.service.TrainerService;
 
 import java.time.Duration;
@@ -31,12 +32,14 @@ class CourseEditionWebServiceTest {
     private CourseService courseService;
     @Mock
     private TrainerService trainerService;
+    @Mock
+    StudentService studentService;
 
     private final DateTimeFormat dateTimeFormat = new DateTimeFormat();
 
     @BeforeEach
     void setup() {
-        sut = new CourseEditionWebService(courseEditionService, courseService, trainerService, dateTimeFormat);
+        sut = new CourseEditionWebService(courseEditionService, courseService, trainerService, dateTimeFormat, studentService);
     }
 
     @Test

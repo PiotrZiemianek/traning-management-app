@@ -17,4 +17,12 @@ public class StudentService {
         return studentRepo.findByUser_Login(studentLogin)
                 .orElseThrow(() -> new StudentNotFoundException("Student with login: " + studentLogin.value() + " not found."));
     }
+
+    public boolean existsByLogin(Login studentLogin) {
+        return studentRepo.existsByUser_Login(studentLogin);
+    }
+
+    public Student save(Student student) {
+        return studentRepo.save(student);
+    }
 }

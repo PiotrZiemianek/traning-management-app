@@ -42,4 +42,7 @@ public class CourseEditionService {
     public List<EditionCode> getEditionCodesByCourseIdAndStudentNotParticipated(Long courseId, Login studentLogin) {
         return courseEditionRepo.getEditionCodesByCourseIdAndStudentNotParticipated(courseId, studentService.getByLogin(studentLogin));
     }
+    public List<EditionCode> getEditionCodesByCourseId(Long courseId) {
+        return courseEditionRepo.getEditionCodesByCourseId(courseId);
+    }
 }

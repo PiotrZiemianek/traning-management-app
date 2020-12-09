@@ -26,7 +26,7 @@ public class SubmissionController {
     @PostMapping
     public ModelAndView getChooseEditionView(Long chosenCourseId, Principal principal) {
         return new ModelAndView("submission/submission-choose-edition",
-                "editionsCodes", courseEditionWebService.getEditionsCodesByCourseIdAndStudentNotParticipated(chosenCourseId, principal.getName()));
+                "editionsCodes", courseEditionWebService.getEditionsCodesByCourseIdAndUserNotParticipated(chosenCourseId, principal.getName()));
     }
 
     @PostMapping("/submit")

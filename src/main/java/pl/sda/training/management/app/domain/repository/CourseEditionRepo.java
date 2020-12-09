@@ -18,4 +18,7 @@ public interface CourseEditionRepo extends JpaRepository<CourseEdition, Long> {
     List<EditionCode> getEditionCodesByCourseIdAndStudentNotParticipated(@Param("courseId") Long courseId, @Param("student") Student student);
 
     Optional<CourseEdition> findByEditionCode(EditionCode code);
+
+    @Query("select editionCode from CourseEdition where course.id = :courseId")
+    List<EditionCode> getEditionCodesByCourseId(@Param("courseId") Long courseId);
 }

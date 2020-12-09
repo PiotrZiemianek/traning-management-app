@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -31,7 +31,7 @@ public class DataInitializer implements ApplicationRunner {
                 .password(Password.of("{bcrypt}$2a$10$Kmu5xlBT/v8pX3R1OFQwkOvuhIjgi4I0vVThPsQo7vsRlQ1230F66"))
                 .firstName(FirstName.of("Piotr"))
                 .lastName(LastName.of("Ziemianek"))
-                .roles(List.of(UserRole.ROLE_PARTICIPANT))
+                .roles(Set.of(UserRole.ROLE_PARTICIPANT))
                 .isActive(true)
                 .build();
 
@@ -40,7 +40,7 @@ public class DataInitializer implements ApplicationRunner {
                 .password(Password.of("{bcrypt}$2a$10$Kmu5xlBT/v8pX3R1OFQwkOvuhIjgi4I0vVThPsQo7vsRlQ1230F66"))
                 .firstName(FirstName.of("Krzysztof"))
                 .lastName(LastName.of("Krawczyk"))
-                .roles(List.of(UserRole.ROLE_TRAINER))
+                .roles(Set.of(UserRole.ROLE_TRAINER))
                 .isActive(true)
                 .build();
         Trainer trainer = new Trainer(user2);

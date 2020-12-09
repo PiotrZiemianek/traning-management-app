@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface StudentRepo extends JpaRepository<Student, Long> {
     Optional<Student> findByUser_Login(Login studentLogin);
+
+    boolean existsByUser_Login(Login login);
 }
