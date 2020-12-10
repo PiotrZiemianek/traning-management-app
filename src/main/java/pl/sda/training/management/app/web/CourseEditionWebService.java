@@ -107,9 +107,9 @@ public class CourseEditionWebService {
                 .collect(Collectors.toList());
     }
 
-    public List<String> getEditionsCodesByCourseIdAndUserNotParticipated(Long chosenCourseId, String userLogin) {
+    public List<String> getEditionsCodesByCourseIdWhereUserNotParticipated(Long chosenCourseId, String userLogin) {
         if (studentService.existsByLogin(Login.of(userLogin))) {
-            return courseEditionService.getEditionCodesByCourseIdAndStudentNotParticipated(chosenCourseId, Login.of(userLogin))
+            return courseEditionService.getEditionCodesByCourseIdWhereStudentNotParticipated(chosenCourseId, Login.of(userLogin))
                     .stream()
                     .map(EditionCode::value)
                     .collect(Collectors.toList());

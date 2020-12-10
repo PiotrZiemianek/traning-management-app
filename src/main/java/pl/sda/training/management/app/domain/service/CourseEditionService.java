@@ -39,8 +39,8 @@ public class CourseEditionService {
                 .orElseThrow(() -> new CourseEditionNotFoundException("CourseEdition with id: " + id + " not found."));
     }
 
-    public List<EditionCode> getEditionCodesByCourseIdAndStudentNotParticipated(Long courseId, Login studentLogin) {
-        return courseEditionRepo.getEditionCodesByCourseIdAndStudentNotParticipated(courseId, studentService.getByLogin(studentLogin));
+    public List<EditionCode> getEditionCodesByCourseIdWhereStudentNotParticipated(Long courseId, Login studentLogin) {
+        return courseEditionRepo.getEditionCodesByCourseIdWhereStudentNotParticipated(courseId, studentService.getByLogin(studentLogin));
     }
     public List<EditionCode> getEditionCodesByCourseId(Long courseId) {
         return courseEditionRepo.getEditionCodesByCourseId(courseId);

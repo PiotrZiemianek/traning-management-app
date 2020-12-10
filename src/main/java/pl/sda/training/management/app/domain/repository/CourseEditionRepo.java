@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface CourseEditionRepo extends JpaRepository<CourseEdition, Long> {
 
     @Query("select editionCode from CourseEdition where course.id = :courseId and :student not member students")
-    List<EditionCode> getEditionCodesByCourseIdAndStudentNotParticipated(@Param("courseId") Long courseId, @Param("student") Student student);
+    List<EditionCode> getEditionCodesByCourseIdWhereStudentNotParticipated(@Param("courseId") Long courseId, @Param("student") Student student);
 
     Optional<CourseEdition> findByEditionCode(EditionCode code);
 
