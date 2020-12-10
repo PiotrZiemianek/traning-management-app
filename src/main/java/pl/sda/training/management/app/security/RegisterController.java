@@ -25,7 +25,7 @@ public class RegisterController {
     @PostMapping
     public String processRegistration(RegistrationForm registrationForm) {
         userRepo.save(registrationForm.toUser(encoder));
-        log.info("User with login: " + registrationForm.getLogin() + "created and saved.");
+        log.info("User with login: " + registrationForm.getLogin() + " created and saved.");
         return "redirect:/login";
     }
 }
