@@ -20,8 +20,8 @@ public class UserService {
     }
 
 
-    public User getUserByLogin(String login) {
-        return userRepo.findByLogin(Login.of(login))
+    public User getUserByLogin(Login login) {
+        return userRepo.findByLogin(login)
                 .orElseThrow(() -> new UserNotFoundException("User with login: " + login + "not found."));
     }
 }

@@ -17,10 +17,12 @@ class CourseEditionServiceTest {
 
     @Mock
     private CourseEditionRepo courseEditionRepo;
+    @Mock
+    private StudentService studentService;
 
     @BeforeEach
     void setup() {
-        sut = new CourseEditionService(courseEditionRepo);
+        sut = new CourseEditionService(courseEditionRepo, studentService);
     }
 
     @Test

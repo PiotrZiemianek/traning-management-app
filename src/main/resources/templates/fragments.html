@@ -63,6 +63,22 @@
     </ul>
 </nav>
 
+<nav id='main-menu'>
+    <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+    <ul>
+        <li><a href='/'>Strona główna</a></li>
+        <li><a class='dropdown-arrow' href='http://'>Panel</a>
+            <ul class='sub-menus'>
+                <li><a href='/admin'>Administracyjny</a></li>
+                <li><a href='/trainer'>Nauczyciela</a></li>
+                <li><a href='/student'>Ucznia</a></li>
+            </ul>
+        </li>
+        <li><a href='/register'>Rejestracja</a></li>
+        <li><a href='/login'>Logowanie</a></li>
+    </ul>
+</nav>
+
 <th:block th:fragment='lessons-details'>
 
     <div class="horizontal-center">

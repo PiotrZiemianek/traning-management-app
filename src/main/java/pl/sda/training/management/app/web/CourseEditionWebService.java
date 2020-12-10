@@ -6,6 +6,7 @@ import pl.sda.training.management.app.config.DateTimeFormat;
 import pl.sda.training.management.app.domain.model.*;
 import pl.sda.training.management.app.domain.service.CourseEditionService;
 import pl.sda.training.management.app.domain.service.CourseService;
+import pl.sda.training.management.app.domain.service.StudentService;
 import pl.sda.training.management.app.domain.service.TrainerService;
 
 import java.time.Duration;
@@ -23,6 +24,7 @@ public class CourseEditionWebService {
     private final CourseService courseService;
     private final TrainerService trainerService;
     private final DateTimeFormat dateTimeFormat;
+    private final StudentService studentService;
 
 
     public void save(CourseEditionDTO editionDTO) {
@@ -62,13 +64,12 @@ public class CourseEditionWebService {
             LessonDetailsDTO lessonDetailsDTO = editionDTO.getLessonsDetails().get(i);
             Trainer trainer = null;
 
-            if (!lessonDetailsDTO.getTrainerLogin().isBlank()){
+            if (!lessonDetailsDTO.getTrainerLogin().isBlank()) {
                 trainer = trainerService.getByLogin(Login.of(lessonDetailsDTO.getTrainerLogin()));
                 trainer.getCoursesList().add(courseEdition);
                 trainer.getLessonDetails().add(lessonDetails);
                 courseEdition.getTrainers().add(trainer);
             }
-
 
 
             lessonDetails.setTrainer(trainer);
@@ -103,6 +104,19 @@ public class CourseEditionWebService {
         return courseEditions
                 .stream()
                 .map(CourseEditionToChoose::of)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getEditionsCodesByCourseIdWhereUserNotParticipated(Long chosenCourseId, String userLogin) {
+        if (studentService.existsByLogin(Login.of(userLogin))) {
+            return courseEditionService.getEditionCodesByCourseIdWhereStudentNotParticipated(chosenCourseId, Login.of(userLogin))
+                    .stream()
+                    .map(EditionCode::value)
+                    .collect(Collectors.toList());
+        }
+        return courseEditionService.getEditionCodesByCourseId(chosenCourseId)
+                .stream()
+                .map(EditionCode::value)
                 .collect(Collectors.toList());
     }
 }

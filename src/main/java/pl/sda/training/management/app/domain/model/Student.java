@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.sda.training.management.app.domain.model.UserRole.ROLE_PARTICIPANT;
+
 @Entity
 @Getter
 @Setter
@@ -24,6 +26,11 @@ public class Student {
 
     @ManyToMany
     private List<CourseEdition> coursesEditions = new ArrayList<>();
+
+    public Student(User user) {
+        this.user = user;
+        user.getRoles().add(ROLE_PARTICIPANT);
+    }
 
     @Override
     public String toString() {

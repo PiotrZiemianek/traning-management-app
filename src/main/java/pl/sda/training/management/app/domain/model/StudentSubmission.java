@@ -28,6 +28,11 @@ public class StudentSubmission {
     @ManyToOne
     private CourseEdition courseEdition;
 
+    public StudentSubmission(Student student, CourseEdition courseEdition) {
+        this.student = student;
+        this.courseEdition = courseEdition;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

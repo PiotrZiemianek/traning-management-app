@@ -53,7 +53,7 @@ public class TrainerService {
     }
 
     public void setAsTrainerByLogin(String userLogin) {
-        User user = userService.getUserByLogin(userLogin);
+        User user = userService.getUserByLogin(Login.of(userLogin));
         user.getRoles().add(ROLE_TRAINER);
         Trainer trainer = new Trainer(user);
         trainerRepo.save(trainer);
