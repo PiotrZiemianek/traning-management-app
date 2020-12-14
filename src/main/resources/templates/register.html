@@ -3,28 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Rejestracja</title>
+    <th:block th:insert="/fragments :: head"></th:block>
 </head>
 <body>
 Rejestracja
-<form method="POST" th:action="@{/register}" id="registerForm">
+<form method="POST" th:action="@{/register}" th:object="${registrationForm}" id="registrationForm">
 
     <label for="login">Login: </label>
-    <input type="text" name="login" id="login" required><br/>
+    <input type="text" th:field="*{login}" name="login" id="login" required>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('login')}"
+          th:errors="*{login}">Błędny login.</span>
+    <br/> <br/>
+    <label for="password">Hasło: </label>
+    <input type="password" th:field="*{password}" name="password" id="password" required/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('password')}"
+          th:errors="*{password}">Niepoprawne hasło.</span>
     <br/>
 
-    <label for="password">Hasło: </label>
-    <input type="password" name="password" id="password" required/><br/>
-
-<!--    <label for="confirm">Potwierdź hasło: </label>-->
-<!--    <input type="password" name="confirm" id="confirm" required/><br/>-->
-<!--    <br/>-->
+    <label for="confirm_password">Potwierdź hasło: </label>
+    <input type="password" name="confirm_password" id="confirm_password" required/>
+    <span id='confirm_password_message'></span><br/>
+    <br/>
 
     <label for="name">Imię: </label>
-    <input type="text" name="name" id="name" required/><br/>
+    <input type="text" th:field="*{name}" name="name" id="name" required/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('name')}"
+          th:errors="*{name}">Błędne imię.</span>
+    <br/>
     <label for="lastName">Nazwisko: </label>
-    <input type="text" name="lastName" id="lastName" required/><br/>
+    <input type="text" th:field="*{lastName}" name="lastName" id="lastName" required/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('lastName')}"
+          th:errors="*{lastName}">Błędne nazwisko.</span><br/>
 
-    <input type="submit" value="Zarejestruj"/>
+    <input type="submit" id="submitBtn" value="Zarejestruj"/>
 </form>
+
+<div th:insert="fragments :: scripts"></div>
+<script>
+    $('#password, #confirm_password').on('keyup', function () {
+        if ($('#password').val() === $('#confirm_password').val()) {
+            $('#confirm_password_message').html('OK').css('color', 'green');
+            $('#submitBtn').prop('disabled', false);
+        } else {
+
+            $('#confirm_password_message').html('Nie zgodne').css('color', 'red');
+            $('#submitBtn').prop('disabled', true);
+        }
+    });
+</script>
 </body>
 </html>
