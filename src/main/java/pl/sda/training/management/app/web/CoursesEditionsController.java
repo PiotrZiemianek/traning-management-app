@@ -3,11 +3,15 @@ package pl.sda.training.management.app.web;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.sda.training.management.app.utils.Counter;
+
+import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,7 +43,16 @@ public class CoursesEditionsController {
     }
 
     @PostMapping("/save")
-    public String saveCourseEdition(CourseEditionDTO courseEditionDTO) {
+    public String saveCourseEdition(
+            @ModelAttribute("courseEdition") @Valid CourseEditionDTO courseEditionDTO,
+            Errors errors, Model model) {
+
+        if (errors.hasErrors()) {
+            model.addAttribute("course", courseWebService.getCourseById(courseEditionDTO.getCourseId()));
+            model.addAttribute("trainers", trainerWebService.getTrainersToShow());
+            model.addAttribute("counter", new Counter());
+            return "admin/course-edition-edit-dates";
+        }
         courseEditionWebService.save(courseEditionDTO);
 
         return "redirect:/admin/courses-editions";

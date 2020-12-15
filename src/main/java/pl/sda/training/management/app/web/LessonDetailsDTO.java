@@ -6,9 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.sda.training.management.app.domain.model.LessonDetails;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.time.format.DateTimeFormatter;
 
 import static lombok.AccessLevel.PRIVATE;
+import static pl.sda.training.management.app.utils.Constants.AT_LEAST_3_CHAR;
+import static pl.sda.training.management.app.utils.Constants.INVALID_FORMAT;
 
 @Data
 @NoArgsConstructor
@@ -20,8 +24,11 @@ public class LessonDetailsDTO {
     private String dateTime;
     private int duration;
     private String trainerLogin;
+    @Size(min = 3, message = AT_LEAST_3_CHAR)
     private String street;
+    @Size(min = 3, message = AT_LEAST_3_CHAR)
     private String city;
+    @Pattern(regexp = "\\d{2}-\\d{3}",message = INVALID_FORMAT)
     private String zipCode;
     private String roomNumber;
 

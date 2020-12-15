@@ -6,11 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.sda.training.management.app.domain.model.CourseEdition;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
+import static pl.sda.training.management.app.utils.Constants.EDITION_CODE_INVALID_FORMAT;
 
 @Data
 @NoArgsConstructor
@@ -19,8 +22,9 @@ import static lombok.AccessLevel.PRIVATE;
 public class CourseEditionDTO {
     private Long id;
     private Long courseId;
+    @Pattern(regexp = "[a-z]+[A-Z]{3}\\d+", message = EDITION_CODE_INVALID_FORMAT)
     private String editionCode;
-    private List<LessonDetailsDTO> lessonsDetails = new ArrayList<>();
+    private List<@Valid LessonDetailsDTO> lessonsDetails = new ArrayList<>();
 
     public CourseEditionDTO(CourseDTO courseDTO) {
         this.courseId = courseDTO.getId();
