@@ -39,6 +39,9 @@
         <div class="row">
             <div class="col-md-2 offset-md-5 col-10 offset-1">
                 <label for="courseCode">Kod kursu</label>
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('editionCode')}"
+                      th:errors="*{editionCode}">Invalid edition code.</span>
                 <input id="courseCode" class="form-control" type="text" required
                        th:field="*{editionCode}">
             </div>
@@ -72,15 +75,16 @@
                         </thead>
                         <tbody>
 
-                        <tr th:each="lesson:${lessonsBlock.lessons}">
+                        <tr th:each="lesson:${lessonsBlock.lessons}"
+                            th:with="lessonIndex=${counter.get() + lessonStat.index}">
 
                             <td>
                                 <label th:text="${lesson.subject}">subject</label>
                             </td>
                             <td>
                                 <select class="form-control" name="trainerId" id="trainerId"
-                                        th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].trainerLogin}">
-                                    <option value="" >Wybierz</option>
+                                        th:field="*{lessonsDetails[__${lessonIndex}__].trainerLogin}">
+                                    <option value="">Wybierz</option>
                                     <option th:each="trainer:${trainers}"
                                             th:value="${trainer.login}"
                                             th:text="${trainer.firstName +' '+trainer.lastName}"
@@ -91,38 +95,49 @@
                             <td>
                                 <label>
                                     Ulica
+                                    <span class="validationError"
+                                          th:if="${#fields.hasErrors('lessonsDetails['+ (lessonIndex) +'].street')}"
+                                          th:errors="*{lessonsDetails[__${lessonIndex}__].street}">Invalid street.</span>
+
                                     <input th:id="${'street-'+ lessonsBlockStat.index+'-'+ lessonStat.index}"
                                            type="text"
                                            class="form-control"
-                                           th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].street}">
+                                           th:field="*{lessonsDetails[__${lessonIndex}__].street}">
                                 </label>
                                 <label>
                                     Miasto
+                                    <span class="validationError"
+                                          th:if="${#fields.hasErrors('lessonsDetails['+ (lessonIndex) +'].city')}"
+                                          th:errors="*{lessonsDetails[__${lessonIndex}__].city}">Invalid city.</span>
                                     <input th:id="${'city-'+ lessonsBlockStat.index+'-'+ lessonStat.index}"
                                            type="text"
                                            class="form-control"
-                                           th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].city}">
+                                           th:field="*{lessonsDetails[__${lessonIndex}__].city}">
                                 </label>
                                 <label>
                                     Kod pocztowy
+                                    <span class="validationError"
+                                          th:if="${#fields.hasErrors('lessonsDetails['+ (lessonIndex) +'].zipCode')}"
+                                          th:errors="*{lessonsDetails[__${lessonIndex}__].zipCode}">Invalid zip-code.</span>
                                     <input th:id="${'zipcode-'+ lessonsBlockStat.index+'-'+ lessonStat.index}"
                                            type="text"
                                            class="form-control"
-                                           th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].zipCode}">
+                                           th:field="*{lessonsDetails[__${lessonIndex}__].zipCode}"
+                                           placeholder="XX-XXX">
                                 </label>
                                 <label>
                                     Numer sali
                                     <input th:id="${'room-'+ lessonsBlockStat.index+'-'+ lessonStat.index}"
                                            type="text"
                                            class="form-control"
-                                           th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].roomNumber}">
+                                           th:field="*{lessonsDetails[__${lessonIndex}__].roomNumber}">
                                 </label>
                             </td>
                             <td>
 
                                 <input type="text" class="form-control datepicker" required
                                        th:id="${'datepicker-'+ lessonsBlockStat.index +'-'+ lessonStat.index}"
-                                       th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].dateTime}">
+                                       th:field="*{lessonsDetails[__${lessonIndex}__].dateTime}">
                                 <script th:inline="javascript">
                                     $([[${'#datepicker-'+ lessonsBlockStat.index +'-'+ lessonStat.index}]]).datetimepicker({
                                         locale: 'pl'
@@ -131,14 +146,14 @@
                             </td>
                             <td>
                                 <input class="form-control duration" type="number" id="duration"
-                                       th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].duration}">
+                                       th:field="*{lessonsDetails[__${lessonIndex}__].duration}">
                             </td>
                             <input hidden
-                                   th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].lessonId}"
+                                   th:field="*{lessonsDetails[__${lessonIndex}__].lessonId}"
                                    th:value="${lesson.id}">
                             <input hidden
-                                   th:field="*{lessonsDetails[__${counter.get() + lessonStat.index}__].id}"
-                                   th:value="${courseEdition.lessonsDetails[__${counter.get() + lessonStat.index}__].id}">
+                                   th:field="*{lessonsDetails[__${lessonIndex}__].id}"
+                                   th:value="${courseEdition.lessonsDetails[__${lessonIndex}__].id}">
                         </tr>
                         </tbody>
                     </table>
