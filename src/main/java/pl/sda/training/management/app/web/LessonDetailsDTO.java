@@ -37,13 +37,18 @@ public class LessonDetailsDTO {
     }
 
     public static LessonDetailsDTO of(LessonDetails lessonDetails) {
+        String trainerLogin =null;
+        if (lessonDetails.getTrainer()!=null){
+            trainerLogin = lessonDetails.getTrainer().getUser().getLogin().value();
+        }
+
         return LessonDetailsDTO.builder()
                 .id(lessonDetails.getId())
                 .lessonId(lessonDetails.getLesson().getId())
                 .dateTime(lessonDetails.getLocalDateTime()
                         .format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")))
                 .duration((int) lessonDetails.getDuration().toMinutes())
-                .trainerLogin(lessonDetails.getTrainer().getUser().getLogin().value())
+                .trainerLogin(trainerLogin)
                 .street(lessonDetails.getAddress().getStreetAddress().value())
                 .city(lessonDetails.getAddress().getCity().value())
                 .zipCode(lessonDetails.getAddress().getZipCode().value())
