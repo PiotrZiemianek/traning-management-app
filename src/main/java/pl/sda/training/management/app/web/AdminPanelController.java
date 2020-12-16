@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 public class AdminPanelController {
     private final StudentSubmissionWebService submissionWebService;
+    private final StudentWebService studentWebService;
 
     @GetMapping
     public String getAdminPanel() {
@@ -26,5 +27,11 @@ public class AdminPanelController {
 
         return new ModelAndView("admin/accept-submissions",
                 "studentSubmissions", submissionWebService.getSubmissions());
+    }
+
+    @GetMapping("/students")
+    public ModelAndView getStudents(){
+        return new ModelAndView("admin/students",
+                "students", studentWebService.getAll());
     }
 }
