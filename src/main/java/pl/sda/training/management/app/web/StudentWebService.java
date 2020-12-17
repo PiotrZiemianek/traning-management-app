@@ -2,6 +2,7 @@ package pl.sda.training.management.app.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.sda.training.management.app.domain.model.Login;
 import pl.sda.training.management.app.domain.service.StudentService;
 
 import java.util.List;
@@ -18,5 +19,10 @@ public class StudentWebService {
                 .stream()
                 .map(StudentToShow::of)
                 .collect(Collectors.toList());
+    }
+
+    public StudentToShow getStudentToShow(String login) {
+        return StudentToShow.of(studentService
+                .getByLogin(Login.of(login)));
     }
 }

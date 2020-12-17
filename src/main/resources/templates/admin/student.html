@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+</head>
+<body>
+
+<div id="user-bar" th:include="fragments :: #user-bar"></div>
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #admin-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Student</h3>
+</div>
+<div class="col-md-6 offset-sm-3 col-sm-12">
+    <h2>
+        Login:
+        <span th:text="${student.login}">login</span>
+    </h2>
+    <h2>
+        Imię:
+        <span th:text="${student.firstName}">first name</span>
+    </h2>
+    <h2>
+        Nazwisko:
+        <span th:text="${student.lastName}">last name</span>
+    </h2>
+
+    <h2>Kursy:</h2>
+
+    <form class="p-1" method="post">
+        <ul th:if="${!student.editionsCodes.isEmpty()}">
+            <li th:each="editionCode:${student.editionsCodes}"
+                th:text="${editionCode}">editionCode
+            </li>
+        </ul>
+        <div th:if="${student.editionsCodes.isEmpty()}">Brak</div>
+
+        <div class="horizontal-center">
+            <button type="submit" class="btn btn-secondary">Zatwierdź</button>
+        </div>
+    </form>
+</div>
+
+<div th:insert="fragments :: scripts"></div>
+
+</body>
+</html>

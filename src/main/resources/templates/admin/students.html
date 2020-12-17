@@ -16,10 +16,10 @@
 </div>
 <div class="center">
     <div th:if="${students.isEmpty()}" class="gray-text-box">
-        <h2>Brak trenerów</h2>
+        <h2>Brak studentów</h2>
     </div>
 </div>
-<div th:if="${!students.isEmpty()}" class="p-1">
+<form th:if="${!students.isEmpty()}" class="p-1" method="post">
     <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
         <thead>
         <tr>
@@ -44,13 +44,13 @@
                 <div th:if="${student.editionsCodes.isEmpty()}">Brak</div>
             </td>
             <td>
-                <input type="checkbox" th:value="${student.login}">
+                <input type="radio" name="student" th:value="${student.login}">
             </td>
         </tr>
         </tbody>
     </table>
-</div>
-
+    <button type="submit" class="btn btn-secondary center-bottom-absolute">Zarządzaj</button>
+</form>
 
 <div th:insert="fragments :: scripts"></div>
 
