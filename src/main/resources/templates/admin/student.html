@@ -32,14 +32,37 @@
 
     <form class="p-1" method="post">
         <ul th:if="${!student.editionsCodes.isEmpty()}">
-            <li th:each="editionCode:${student.editionsCodes}"
-                th:text="${editionCode}">editionCode
+            <li th:each="editionCode:${student.editionsCodes}">
+                <span th:text="${editionCode}">editionCode</span>
+                <button type="submit" th:formaction="${'/admin/students/'+ student.login}"
+                        name="deleteFromEdition"
+                        th:value="${editionCode}"
+                        class="btn-sm btn-outline-secondary">Usuń</button>
             </li>
         </ul>
         <div th:if="${student.editionsCodes.isEmpty()}">Brak</div>
+        <br>
+        <h5>Dodaj kurs:</h5>
+        <div class="input-group">
+            <select class="form-control col-md-3 col-sm-12" name="chosenCourseId" autofocus>
+                <option th:each="course:${coursesToChoose}"
+                        th:value="${course.code}"
+                        th:text="${course.code}"
+                        name="code">Course code
+                </option>
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" formaction="" type="button">Dalej ></button>
+            </div>
+        </div>
 
+        <br>
+        <label style="color: red">
+            <input type="checkbox" name="deleteStudent">
+            usuń studenta
+        </label>
         <div class="horizontal-center">
-            <button type="submit" class="btn btn-secondary">Zatwierdź</button>
+            <button type="submit" class="btn btn-outline-secondary">Zatwierdź</button>
         </div>
     </form>
 </div>

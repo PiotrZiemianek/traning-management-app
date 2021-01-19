@@ -3,10 +3,8 @@ package pl.sda.training.management.app.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -16,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminPanelController {
     private final StudentSubmissionWebService submissionWebService;
     private final StudentWebService studentWebService;
+    private final CourseEditionWebService courseEditionWebService;
 
     @GetMapping
     public String getAdminPanel() {
@@ -38,11 +37,26 @@ public class AdminPanelController {
     }
 
     @PostMapping("/students")
-    public ModelAndView menageStudent(@RequestParam(name = "student", required = false) String login) {
+    public String menageStudent(@RequestParam(name = "student", required = false) String login, Model model) {
         if (login == null) {
-            return new ModelAndView("redirect:students");
+            return "redirect:students";
         }
-        return new ModelAndView("admin/student",
-                "student", studentWebService.getStudentToShow(login));
+
+        model.addAttribute("student", studentWebService.getStudentToShow(login));
+        model.addAttribute("coursesToChoose", courseEditionWebService.getAllCoursesEditionsToChoose());
+
+        return "admin/student";
+    }
+
+    @PostMapping("/students/{studentLogin}")
+    public String deleteStudentFromCourseEdition(@PathVariable String studentLogin,
+                                                 @RequestParam(name = "deleteFromEdition") String editionCode,
+                                                 Model model) {
+        courseEditionWebService.deleteStudentFromEdition(studentLogin, editionCode);
+
+        model.addAttribute("student", studentWebService.getStudentToShow(studentLogin));
+        model.addAttribute("coursesToChoose", courseEditionWebService.getAllCoursesEditionsToChoose());
+
+        return "admin/student";
     }
 }

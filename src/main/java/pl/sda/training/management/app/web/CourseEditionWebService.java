@@ -119,4 +119,8 @@ public class CourseEditionWebService {
                 .map(EditionCode::value)
                 .collect(Collectors.toList());
     }
+
+    public void deleteStudentFromEdition(String studentLogin, String editionCode) {
+        courseEditionService.deleteStudentFromEdition(Login.of(studentLogin), EditionCode.of(editionCode));
+    }
 }
