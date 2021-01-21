@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+</head>
+<body>
+
+<div id="user-bar" th:include="fragments :: #user-bar"></div>
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #admin-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Studenci</h3>
+</div>
+<div class="center">
+    <div th:if="${students.isEmpty()}" class="gray-text-box">
+        <h2>Brak studentów</h2>
+    </div>
+</div>
+<form th:if="${!students.isEmpty()}" class="p-1" method="post">
+    <table class="blueTable col-md-8 offset-sm-2 col-sm-12">
+        <thead>
+        <tr>
+            <th>Login</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Kursy</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student:${students}">
+            <td th:text="${student.login}">login</td>
+            <td th:text="${student.firstName}">firstname</td>
+            <td th:text="${student.lastName}">lastname</td>
+            <td>
+                <ul th:if="${!student.editionsCodes.isEmpty()}">
+                    <li th:each="editionCode:${student.editionsCodes}"
+                        th:text="${editionCode}">editionCode
+                    </li>
+                </ul>
+                <div th:if="${student.editionsCodes.isEmpty()}">Brak</div>
+            </td>
+            <td>
+                <input type="radio" name="student" th:value="${student.login}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-secondary center-bottom-absolute">Zarządzaj</button>
+</form>
+
+<div th:insert="fragments :: scripts"></div>
+
+</body>
+</html>

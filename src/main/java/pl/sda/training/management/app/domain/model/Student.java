@@ -21,11 +21,14 @@ public class Student {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private User user;
 
     @ManyToMany
     private List<CourseEdition> coursesEditions = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student", orphanRemoval = true)
+    private List<StudentSubmission> submissions = new ArrayList<>();
 
     public Student(User user) {
         this.user = user;

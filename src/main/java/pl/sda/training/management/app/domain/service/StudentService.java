@@ -7,6 +7,8 @@ import pl.sda.training.management.app.domain.model.Student;
 import pl.sda.training.management.app.domain.repository.StudentRepo;
 import pl.sda.training.management.app.exception.StudentNotFoundException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StudentService {
@@ -24,5 +26,15 @@ public class StudentService {
 
     public Student save(Student student) {
         return studentRepo.save(student);
+    }
+
+    public List<Student> findAll() {
+        return studentRepo.findAll();
+    }
+
+    public synchronized void delete(Login login) {
+        Student student = studentRepo.findByUser_Login(login)
+                .orElseThrow(() -> new StudentNotFoundException("Student with login: " + login.value() + " not found."));
+        studentRepo.delete(student);
     }
 }

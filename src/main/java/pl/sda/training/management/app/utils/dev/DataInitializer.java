@@ -94,7 +94,7 @@ public class DataInitializer implements ApplicationRunner {
                 ));
         courseEdition.getTrainers().add(trainer);
         trainer.getCoursesList().add(courseEdition);
-        Student student = new Student(null, user1, new ArrayList<>());
+        Student student = new Student(null, user1, new ArrayList<>(), new ArrayList<>());
         StudentSubmission studentSubmission = new StudentSubmission();
         studentSubmission.setStudent(student);
         studentSubmission.setCourseEdition(courseEdition);

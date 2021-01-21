@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administratora</title>
+    <th:block th:insert="/fragments :: head"></th:block>
+</head>
+<body>
+
+<div id="user-bar" th:include="fragments :: #user-bar"></div>
+<!--Navigation bar-->
+<nav id='menu' th:insert="fragments :: #admin-menu"></nav>
+
+<div class="horizontal-center">
+    <h3 class="beige-text-box">Student</h3>
+</div>
+<div class="col-md-6 offset-sm-3 col-sm-12">
+    <h2>
+        Login:
+        <span th:text="${student.login}">login</span>
+    </h2>
+    <h2>
+        Imię:
+        <span th:text="${student.firstName}">first name</span>
+    </h2>
+    <h2>
+        Nazwisko:
+        <span th:text="${student.lastName}">last name</span>
+    </h2>
+
+    <h2>Kursy:</h2>
+
+    <div class="p-1">
+        <form th:action="${'/admin/students/'+ student.login}" method="post">
+            <ul th:if="${!student.editionsCodes.isEmpty()}">
+                <li th:each="editionCode:${student.editionsCodes}">
+                    <span th:text="${editionCode}">editionCode</span>
+                    <button type="submit"
+                            name="deleteFromEdition"
+                            th:value="${editionCode}"
+                            class="btn-sm btn-outline-secondary">Usuń
+                    </button>
+                </li>
+            </ul>
+            <div th:if="${student.editionsCodes.isEmpty()}">Brak</div>
+        </form>
+        <br>
+        <h5>Dodaj kurs:</h5>
+        <form method="post" th:action="${'/admin/students/'+ student.login}">
+            <div class="input-group">
+                <select class="form-control col-md-3 col-sm-12" name="addToEdition" autofocus>
+                    <option th:each="code:${editionCodes}"
+                            th:value="${code}"
+                            th:text="${code}"
+                            name="addToEdition">Course code
+                    </option>
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Dodaj</button>
+                </div>
+            </div>
+        </form>
+
+        <br>
+        <form method="post" th:action="${'/admin/students/'+ student.login +'/del'}">
+            <button type="submit" class="redButton">Usuń studenta</button>
+        </form>
+    </div>
+</div>
+
+<div th:insert="fragments :: scripts"></div>
+
+</body>
+</html>
