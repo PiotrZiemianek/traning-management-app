@@ -43,20 +43,34 @@ public class AdminPanelController {
         }
 
         model.addAttribute("student", studentWebService.getStudentToShow(login));
-        model.addAttribute("coursesToChoose", courseEditionWebService.getAllCoursesEditionsToChoose());
+        model.addAttribute("editionCodes", courseEditionWebService.getEditionCodesWhereStudentIsNotParticipant(login));
 
         return "admin/student";
     }
 
     @PostMapping("/students/{studentLogin}")
     public String deleteStudentFromCourseEdition(@PathVariable String studentLogin,
-                                                 @RequestParam(name = "deleteFromEdition") String editionCode,
+                                                 @RequestParam(name = "deleteFromEdition", required = false) String deleteFromEditionCode,
+                                                 @RequestParam(name = "addToEdition", required = false) String addToEditionCode,
                                                  Model model) {
-        courseEditionWebService.deleteStudentFromEdition(studentLogin, editionCode);
+        if (deleteFromEditionCode != null) {
+            courseEditionWebService.deleteStudentFromEdition(studentLogin, deleteFromEditionCode);
+        }
+
+        if (addToEditionCode != null) {
+            courseEditionWebService.addStudentToEdition(studentLogin, addToEditionCode);
+        }
 
         model.addAttribute("student", studentWebService.getStudentToShow(studentLogin));
-        model.addAttribute("coursesToChoose", courseEditionWebService.getAllCoursesEditionsToChoose());
+        model.addAttribute("editionCodes", courseEditionWebService.getEditionCodesWhereStudentIsNotParticipant(studentLogin));
+
 
         return "admin/student";
+    }
+
+    @PostMapping("/students/{studentLogin}/del")
+    public String deleteStudent(@PathVariable String studentLogin) {
+        studentWebService.deleteStudent(studentLogin);
+        return "redirect:/admin/students";
     }
 }

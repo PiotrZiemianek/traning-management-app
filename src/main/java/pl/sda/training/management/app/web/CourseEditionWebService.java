@@ -123,4 +123,15 @@ public class CourseEditionWebService {
     public void deleteStudentFromEdition(String studentLogin, String editionCode) {
         courseEditionService.deleteStudentFromEdition(Login.of(studentLogin), EditionCode.of(editionCode));
     }
+
+    public void addStudentToEdition(String studentLogin, String editionCode) {
+        courseEditionService.addStudentToEdition(Login.of(studentLogin), EditionCode.of(editionCode));
+    }
+
+    public List<String> getEditionCodesWhereStudentIsNotParticipant(String login) {
+        return courseEditionService.getEditionCodesWhereStudentIsNotParticipant(Login.of(login))
+                .stream()
+                .map(EditionCode::value)
+                .collect(Collectors.toList());
+    }
 }

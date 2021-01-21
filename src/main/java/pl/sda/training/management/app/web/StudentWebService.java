@@ -25,4 +25,8 @@ public class StudentWebService {
         return StudentToShow.of(studentService
                 .getByLogin(Login.of(login)));
     }
+
+    public void deleteStudent(String login) {
+        studentService.delete(Login.of(login));
+    }
 }

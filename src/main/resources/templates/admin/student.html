@@ -30,41 +30,42 @@
 
     <h2>Kursy:</h2>
 
-    <form class="p-1" method="post">
-        <ul th:if="${!student.editionsCodes.isEmpty()}">
-            <li th:each="editionCode:${student.editionsCodes}">
-                <span th:text="${editionCode}">editionCode</span>
-                <button type="submit" th:formaction="${'/admin/students/'+ student.login}"
-                        name="deleteFromEdition"
-                        th:value="${editionCode}"
-                        class="btn-sm btn-outline-secondary">Usuń</button>
-            </li>
-        </ul>
-        <div th:if="${student.editionsCodes.isEmpty()}">Brak</div>
+    <div class="p-1">
+        <form th:action="${'/admin/students/'+ student.login}" method="post">
+            <ul th:if="${!student.editionsCodes.isEmpty()}">
+                <li th:each="editionCode:${student.editionsCodes}">
+                    <span th:text="${editionCode}">editionCode</span>
+                    <button type="submit"
+                            name="deleteFromEdition"
+                            th:value="${editionCode}"
+                            class="btn-sm btn-outline-secondary">Usuń
+                    </button>
+                </li>
+            </ul>
+            <div th:if="${student.editionsCodes.isEmpty()}">Brak</div>
+        </form>
         <br>
         <h5>Dodaj kurs:</h5>
-        <div class="input-group">
-            <select class="form-control col-md-3 col-sm-12" name="chosenCourseId" autofocus>
-                <option th:each="course:${coursesToChoose}"
-                        th:value="${course.code}"
-                        th:text="${course.code}"
-                        name="code">Course code
-                </option>
-            </select>
-            <div class="input-group-append">
-                <button class="btn btn-outline-secondary" formaction="" type="button">Dalej ></button>
+        <form method="post" th:action="${'/admin/students/'+ student.login}">
+            <div class="input-group">
+                <select class="form-control col-md-3 col-sm-12" name="addToEdition" autofocus>
+                    <option th:each="code:${editionCodes}"
+                            th:value="${code}"
+                            th:text="${code}"
+                            name="addToEdition">Course code
+                    </option>
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Dodaj</button>
+                </div>
             </div>
-        </div>
+        </form>
 
         <br>
-        <label style="color: red">
-            <input type="checkbox" name="deleteStudent">
-            usuń studenta
-        </label>
-        <div class="horizontal-center">
-            <button type="submit" class="btn btn-outline-secondary">Zatwierdź</button>
-        </div>
-    </form>
+        <form method="post" th:action="${'/admin/students/'+ student.login +'/del'}">
+            <button type="submit" class="redButton">Usuń studenta</button>
+        </form>
+    </div>
 </div>
 
 <div th:insert="fragments :: scripts"></div>
