@@ -5,9 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.sda.training.management.app.domain.model.LessonDetails;
+import pl.sda.training.management.app.validation.groups.UpdatedInfo;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 import java.time.format.DateTimeFormatter;
 
 import static lombok.AccessLevel.PRIVATE;
@@ -24,11 +26,11 @@ public class LessonDetailsDTO {
     private String dateTime;
     private int duration;
     private String trainerLogin;
-    @Size(min = 3, message = AT_LEAST_3_CHAR)
+    @Size(min = 3, message = AT_LEAST_3_CHAR, groups = {UpdatedInfo.class, Default.class})
     private String street;
-    @Size(min = 3, message = AT_LEAST_3_CHAR)
+    @Size(min = 3, message = AT_LEAST_3_CHAR, groups = {UpdatedInfo.class, Default.class})
     private String city;
-    @Pattern(regexp = "\\d{2}-\\d{3}",message = INVALID_FORMAT)
+    @Pattern(regexp = "\\d{2}-\\d{3}", message = INVALID_FORMAT, groups = {UpdatedInfo.class, Default.class})
     private String zipCode;
     private String roomNumber;
 
@@ -37,8 +39,8 @@ public class LessonDetailsDTO {
     }
 
     public static LessonDetailsDTO of(LessonDetails lessonDetails) {
-        String trainerLogin =null;
-        if (lessonDetails.getTrainer()!=null){
+        String trainerLogin = null;
+        if (lessonDetails.getTrainer() != null) {
             trainerLogin = lessonDetails.getTrainer().getUser().getLogin().value();
         }
 

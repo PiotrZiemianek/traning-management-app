@@ -7,6 +7,7 @@ import pl.sda.training.management.app.domain.repository.CourseEditionRepo;
 import pl.sda.training.management.app.exception.CourseEditionNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -77,5 +78,13 @@ public class CourseEditionService {
         courseEditionRepo.save(courseEdition);
         studentService.save(student);
 
+    }
+
+    public boolean existsByEditionCode(EditionCode editionCode) {
+        return courseEditionRepo.existsByEditionCode(editionCode);
+    }
+
+    public Optional<CourseEdition> findByEditionCode(EditionCode editionCode) {
+        return courseEditionRepo.findByEditionCode(editionCode);
     }
 }
