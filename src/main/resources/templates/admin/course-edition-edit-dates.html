@@ -26,9 +26,9 @@
 <nav id='menu' th:insert="fragments :: #admin-menu"></nav>
 
 <div class="horizontal-center">
-    <h3 class="beige-text-box">Otwórz nową edycję kursu</h3>
+    <h3 class="beige-text-box">Edytuj edycję kursu</h3>
 </div>
-<form id="editionForm" method=post th:action="@{/admin/courses-editions/save}" th:object="${courseEdition}">
+<form id="editionForm" method=post th:action="@{/admin/courses-editions/edit/save}" th:object="${courseEdition}">
     <div class="container">
         <div class="row">
             <div class="col-10 offset-1">
@@ -39,9 +39,13 @@
         <div class="row">
             <div class="col-md-2 offset-md-5 col-10 offset-1">
                 <label for="courseCode">Kod kursu</label>
+                <br th:if="${#fields.hasErrors('editionCode')||#fields.hasGlobalErrors()}">
                 <span class="validationError"
                       th:if="${#fields.hasErrors('editionCode')}"
                       th:errors="*{editionCode}">Invalid edition code.</span>
+                <span class="validationError"
+                      th:if="${#fields.hasGlobalErrors()}"
+                      th:errors="${courseEdition}">Invalid edition code.</span>
                 <input id="courseCode" class="form-control" type="text" required
                        th:field="*{editionCode}">
             </div>
