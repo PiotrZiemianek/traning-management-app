@@ -27,10 +27,10 @@ public class DataInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         User user1 = User.builder()
-                .login(Login.of("robot"))
+                .login(Login.of("student"))
                 .password(Password.of("{bcrypt}$2a$10$Kmu5xlBT/v8pX3R1OFQwkOvuhIjgi4I0vVThPsQo7vsRlQ1230F66"))
-                .firstName(FirstName.of("Piotr"))
-                .lastName(LastName.of("Ziemianek"))
+                .firstName(FirstName.of("Andrzej"))
+                .lastName(LastName.of("Nowak"))
                 .roles(Set.of(UserRole.ROLE_PARTICIPANT))
                 .isActive(true)
                 .build();
