@@ -14,7 +14,6 @@ import pl.sda.training.management.app.exception.StudentNotFoundException;
 import pl.sda.training.management.app.exception.StudentSubmissionNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -46,11 +45,10 @@ public class StudentSubmissionService {
     }
 
     private StudentSubmission getSubmissionFromDB(Long submissionId) {
-        Optional<StudentSubmission> optionalStudentSubmission = studentSubmissionRepo.findById(submissionId);
-        if (optionalStudentSubmission.isPresent()) {
-            return optionalStudentSubmission.get();
-        }
-        throw new StudentSubmissionNotFoundException("StudentSubmission with id: " + submissionId + " not found.");
+
+        return studentSubmissionRepo.findById(submissionId)
+                .orElseThrow(() -> new StudentSubmissionNotFoundException(
+                        "StudentSubmission with id: " + submissionId + " not found."));
     }
 
     public List<StudentSubmission> getAll() {
