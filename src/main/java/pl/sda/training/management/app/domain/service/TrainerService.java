@@ -9,7 +9,6 @@ import pl.sda.training.management.app.domain.repository.TrainerRepo;
 import pl.sda.training.management.app.exception.TrainerNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 import static pl.sda.training.management.app.domain.model.UserRole.ROLE_TRAINER;
 
@@ -26,13 +25,9 @@ public class TrainerService {
     }
 
     public void delete(Long trainerId) {
-        Trainer trainer = getTrainerDB(trainerId);
+        Trainer trainer = getById(trainerId);
         trainer.getUser().setActive(false);
         trainerRepo.save(trainer);
-    }
-
-    public Trainer get(Long trainerId) {
-        return getTrainerDB(trainerId);
     }
 
     public Trainer getByLogin(Login login) {
@@ -40,20 +35,17 @@ public class TrainerService {
                 .orElseThrow(() -> new TrainerNotFoundException("Trainer with login: " + login.value() + " not found."));
     }
 
-    private Trainer getTrainerDB(Long trainerId) {
-        Optional<Trainer> optionalStudentSubmission = trainerRepo.findById(trainerId);
-        if (optionalStudentSubmission.isPresent()) {
-            return optionalStudentSubmission.get();
-        }
-        throw new TrainerNotFoundException("Trainer with id: " + trainerId + " not found.");
+    private Trainer getById(Long trainerId) {
+        return trainerRepo.findById(trainerId).orElseThrow(() -> new TrainerNotFoundException(
+                "Trainer with id: " + trainerId + " not found."));
     }
 
     public List<Trainer> getAll() {
         return trainerRepo.findAll();
     }
 
-    public void setAsTrainerByLogin(String userLogin) {
-        User user = userService.getUserByLogin(Login.of(userLogin));
+    public void setAsTrainerByLogin(Login userLogin) {
+        User user = userService.getUserByLogin(userLogin);
         user.getRoles().add(ROLE_TRAINER);
         Trainer trainer = new Trainer(user);
         trainerRepo.save(trainer);

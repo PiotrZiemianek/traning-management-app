@@ -2,6 +2,7 @@ package pl.sda.training.management.app.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.sda.training.management.app.domain.model.Login;
 import pl.sda.training.management.app.domain.service.TrainerService;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public class TrainerWebService {
     }
 
     public void setAsTrainerByLogin(String userLogin) {
-        trainerService.setAsTrainerByLogin(userLogin);
+        trainerService.setAsTrainerByLogin(Login.of(userLogin));
     }
 }

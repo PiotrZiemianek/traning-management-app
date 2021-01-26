@@ -6,15 +6,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.sda.training.management.app.domain.model.Login;
 import pl.sda.training.management.app.domain.model.Trainer;
 import pl.sda.training.management.app.domain.model.User;
 import pl.sda.training.management.app.domain.repository.TrainerRepo;
-import pl.sda.training.management.app.exception.TrainerNotFoundException;
 
+import java.util.HashSet;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
+import static pl.sda.training.management.app.domain.model.UserRole.ROLE_TRAINER;
 
 @ExtendWith(MockitoExtension.class)
 class TrainerServiceTest {
@@ -31,22 +35,6 @@ class TrainerServiceTest {
         sut = new TrainerService(trainerRepo, userService);
     }
 
-    @Test
-    @DisplayName("Should thrown TrainerNotFoundException when trainer not found in DB.")
-    void getException() {
-        //given
-        Long trainerId = 1L;
-
-        when(trainerRepo.findById(trainerId))
-                .thenReturn(Optional.empty());
-
-        //when, then
-        assertThrows(TrainerNotFoundException.class, () -> {
-            Trainer trainer = sut.get(trainerId);
-        });
-
-
-    }
 
     @Test
     @DisplayName("Should set user.isActive=true. Should save trainer to repo.")
@@ -90,5 +78,27 @@ class TrainerServiceTest {
         assertFalse(trainer.getUser().isActive());
         verify(trainerRepo, atLeastOnce()).findById(trainerId);
         verify(trainerRepo, atLeastOnce()).save(notNull());
+    }
+
+    @Test
+    @DisplayName("Should create new trainer based on user.")
+    void setAsTrainerByLogin() {
+        //given
+        Login testLogin = Login.of("testLogin");
+        User testUser = User.builder()
+                .login(testLogin)
+                .roles(new HashSet<>())
+                .build();
+
+        when(userService.getUserByLogin(testLogin))
+                .thenReturn(testUser);
+
+        //when
+        sut.setAsTrainerByLogin(testLogin);
+
+        //then
+        verify(userService, times(1)).getUserByLogin(testLogin);
+        assertThat(testUser.getRoles()).contains(ROLE_TRAINER);
+        verify(trainerRepo, times(1)).save(any(Trainer.class));
     }
 }
