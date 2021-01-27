@@ -107,7 +107,16 @@ public class CourseEditionWebService {
                 .collect(Collectors.toList());
     }
 
+
+    /**
+     * Returns editions codes of Course where user is not edition participant.
+     *
+     * @param chosenCourseId Id of Course (NOT CourseEdition)
+     * @param userLogin      login of the user
+     * @return codes of editions where user is not participant
+     */
     public List<String> getEditionsCodesByCourseIdWhereUserNotParticipated(Long chosenCourseId, String userLogin) {
+        //is user a student
         if (studentService.existsByLogin(Login.of(userLogin))) {
             return courseEditionService.getEditionCodesByCourseIdWhereStudentNotParticipated(chosenCourseId, Login.of(userLogin))
                     .stream()
@@ -128,6 +137,12 @@ public class CourseEditionWebService {
         courseEditionService.addStudentToEdition(Login.of(studentLogin), EditionCode.of(editionCode));
     }
 
+    /**
+     * Returns editions codes of ALL Courses where student is not edition participant.
+     *
+     * @param login Student login
+     * @return editions codes of ALL Courses where student is not edition participant
+     */
     public List<String> getEditionCodesWhereStudentIsNotParticipant(String login) {
         return courseEditionService.getEditionCodesWhereStudentIsNotParticipant(Login.of(login))
                 .stream()
