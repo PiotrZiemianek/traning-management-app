@@ -49,7 +49,7 @@ public class AdminPanelController {
     }
 
     @PostMapping("/students/{studentLogin}")
-    public String deleteStudentFromCourseEdition(@PathVariable String studentLogin,
+    public String addOrDelStudentFromCourseEdition(@PathVariable String studentLogin,
                                                  @RequestParam(name = "deleteFromEdition", required = false) String deleteFromEditionCode,
                                                  @RequestParam(name = "addToEdition", required = false) String addToEditionCode,
                                                  Model model) {
