@@ -7,10 +7,8 @@ import pl.sda.training.management.app.domain.model.Student;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @Data
-@AllArgsConstructor(access = PRIVATE)
+@AllArgsConstructor
 public class StudentToShow {
 
     private String login;

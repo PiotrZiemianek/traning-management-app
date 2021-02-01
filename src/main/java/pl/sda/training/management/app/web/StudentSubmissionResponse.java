@@ -1,9 +1,11 @@
 package pl.sda.training.management.app.web;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import pl.sda.training.management.app.domain.model.StudentSubmission;
 
 @Getter
+@AllArgsConstructor
 public class StudentSubmissionResponse {
     private final Long id;
 
