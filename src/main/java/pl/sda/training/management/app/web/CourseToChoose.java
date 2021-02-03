@@ -8,7 +8,7 @@ public class CourseToChoose {
     private long id;
     private String name;
 
-    private CourseToChoose(long id, String name) {
+    protected CourseToChoose(long id, String name) {
         this.id = id;
         this.name = name;
     }
