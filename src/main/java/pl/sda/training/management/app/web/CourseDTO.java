@@ -21,6 +21,11 @@ public class CourseDTO {
     private String name;
     private List<LessonsBlockDTO> lessonsBlocks = new ArrayList<>();
 
+    public CourseDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public static CourseDTO of(Course course) {
         return new CourseDTO(
                 course.getId(),

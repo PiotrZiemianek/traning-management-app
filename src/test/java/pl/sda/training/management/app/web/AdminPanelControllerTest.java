@@ -26,10 +26,10 @@ class AdminPanelControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    List<StudentSubmissionResponse> submissionDTOs;
-    List<StudentToShow> students;
-    String studentLogin;
-    List<String> editionCodes;
+    private List<StudentSubmissionResponse> submissionDTOs;
+    private List<StudentToShow> students;
+    private String studentLogin;
+    private List<String> editionCodes;
 
     @MockBean
     private StudentSubmissionWebService submissionWebService;
@@ -135,7 +135,8 @@ class AdminPanelControllerTest {
         verify(courseEditionWebService, times(1))
                 .deleteStudentFromEdition(studentLogin, editionCodes.get(0));
     }
- @Test
+
+    @Test
     @WithUserDetails(value = "testAdmin")
     void addOrDelStudentFromCourseEditionWithAddParam() throws Exception {
         mockMvc.perform(post("/admin/students/" + studentLogin)

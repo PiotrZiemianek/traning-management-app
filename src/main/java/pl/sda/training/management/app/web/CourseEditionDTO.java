@@ -10,6 +10,7 @@ import pl.sda.training.management.app.validation.UniqueEditionCode;
 import pl.sda.training.management.app.validation.groups.UpdatedInfo;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.groups.Default;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import static pl.sda.training.management.app.utils.Constants.NON_UNIQUE_EDITION_
 @UniqueCourseEdition(message = NON_UNIQUE_EDITION_CODE, groups = UpdatedInfo.class)
 public class CourseEditionDTO {
     private Long id;
+    @NotNull
     private Long courseId;
     @Pattern(regexp = "[a-z]+[A-Z]{3}\\d+", message = EDITION_CODE_INVALID_FORMAT,
             groups = {UpdatedInfo.class, Default.class})
