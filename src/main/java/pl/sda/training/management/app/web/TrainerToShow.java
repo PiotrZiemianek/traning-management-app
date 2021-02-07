@@ -7,10 +7,10 @@ import pl.sda.training.management.app.domain.model.Trainer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
 @Data
-@AllArgsConstructor(access = PRIVATE)
+@AllArgsConstructor(access = PROTECTED)
 public class TrainerToShow {
 
     private String login;

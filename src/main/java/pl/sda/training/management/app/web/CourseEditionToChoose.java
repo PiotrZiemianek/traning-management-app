@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import pl.sda.training.management.app.domain.model.CourseEdition;
 
-import static lombok.AccessLevel.PRIVATE;
+import static lombok.AccessLevel.PROTECTED;
 
 @Data
-@AllArgsConstructor(access = PRIVATE)
+@AllArgsConstructor(access = PROTECTED)
 public class CourseEditionToChoose {
     private long id;
     private String code;
