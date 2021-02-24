@@ -1,5 +1,7 @@
 package pl.sda.training.management.app.utils;
 
+import org.springframework.hateoas.MediaTypes;
+
 public class Constants {
     //validation messages
     public static final String LOGIN_AT_LEAST_3_CHAR = "Login musi posiadać conajmniej 3 znaki.";
@@ -13,6 +15,6 @@ public class Constants {
     public static final String NON_UNIQUE_EDITION_CODE = "Istnieje już inna edycja z takim kodem.";
 
     //api
-    public static final String API_PRODUCES = "application/json";
+    public static final String API_PRODUCES = MediaTypes.HAL_JSON_VALUE;
     public static final String API_URL = "/api";
 }

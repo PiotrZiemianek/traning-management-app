@@ -2,10 +2,7 @@ package pl.sda.training.management.app.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.sda.training.management.app.api.dto.CourseResource;
 import pl.sda.training.management.app.api.dto.CourseResourceAssembler;
 import pl.sda.training.management.app.domain.model.Course;
@@ -13,6 +10,7 @@ import pl.sda.training.management.app.domain.service.CourseService;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static pl.sda.training.management.app.utils.Constants.API_PRODUCES;
 import static pl.sda.training.management.app.utils.Constants.API_URL;
 
@@ -26,7 +24,16 @@ public class CourseApiController {
 
     @GetMapping
     public CollectionModel<CourseResource> getCourses() {
-        List<Course> all = courseService.findAll();
-        return new CourseResourceAssembler().toCollectionModel(all);
+        List<Course> courses = courseService.findAll();
+
+        return new CourseResourceAssembler()
+                .toCollectionModel(courses)
+                .add(linkTo(CourseApiController.class)
+                        .withRel("courses"));
+    }
+
+    @GetMapping("/{id}")
+    public CourseResource getCourse(@PathVariable Long id) {
+        return new CourseResourceAssembler().toModel(courseService.getById(id));
     }
 }
