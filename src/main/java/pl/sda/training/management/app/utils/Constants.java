@@ -10,5 +10,9 @@ public class Constants {
     public static final String EDITION_CODE_INVALID_FORMAT = "Nieprawidłowy format. Przykład poprawnego: \"javaKRK22\".";
     public static final String AT_LEAST_3_CHAR = "Conajmniej 3 znaki.";
     public static final String INVALID_FORMAT = "Nieprawidłowy format.";
-        public static final String NON_UNIQUE_EDITION_CODE = "Istnieje już inna edycja z takim kodem.";
+    public static final String NON_UNIQUE_EDITION_CODE = "Istnieje już inna edycja z takim kodem.";
+
+    //api
+    public static final String API_PRODUCES = "application/json";
+    public static final String API_URL = "/api";
 }
