@@ -25,6 +25,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.sda.training.management.app.api.dto.CourseResource.COURSE_RESOURCE_ASSEMBLER;
 import static pl.sda.training.management.app.utils.Constants.API_PRODUCES;
 import static pl.sda.training.management.app.utils.Constants.API_URL;
 
@@ -41,7 +42,7 @@ class CourseApiControllerTest {
 
     @BeforeEach
     public void setup() {
-        CourseResourceAssembler assembler = new CourseResourceAssembler();
+        CourseResourceAssembler assembler = COURSE_RESOURCE_ASSEMBLER;
 
         List<Course> courses = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {

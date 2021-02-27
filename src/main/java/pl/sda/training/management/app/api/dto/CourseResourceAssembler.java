@@ -5,7 +5,7 @@ import pl.sda.training.management.app.api.controller.CourseApiController;
 import pl.sda.training.management.app.domain.model.Course;
 
 public class CourseResourceAssembler extends RepresentationModelAssemblerSupport<Course, CourseResource> {
-    public CourseResourceAssembler() {
+    CourseResourceAssembler() {
         super(CourseApiController.class, CourseResource.class);
     }
 

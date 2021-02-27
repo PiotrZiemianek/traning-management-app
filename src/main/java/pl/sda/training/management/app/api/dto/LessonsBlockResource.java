@@ -7,9 +7,11 @@ import pl.sda.training.management.app.domain.model.Lesson;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.sda.training.management.app.api.dto.LessonResource.LESSON_ASSEMBLER;
+
 
 public class LessonsBlockResource extends RepresentationModel<LessonsBlockResource> {
-    public static final LessonAssembler LESSON_ASSEMBLER = new LessonAssembler();
+    public static final LessonsBlockAssembler LESSONS_BLOCK_ASSEMBLER = new LessonsBlockAssembler();
 
     @Getter
     private final String blockName;
