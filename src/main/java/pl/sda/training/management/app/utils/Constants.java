@@ -17,4 +17,5 @@ public class Constants {
     //api
     public static final String API_PRODUCES = MediaTypes.HAL_JSON_VALUE;
     public static final String API_URL = "/api";
+    public static final int DEFAULT_API_PAGE_SIZE = 10;
 }
