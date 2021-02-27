@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pl.sda.training.management.app.domain.model.LessonsBlock;
 
 @Repository
-public interface LessonBlockRepo extends JpaRepository<LessonsBlock, Long> {
+public interface LessonsBlockRepo extends JpaRepository<LessonsBlock, Long> {
 }

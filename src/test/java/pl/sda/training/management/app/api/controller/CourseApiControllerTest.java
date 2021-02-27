@@ -22,12 +22,12 @@ import java.util.List;
 import static org.hamcrest.Matchers.endsWith;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static pl.sda.training.management.app.api.dto.CourseResource.COURSE_RESOURCE_ASSEMBLER;
 import static pl.sda.training.management.app.utils.Constants.API_PRODUCES;
-import static pl.sda.training.management.app.utils.Constants.API_URL;
 
 @SpringJUnitWebConfig(classes = WebSecurityTestConfig.class)
 @WebMvcTest(CourseApiController.class)
@@ -62,17 +62,22 @@ class CourseApiControllerTest {
     @Test
     @DisplayName("Should return default page of courses.")
     void getCourses() throws Exception {
-        String url = API_URL + "/course";
+        String url = linkTo(CourseApiController.class).toString();
+
         mockMvc.perform(get(url))
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentType(API_PRODUCES));
-        verify(service,times(1)).getCourses(PageRequest.of(0,10));
+
+        verify(service, times(1)).getCourses(PageRequest.of(0, 10));
     }
 
     @Test
     void getCourse() throws Exception {
-        String url = API_URL + "/course/1";
+        String url = linkTo(CourseApiController.class)
+                .slash(1)
+                .toString();
+
         mockMvc.perform(get(url))
                 .andDo(print())
                 .andExpect(status().isOk())
