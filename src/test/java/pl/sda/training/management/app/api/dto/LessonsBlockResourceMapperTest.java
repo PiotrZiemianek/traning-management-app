@@ -27,7 +27,9 @@ class LessonsBlockResourceMapperTest {
         //given
         LessonsBlock entity = new LessonsBlock();
         entity.setBlockName(BlockName.of("testBlockName"));
+        entity.setId(1L);
         entity.getLessons().add(lesson);
+        lesson.setLessonsBlock(entity);
 
         //when
         LessonsBlockResource dto = mapper.lessonsBlockToDto(entity);

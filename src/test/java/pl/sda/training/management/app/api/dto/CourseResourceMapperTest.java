@@ -24,6 +24,7 @@ class CourseResourceMapperTest {
         Course entity = new Course(CourseName.of("testName"));
         entity.setId(1L);
         entity.getLessonsBlocks().add(testBlock);
+        testBlock.setCourse(entity);
 
         //when
         CourseResource dto = mapper.courseToDto(entity);

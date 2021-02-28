@@ -2,7 +2,10 @@ package pl.sda.training.management.app.api.dto;
 
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import pl.sda.training.management.app.api.controller.LessonApiController;
+import pl.sda.training.management.app.api.controller.LessonsBlockApiController;
 import pl.sda.training.management.app.domain.model.Lesson;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 public class LessonAssembler extends RepresentationModelAssemblerSupport<Lesson, LessonResource> {
     LessonAssembler() {
@@ -12,7 +15,17 @@ public class LessonAssembler extends RepresentationModelAssemblerSupport<Lesson,
 
     @Override
     public LessonResource toModel(Lesson entity) {
-        return createModelWithId(entity.getId(), entity);
+        LessonResource resource = createModelWithId(entity.getId(), entity)
+                .add(linkTo(LessonApiController.class)
+                        .withRel("lessons"));
+
+        if (entity.getLessonsBlock() != null && entity.getLessonsBlock().getId() != null) {
+            resource.add(linkTo(LessonsBlockApiController.class)
+                    .slash(entity.getLessonsBlock().getId())
+                    .withRel("lessons-block"));
+        }
+
+        return resource;
     }
 
     @Override
