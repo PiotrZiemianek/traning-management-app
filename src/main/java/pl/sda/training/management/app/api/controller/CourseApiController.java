@@ -10,7 +10,7 @@ import pl.sda.training.management.app.api.service.CourseApiService;
 import static pl.sda.training.management.app.utils.Constants.*;
 
 @RestController
-@RequestMapping(path = API_URL + "/course", produces = API_PRODUCES)
+@RequestMapping(path = API_URL + "/courses", produces = API_PRODUCES)
 @CrossOrigin("*")
 @RequiredArgsConstructor
 public class CourseApiController {

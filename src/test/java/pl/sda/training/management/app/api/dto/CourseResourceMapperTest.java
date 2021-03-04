@@ -24,13 +24,14 @@ class CourseResourceMapperTest {
         Course entity = new Course(CourseName.of("testName"));
         entity.setId(1L);
         entity.getLessonsBlocks().add(testBlock);
+        testBlock.setCourse(entity);
 
         //when
         CourseResource dto = mapper.courseToDto(entity);
 
         //then
         assertThat(dto.getCourseName()).isEqualTo(entity.getName().value());
-        assertThat(dto.getLessonsBlocks()).hasSize(dto.getLessonsBlocks().size());
+        assertThat(dto.getLessonsBlocks()).hasSize(entity.getLessonsBlocks().size());
     }
 
     @Test

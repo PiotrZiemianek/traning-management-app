@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.CollectionModel;
+import pl.sda.training.management.app.api.controller.CourseApiController;
 import pl.sda.training.management.app.api.dto.CourseResource;
 import pl.sda.training.management.app.domain.model.Course;
 import pl.sda.training.management.app.domain.model.CourseName;
@@ -20,8 +21,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static pl.sda.training.management.app.Utils.getPage;
-import static pl.sda.training.management.app.utils.Constants.API_URL;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static pl.sda.training.management.app.TestUtils.getPage;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
@@ -86,6 +87,9 @@ class CourseApiServiceTest {
 
         //then
         assertThat(course.getLink("self")).isPresent();
-        assertThat(course.getLink("self").get().getHref()).endsWith(API_URL + "/course/1");
+        assertThat(course.getLink("self").get().getHref())
+                .endsWith(linkTo(CourseApiController.class)
+                        .slash(1)
+                        .toString());
     }
 }

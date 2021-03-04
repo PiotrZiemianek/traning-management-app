@@ -2,14 +2,18 @@ package pl.sda.training.management.app.api.dto;
 
 import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 import pl.sda.training.management.app.domain.model.LessonsBlock;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.sda.training.management.app.api.dto.LessonsBlockResource.LESSONS_BLOCK_ASSEMBLER;
 
+@Relation(value = "course", collectionRelation = "courses")
 public class CourseResource extends RepresentationModel<CourseResource> {
-    private static final LessonsBlockAssembler LESSONS_BLOCK_ASSEMBLER = new LessonsBlockAssembler();
+    public static final CourseResourceAssembler COURSE_RESOURCE_ASSEMBLER = new CourseResourceAssembler();
+
     @Getter
     private final String courseName;
     @Getter

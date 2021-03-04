@@ -3,7 +3,7 @@ package pl.sda.training.management.app;
 import java.util.Collections;
 import java.util.List;
 
-public class Utils {
+public class TestUtils {
     /**
      * returns a view (not a new list) of the sourceList for the
      * range based on page and pageSize

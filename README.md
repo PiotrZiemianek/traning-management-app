@@ -8,7 +8,8 @@ Course templates,
 Course edition management,  
 Registration of students and trainers,  
 Notifications,  
-Course Schedule.
+Course Schedule,  
+REST API.
 
 ## Technologies:
 
