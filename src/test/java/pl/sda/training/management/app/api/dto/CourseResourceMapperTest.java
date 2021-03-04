@@ -31,7 +31,7 @@ class CourseResourceMapperTest {
 
         //then
         assertThat(dto.getCourseName()).isEqualTo(entity.getName().value());
-        assertThat(dto.getLessonsBlocks()).hasSize(dto.getLessonsBlocks().size());
+        assertThat(dto.getLessonsBlocks()).hasSize(entity.getLessonsBlocks().size());
     }
 
     @Test

@@ -22,7 +22,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static pl.sda.training.management.app.Utils.getPage;
+import static pl.sda.training.management.app.TestUtils.getPage;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
