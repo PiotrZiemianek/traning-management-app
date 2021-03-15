@@ -7,6 +7,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
 import pl.sda.training.management.app.api.controller.CourseApiController;
+import pl.sda.training.management.app.api.dto.CourseRequest;
 import pl.sda.training.management.app.api.dto.CourseResource;
 import pl.sda.training.management.app.domain.model.Course;
 import pl.sda.training.management.app.domain.service.CourseService;
@@ -34,5 +35,11 @@ public class CourseApiService {
 
     public CourseResource getCourse(Long id) {
         return COURSE_RESOURCE_ASSEMBLER.toModel(courseService.getById(id));
+    }
+
+    public CourseResource save(CourseRequest courseRequest) {
+        return COURSE_RESOURCE_ASSEMBLER.toModel(
+                courseService.save(
+                        courseRequest.toCourse()));
     }
 }

@@ -3,7 +3,10 @@ package pl.sda.training.management.app.api.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.sda.training.management.app.api.dto.CourseRequest;
 import pl.sda.training.management.app.api.dto.CourseResource;
 import pl.sda.training.management.app.api.service.CourseApiService;
 
@@ -36,5 +39,15 @@ public class CourseApiController {
     @GetMapping("/{id}")
     public CourseResource getCourse(@PathVariable Long id) {
         return courseService.getCourse(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> postCourse(@RequestBody CourseRequest courseRequest){
+
+        CourseResource resource = courseService.save(courseRequest);
+
+        return ResponseEntity
+                .created(resource.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(resource);
     }
 }
