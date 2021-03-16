@@ -27,8 +27,7 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static pl.sda.training.management.app.TestUtils.convertObjectToJsonBytes;
@@ -48,10 +47,10 @@ class CourseApiControllerTest {
 
     private CourseRequest dto;
 
+    private final CourseResourceAssembler assembler = COURSE_RESOURCE_ASSEMBLER;
+
     @BeforeEach
     public void setup() {
-        CourseResourceAssembler assembler = COURSE_RESOURCE_ASSEMBLER;
-
         List<Course> courses = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
             Course course = new Course(CourseName.of("testCourseName" + i));
@@ -68,14 +67,6 @@ class CourseApiControllerTest {
         LessonRequest lessonRequest = new LessonRequest(null, "testSubject");
         LessonsBlockRequest lessonsBlockRequest = new LessonsBlockRequest(null, "testBlock", List.of(lessonRequest));
         dto = new CourseRequest(null, "testCourse", List.of(lessonsBlockRequest));
-
-        Course course = dto.toCourse();
-        course.setId(1L);
-        course.getLessonsBlocks().get(0).setId(1L);
-        course.getLessonsBlocks().get(0).getLessons().get(0).setId(1L);
-
-        when(service.save(dto))
-                .thenReturn(assembler.toModel(course));
 
     }
 
@@ -116,6 +107,14 @@ class CourseApiControllerTest {
         String url = linkTo(CourseApiController.class).toString();
         byte[] courseToSaveJson = convertObjectToJsonBytes(dto);
 
+        Course course = dto.toCourse();
+        course.setId(1L);
+        course.getLessonsBlocks().get(0).setId(1L);
+        course.getLessonsBlocks().get(0).getLessons().get(0).setId(1L);
+
+        when(service.save(dto))
+                .thenReturn(assembler.toModel(course));
+
         //when, then
         mockMvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -134,5 +133,45 @@ class CourseApiControllerTest {
                         endsWith(
                                 linkTo(CourseApiController.class)
                                         .toString())));
+    }
+
+    @Test
+    void putCourse() throws Exception {
+        //given
+        long id = 100L;
+        String url = linkTo(CourseApiController.class).slash(id)
+                .toString();
+
+        var courseToSaveJson = convertObjectToJsonBytes(dto);
+
+        Course course = dto.toCourse();
+        course.setId(id);
+        course.getLessonsBlocks().get(0).setId(1L);
+        course.getLessonsBlocks().get(0).getLessons().get(0).setId(1L);
+
+        when(service.save(any()))
+                .thenReturn(assembler.toModel(course));
+
+        //when, then
+        mockMvc.perform(put(url)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(courseToSaveJson))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andExpect(content()
+                        .contentType(API_PRODUCES))
+                .andExpect(header()
+                        .string("Location",
+                                linkTo(CourseApiController.class)
+                                        .slash(id)
+                                        .toString()))
+                .andExpect(jsonPath("$._links.self.href", endsWith("/" + id)))
+                .andExpect(jsonPath("$._links.courses.href",
+                        endsWith(
+                                linkTo(CourseApiController.class)
+                                        .toString())));
+
+        dto.setId(id);
+        verify(service,times(1)).save(dto);
     }
 }

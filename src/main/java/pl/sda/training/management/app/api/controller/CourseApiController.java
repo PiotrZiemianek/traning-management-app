@@ -42,12 +42,25 @@ public class CourseApiController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postCourse(@RequestBody CourseRequest courseRequest){
+    public ResponseEntity<?> postCourse(@RequestBody CourseRequest courseRequest) {
 
         CourseResource resource = courseService.save(courseRequest);
 
         return ResponseEntity
                 .created(resource.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(resource);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putCourse(@RequestBody CourseRequest courseRequest, @PathVariable Long id) {
+
+        courseRequest.setId(id);
+
+        CourseResource resource = courseService.save(courseRequest);
+
+        return ResponseEntity
+                .created(resource.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(resource);
+
     }
 }

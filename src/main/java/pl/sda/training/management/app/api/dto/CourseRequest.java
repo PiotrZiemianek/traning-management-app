@@ -3,6 +3,7 @@ package pl.sda.training.management.app.api.dto;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import pl.sda.training.management.app.domain.model.Course;
 import pl.sda.training.management.app.domain.model.CourseName;
 import pl.sda.training.management.app.domain.model.LessonsBlock;
@@ -14,7 +15,8 @@ import java.util.stream.Collectors;
 @Getter
 @EqualsAndHashCode
 public class CourseRequest {
-    private final Long id;
+    @Setter
+    private Long id;
     private final String name;
     private final List<LessonsBlockRequest> lessonsBlocks;
 
