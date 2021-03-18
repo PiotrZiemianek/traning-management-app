@@ -40,9 +40,9 @@ public class CourseEdition extends AbstractEntity {
         super(id);
         this.course = course;
         this.editionCode = editionCode;
-        this.students = students;
-        this.trainers = trainers;
-        this.lessonsDetails = lessonsDetails;
+        if (students != null) this.students = students;
+        if (trainers != null) this.trainers = trainers;
+        if (lessonsDetails != null) this.lessonsDetails = lessonsDetails;
     }
 
     @Override

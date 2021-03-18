@@ -19,7 +19,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LessonDetails extends AbstractEntity{
+public class LessonDetails extends AbstractEntity {
 
     @ManyToOne
     private Lesson lesson;
@@ -53,7 +53,7 @@ public class LessonDetails extends AbstractEntity{
         this.duration = duration;
         this.trainer = trainer;
         this.address = address;
-        this.notifications = notifications;
+        if (notifications != null) this.notifications = notifications;
     }
 
     @Override

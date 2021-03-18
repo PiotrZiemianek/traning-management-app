@@ -15,7 +15,7 @@ import java.util.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Trainer extends AbstractEntity{
+public class Trainer extends AbstractEntity {
 
     @OneToOne
     private User user;
@@ -34,8 +34,8 @@ public class Trainer extends AbstractEntity{
     private Trainer(Long id, User user, List<LessonDetails> lessonDetails, Set<CourseEdition> coursesList) {
         super(id);
         this.user = user;
-        this.lessonDetails = lessonDetails;
-        this.coursesList = coursesList;
+        if (lessonDetails != null) this.lessonDetails = lessonDetails;
+        if (coursesList != null) this.coursesList = coursesList;
     }
 
     @Override
