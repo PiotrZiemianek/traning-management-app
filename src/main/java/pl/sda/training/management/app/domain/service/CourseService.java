@@ -32,7 +32,14 @@ public class CourseService {
                 .orElseThrow(() -> new CourseNotFoundException("Course with id: " + id + " not found."));
     }
 
-    public boolean existsById(Long id){
-       return courseRepo.existsById(id);
+    public boolean existsById(Long id) {
+        return courseRepo.existsById(id);
+    }
+
+    public void deleteById(Long id) {
+        if (courseRepo.existsById(id)) {
+            courseRepo.deleteById(id);
+        }
+        throw new CourseNotFoundException("Course with id: " + id + " not found.");
     }
 }
