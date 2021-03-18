@@ -4,18 +4,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Notification {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Notification extends AbstractEntity{
 
     @ManyToOne
     private LessonDetails lessonDetails;
@@ -36,9 +37,9 @@ public class Notification {
 
         Notification that = (Notification) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (subject != null ? !subject.equals(that.subject) : that.subject != null) return false;
-        return content != null ? content.equals(that.content) : that.content == null;
+        if (!Objects.equals(id, that.id)) return false;
+        if (!Objects.equals(subject, that.subject)) return false;
+        return Objects.equals(content, that.content);
     }
 
     @Override

@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static pl.sda.training.management.app.domain.model.UserRole.ROLE_PARTICIPANT;
 
@@ -16,10 +17,7 @@ import static pl.sda.training.management.app.domain.model.UserRole.ROLE_PARTICIP
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Student {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Student extends AbstractEntity{
 
     @OneToOne(cascade = CascadeType.REMOVE)
     private User user;
@@ -50,8 +48,8 @@ public class Student {
 
         Student student = (Student) o;
 
-        if (id != null ? !id.equals(student.id) : student.id != null) return false;
-        return user != null ? user.equals(student.user) : student.user == null;
+        if (!Objects.equals(id, student.id)) return false;
+        return Objects.equals(user, student.user);
     }
 
     @Override

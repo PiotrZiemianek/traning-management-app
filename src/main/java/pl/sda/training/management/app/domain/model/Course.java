@@ -4,18 +4,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Course {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Course extends AbstractEntity{
 
     @Embedded
     private CourseName name;
@@ -34,8 +35,8 @@ public class Course {
 
         Course course = (Course) o;
 
-        if (id != null ? !id.equals(course.id) : course.id != null) return false;
-        return name != null ? name.equals(course.name) : course.name == null;
+        if (!Objects.equals(id, course.id)) return false;
+        return Objects.equals(name, course.name);
     }
 
     @Override

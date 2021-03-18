@@ -1,25 +1,18 @@
 package pl.sda.training.management.app.domain.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static lombok.AccessLevel.PRIVATE;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor(access = PRIVATE)
-@Builder
-public class CourseEdition {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class CourseEdition extends AbstractEntity {
 
     @ManyToOne
     private Course course;
@@ -38,7 +31,18 @@ public class CourseEdition {
     private List<LessonDetails> lessonsDetails = new ArrayList<>();
 
     public CourseEdition(Course course) {
+        super();
         this.course = course;
+    }
+
+    @Builder
+    private CourseEdition(Long id, Course course, EditionCode editionCode, Set<Student> students, Set<Trainer> trainers, List<LessonDetails> lessonsDetails) {
+        super(id);
+        this.course = course;
+        this.editionCode = editionCode;
+        this.students = students;
+        this.trainers = trainers;
+        this.lessonsDetails = lessonsDetails;
     }
 
     @Override
@@ -48,8 +52,8 @@ public class CourseEdition {
 
         CourseEdition that = (CourseEdition) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return editionCode != null ? editionCode.equals(that.editionCode) : that.editionCode == null;
+        if (!Objects.equals(id, that.id)) return false;
+        return Objects.equals(editionCode, that.editionCode);
     }
 
     @Override

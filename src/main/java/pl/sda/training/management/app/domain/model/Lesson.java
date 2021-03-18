@@ -4,16 +4,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Lesson {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Lesson extends AbstractEntity{
 
     @Embedded
     private LessonSubject subject;
@@ -37,8 +37,8 @@ public class Lesson {
 
         Lesson lesson = (Lesson) o;
 
-        if (id != null ? !id.equals(lesson.id) : lesson.id != null) return false;
-        return subject != null ? subject.equals(lesson.subject) : lesson.subject == null;
+        if (!Objects.equals(id, lesson.id)) return false;
+        return Objects.equals(subject, lesson.subject);
     }
 
     @Override

@@ -7,15 +7,13 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class LessonsBlock {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class LessonsBlock extends AbstractEntity{
 
     @Embedded
     private BlockName blockName;
@@ -38,8 +36,8 @@ public class LessonsBlock {
 
         LessonsBlock that = (LessonsBlock) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return blockName != null ? blockName.equals(that.blockName) : that.blockName == null;
+        if (!Objects.equals(id, that.id)) return false;
+        return Objects.equals(blockName, that.blockName);
     }
 
     @Override
