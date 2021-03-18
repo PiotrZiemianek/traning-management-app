@@ -1,6 +1,9 @@
 package pl.sda.training.management.app.domain.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,18 +13,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor(access = PRIVATE)
-@Builder
-public class User implements UserDetails {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class User extends AbstractEntity implements UserDetails {
 
     @Embedded
     private Login login;
@@ -43,6 +39,18 @@ public class User implements UserDetails {
 
     @OneToOne(mappedBy = "user", orphanRemoval = true)
     private UserNotification notifications;
+
+    @Builder
+    private User(Long id, Login login, Password password, Set<UserRole> roles, FirstName firstName, LastName lastName, boolean isActive, UserNotification notifications) {
+        super(id);
+        this.login = login;
+        this.password = password;
+        if (roles != null) this.roles = roles;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.isActive = isActive;
+        this.notifications = notifications;
+    }
 
     @Override
     public boolean equals(Object o) {

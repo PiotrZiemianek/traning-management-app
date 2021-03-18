@@ -4,20 +4,16 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.MODULE)
-public class StudentSubmission {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class StudentSubmission extends AbstractEntity{
 
     @CreationTimestamp
     private LocalDate submissionDate;
@@ -40,8 +36,8 @@ public class StudentSubmission {
 
         StudentSubmission that = (StudentSubmission) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return submissionDate != null ? submissionDate.equals(that.submissionDate) : that.submissionDate == null;
+        if (!Objects.equals(id, that.id)) return false;
+        return Objects.equals(submissionDate, that.submissionDate);
     }
 
     @Override

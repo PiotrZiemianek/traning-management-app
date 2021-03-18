@@ -5,19 +5,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserNotification {
-    @Id
-    private Long id;
+public class UserNotification extends AbstractEntity{
 
     @OneToOne
     private User user;
@@ -35,7 +33,7 @@ public class UserNotification {
 
         UserNotification that = (UserNotification) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        return Objects.equals(id, that.id);
     }
 
     @Override
@@ -47,8 +45,8 @@ public class UserNotification {
     public String toString() {
         return "UserNotification{" +
                 "id=" + id +
-                ", readNotifications=" + readNotifications +
-                ", unreadNotifications=" + unreadNotifications +
+                ", readNotifications=" + readNotifications.size() +
+                ", unreadNotifications=" + unreadNotifications.size() +
                 '}';
     }
 }

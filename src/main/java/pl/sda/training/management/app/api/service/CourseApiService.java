@@ -42,4 +42,8 @@ public class CourseApiService {
                 courseService.save(
                         courseRequest.toCourse()));
     }
+
+    public boolean existsById(Long id) {
+        return courseService.existsById(id);
+    }
 }

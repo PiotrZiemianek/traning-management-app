@@ -1,25 +1,21 @@
 package pl.sda.training.management.app.domain.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static lombok.AccessLevel.PRIVATE;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor(access = PRIVATE)
-@Builder
-public class Trainer {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Trainer extends AbstractEntity {
 
     @OneToOne
     private User user;
@@ -32,6 +28,14 @@ public class Trainer {
 
     public Trainer(User user) {
         this.user = user;
+    }
+
+    @Builder
+    private Trainer(Long id, User user, List<LessonDetails> lessonDetails, Set<CourseEdition> coursesList) {
+        super(id);
+        this.user = user;
+        if (lessonDetails != null) this.lessonDetails = lessonDetails;
+        if (coursesList != null) this.coursesList = coursesList;
     }
 
     @Override
@@ -49,8 +53,8 @@ public class Trainer {
 
         Trainer trainer = (Trainer) o;
 
-        if (id != null ? !id.equals(trainer.id) : trainer.id != null) return false;
-        return user != null ? user.equals(trainer.user) : trainer.user == null;
+        if (!Objects.equals(id, trainer.id)) return false;
+        return Objects.equals(user, trainer.user);
     }
 
     @Override

@@ -1,26 +1,25 @@
 package pl.sda.training.management.app.domain.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static lombok.AccessLevel.PRIVATE;
+import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor(access = PRIVATE)
-@Builder
-public class LessonDetails {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class LessonDetails extends AbstractEntity {
 
     @ManyToOne
     private Lesson lesson;
@@ -45,6 +44,18 @@ public class LessonDetails {
         this.lesson = lesson;
     }
 
+    @Builder
+    private LessonDetails(Long id, Lesson lesson, CourseEdition courseEdition, LocalDateTime localDateTime, Duration duration, Trainer trainer, Address address, List<Notification> notifications) {
+        super(id);
+        this.lesson = lesson;
+        this.courseEdition = courseEdition;
+        this.localDateTime = localDateTime;
+        this.duration = duration;
+        this.trainer = trainer;
+        this.address = address;
+        if (notifications != null) this.notifications = notifications;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -52,8 +63,8 @@ public class LessonDetails {
 
         LessonDetails that = (LessonDetails) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return lesson != null ? lesson.equals(that.lesson) : that.lesson == null;
+        if (!Objects.equals(id, that.id)) return false;
+        return Objects.equals(lesson, that.lesson);
     }
 
     @Override
