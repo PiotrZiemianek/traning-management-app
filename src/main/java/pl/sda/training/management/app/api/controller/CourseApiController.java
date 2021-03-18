@@ -53,10 +53,15 @@ public class CourseApiController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> putCourse(@RequestBody CourseRequest courseRequest, @PathVariable Long id) {
+        boolean existsById = courseService.existsById(id);
 
         courseRequest.setId(id);
 
         CourseResource resource = courseService.save(courseRequest);
+
+        if (existsById){
+            return ResponseEntity.noContent().build();
+        }
 
         return ResponseEntity
                 .created(resource.getRequiredLink(IanaLinkRelations.SELF).toUri())
