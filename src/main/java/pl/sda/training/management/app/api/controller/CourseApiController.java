@@ -59,7 +59,7 @@ public class CourseApiController {
 
         CourseResource resource = courseService.save(courseRequest);
 
-        if (existsById){
+        if (existsById) {
             return ResponseEntity.noContent().build();
         }
 
@@ -67,5 +67,13 @@ public class CourseApiController {
                 .created(resource.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(resource);
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCourse(@PathVariable Long id) {
+
+        courseService.deleteById(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

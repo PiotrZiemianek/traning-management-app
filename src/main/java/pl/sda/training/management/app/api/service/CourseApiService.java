@@ -46,4 +46,8 @@ public class CourseApiService {
     public boolean existsById(Long id) {
         return courseService.existsById(id);
     }
+
+    public void deleteById(Long id) {
+        courseService.deleteById(id);
+    }
 }
